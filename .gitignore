@@ -1,0 +1,6 @@
+exports/*
+old/*
+**/node_modules/*
+**/lib/*
+**/.venv/
+.vscode
