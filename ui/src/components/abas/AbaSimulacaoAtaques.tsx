@@ -32,11 +32,10 @@ const AbaSimulacaoAtaques: React.FC<AbaSimulacaoAtaquesProps> = ({ analiseAtaque
 
           <div className="bg-slate-800/80 p-4 rounded">
             <div className="text-slate-400 text-sm">Nível de Robustez</div>
-            <div className={`text-2xl font-bold ${
-              analiseAtaques.analise_comparativa.nivel_robustez === 'ALTA' ? 'text-green-400' :
+            <div className={`text-2xl font-bold ${analiseAtaques.analise_comparativa.nivel_robustez === 'ALTA' ? 'text-green-400' :
               analiseAtaques.analise_comparativa.nivel_robustez === 'MÉDIA' ? 'text-yellow-400' :
-              'text-red-400'
-            }`}>
+                'text-red-400'
+              }`}>
               {analiseAtaques.analise_comparativa.nivel_robustez}
             </div>
           </div>
@@ -71,12 +70,47 @@ const AbaSimulacaoAtaques: React.FC<AbaSimulacaoAtaquesProps> = ({ analiseAtaque
         <p className="text-slate-400 mb-4 text-sm">
           Evolução da fragmentação conforme nós são removidos progressivamente. Fragmentação = 1 - (tamanho maior componente / total nós).
         </p>
-        <LineChart width={900} height={400}>
+        <LineChart
+          width={900}
+          height={400}
+          data={(() => {
+            // Combinar todas as curvas em um único dataset
+            const curvaAleatorio = analiseAtaques.comparacao_estrategias.ataque_aleatorio.curva;
+            const curvaGrau = analiseAtaques.comparacao_estrategias.ataque_grau.curva;
+            const curvaBetweenness = analiseAtaques.comparacao_estrategias.ataque_betweenness.curva;
+            const curvaArticulacao = analiseAtaques.comparacao_estrategias.ataque_articulacao.curva;
+
+            // Encontrar o comprimento máximo
+            const maxLen = Math.max(
+              curvaAleatorio.length,
+              curvaGrau.length,
+              curvaBetweenness.length,
+              curvaArticulacao.length
+            );
+
+            // Criar array combinado
+            const dadosCombinados = [];
+            for (let i = 0; i < maxLen; i++) {
+              dadosCombinados.push({
+                percentual_removido: curvaAleatorio[i]?.percentual_removido ||
+                  curvaGrau[i]?.percentual_removido ||
+                  curvaBetweenness[i]?.percentual_removido ||
+                  curvaArticulacao[i]?.percentual_removido || 0,
+                ataque_aleatorio: curvaAleatorio[i]?.fragmentacao,
+                ataque_grau: curvaGrau[i]?.fragmentacao,
+                ataque_betweenness: curvaBetweenness[i]?.fragmentacao,
+                ataque_articulacao: curvaArticulacao[i]?.fragmentacao,
+              });
+            }
+            return dadosCombinados;
+          })()}
+        >
           <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
           <XAxis
             dataKey="percentual_removido"
             stroke="#94a3b8"
             label={{ value: '% de Nós Removidos', position: 'insideBottom', offset: -5, fill: '#94a3b8' }}
+            tickFormatter={(value) => `${value.toFixed(0)}%`}
           />
           <YAxis
             stroke="#94a3b8"
@@ -84,40 +118,44 @@ const AbaSimulacaoAtaques: React.FC<AbaSimulacaoAtaquesProps> = ({ analiseAtaque
           />
           <Tooltip
             contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #475569' }}
-            formatter={(value: any) => value.toFixed(3)}
+            formatter={(value: any) => value?.toFixed(3) || 'N/A'}
           />
           <Legend />
           <Line
-            data={analiseAtaques.comparacao_estrategias.ataque_aleatorio.curva}
             type="monotone"
-            dataKey="fragmentacao"
+            dataKey="ataque_aleatorio"
             stroke="#3b82f6"
             name="Ataque Aleatório"
             strokeWidth={2}
+            dot={false}
+            connectNulls
           />
           <Line
-            data={analiseAtaques.comparacao_estrategias.ataque_grau.curva}
             type="monotone"
-            dataKey="fragmentacao"
+            dataKey="ataque_grau"
             stroke="#f59e0b"
             name="Ataque por Grau"
             strokeWidth={2}
+            dot={false}
+            connectNulls
           />
           <Line
-            data={analiseAtaques.comparacao_estrategias.ataque_betweenness.curva}
             type="monotone"
-            dataKey="fragmentacao"
+            dataKey="ataque_betweenness"
             stroke="#ef4444"
             name="Ataque por Betweenness"
             strokeWidth={2}
+            dot={false}
+            connectNulls
           />
           <Line
-            data={analiseAtaques.comparacao_estrategias.ataque_articulacao.curva}
             type="monotone"
-            dataKey="fragmentacao"
+            dataKey="ataque_articulacao"
             stroke="#8b5cf6"
             name="Ataque a Pontos de Articulação"
             strokeWidth={2}
+            dot={false}
+            connectNulls
           />
         </LineChart>
       </div>
