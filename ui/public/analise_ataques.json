@@ -1,0 +1,1995 @@
+{
+  "estatisticas_iniciais": {
+    "total_nos": 4941,
+    "total_arestas": 6594,
+    "estado_inicial": {
+      "num_componentes": 1,
+      "tamanho_maior_componente": 4941,
+      "percentual_maior_componente": 100.0,
+      "componentes_isolados": 0,
+      "fragmentacao": 0.0
+    }
+  },
+  "comparacao_estrategias": {
+    "ataque_aleatorio": {
+      "curva": [
+        {
+          "nos_removidos": 0,
+          "percentual_removido": 0.0,
+          "num_componentes": 1,
+          "tamanho_maior_componente": 4941,
+          "percentual_maior_componente": 100.0,
+          "componentes_isolados": 0,
+          "fragmentacao": 0.0
+        },
+        {
+          "nos_removidos": 49,
+          "percentual_removido": 0.9917020845982595,
+          "num_componentes": 10,
+          "tamanho_maior_componente": 4873,
+          "percentual_maior_componente": 99.61161079313165,
+          "componentes_isolados": 4,
+          "fragmentacao": 0.0038838920686835587
+        },
+        {
+          "nos_removidos": 98,
+          "percentual_removido": 1.983404169196519,
+          "num_componentes": 24,
+          "tamanho_maior_componente": 4797,
+          "percentual_maior_componente": 99.05017551104687,
+          "componentes_isolados": 13,
+          "fragmentacao": 0.009498244889531327
+        },
+        {
+          "nos_removidos": 147,
+          "percentual_removido": 2.9751062537947783,
+          "num_componentes": 51,
+          "tamanho_maior_componente": 4705,
+          "percentual_maior_componente": 98.14351272423863,
+          "componentes_isolados": 33,
+          "fragmentacao": 0.01856487275761365
+        },
+        {
+          "nos_removidos": 196,
+          "percentual_removido": 3.966808338393038,
+          "num_componentes": 62,
+          "tamanho_maior_componente": 4639,
+          "percentual_maior_componente": 97.76606954689146,
+          "componentes_isolados": 40,
+          "fragmentacao": 0.022339304531085347
+        },
+        {
+          "nos_removidos": 245,
+          "percentual_removido": 4.9585104229912975,
+          "num_componentes": 87,
+          "tamanho_maior_componente": 4555,
+          "percentual_maior_componente": 96.99744463373084,
+          "componentes_isolados": 58,
+          "fragmentacao": 0.030025553662691662
+        },
+        {
+          "nos_removidos": 294,
+          "percentual_removido": 5.950212507589557,
+          "num_componentes": 102,
+          "tamanho_maior_componente": 4475,
+          "percentual_maior_componente": 96.29868732515602,
+          "componentes_isolados": 68,
+          "fragmentacao": 0.03701312674843982
+        },
+        {
+          "nos_removidos": 343,
+          "percentual_removido": 6.941914592187816,
+          "num_componentes": 120,
+          "tamanho_maior_componente": 4366,
+          "percentual_maior_componente": 94.95432796868204,
+          "componentes_isolados": 82,
+          "fragmentacao": 0.050456720313179604
+        },
+        {
+          "nos_removidos": 392,
+          "percentual_removido": 7.933616676786076,
+          "num_componentes": 142,
+          "tamanho_maior_componente": 4057,
+          "percentual_maior_componente": 89.18443613981096,
+          "componentes_isolados": 95,
+          "fragmentacao": 0.10815563860189048
+        },
+        {
+          "nos_removidos": 441,
+          "percentual_removido": 8.925318761384334,
+          "num_componentes": 160,
+          "tamanho_maior_componente": 3979,
+          "percentual_maior_componente": 88.42222222222222,
+          "componentes_isolados": 108,
+          "fragmentacao": 0.11577777777777776
+        },
+        {
+          "nos_removidos": 490,
+          "percentual_removido": 9.917020845982595,
+          "num_componentes": 176,
+          "tamanho_maior_componente": 3924,
+          "percentual_maior_componente": 88.1599640530218,
+          "componentes_isolados": 125,
+          "fragmentacao": 0.11840035946978211
+        },
+        {
+          "nos_removidos": 539,
+          "percentual_removido": 10.908722930580854,
+          "num_componentes": 192,
+          "tamanho_maior_componente": 3861,
+          "percentual_maior_componente": 87.71013175829168,
+          "componentes_isolados": 136,
+          "fragmentacao": 0.12289868241708313
+        },
+        {
+          "nos_removidos": 588,
+          "percentual_removido": 11.900425015179113,
+          "num_componentes": 209,
+          "tamanho_maior_componente": 3758,
+          "percentual_maior_componente": 86.3312657937055,
+          "componentes_isolados": 142,
+          "fragmentacao": 0.13668734206294508
+        },
+        {
+          "nos_removidos": 637,
+          "percentual_removido": 12.892127099777372,
+          "num_componentes": 228,
+          "tamanho_maior_componente": 3688,
+          "percentual_maior_componente": 85.68773234200744,
+          "componentes_isolados": 155,
+          "fragmentacao": 0.1431226765799256
+        },
+        {
+          "nos_removidos": 686,
+          "percentual_removido": 13.883829184375632,
+          "num_componentes": 255,
+          "tamanho_maior_componente": 3591,
+          "percentual_maior_componente": 84.39482961222092,
+          "componentes_isolados": 176,
+          "fragmentacao": 0.15605170387779088
+        },
+        {
+          "nos_removidos": 735,
+          "percentual_removido": 14.87553126897389,
+          "num_componentes": 281,
+          "tamanho_maior_componente": 3426,
+          "percentual_maior_componente": 81.45506419400857,
+          "componentes_isolados": 190,
+          "fragmentacao": 0.18544935805991436
+        },
+        {
+          "nos_removidos": 784,
+          "percentual_removido": 15.867233353572152,
+          "num_componentes": 300,
+          "tamanho_maior_componente": 3321,
+          "percentual_maior_componente": 79.88934327640125,
+          "componentes_isolados": 202,
+          "fragmentacao": 0.20110656723598752
+        },
+        {
+          "nos_removidos": 833,
+          "percentual_removido": 16.858935438170413,
+          "num_componentes": 322,
+          "tamanho_maior_componente": 3244,
+          "percentual_maior_componente": 78.96786757546252,
+          "componentes_isolados": 215,
+          "fragmentacao": 0.21032132424537486
+        },
+        {
+          "nos_removidos": 882,
+          "percentual_removido": 17.850637522768668,
+          "num_componentes": 355,
+          "tamanho_maior_componente": 3114,
+          "percentual_maior_componente": 76.71840354767184,
+          "componentes_isolados": 232,
+          "fragmentacao": 0.23281596452328157
+        },
+        {
+          "nos_removidos": 931,
+          "percentual_removido": 18.842339607366927,
+          "num_componentes": 377,
+          "tamanho_maior_componente": 2197,
+          "percentual_maior_componente": 54.78802992518703,
+          "componentes_isolados": 247,
+          "fragmentacao": 0.4521197007481297
+        },
+        {
+          "nos_removidos": 980,
+          "percentual_removido": 19.83404169196519,
+          "num_componentes": 396,
+          "tamanho_maior_componente": 2087,
+          "percentual_maior_componente": 52.688714970966934,
+          "componentes_isolados": 255,
+          "fragmentacao": 0.4731128502903307
+        },
+        {
+          "nos_removidos": 1029,
+          "percentual_removido": 20.82574377656345,
+          "num_componentes": 405,
+          "tamanho_maior_componente": 2052,
+          "percentual_maior_componente": 52.45398773006135,
+          "componentes_isolados": 261,
+          "fragmentacao": 0.47546012269938653
+        },
+        {
+          "nos_removidos": 1078,
+          "percentual_removido": 21.81744586116171,
+          "num_componentes": 426,
+          "tamanho_maior_componente": 2010,
+          "percentual_maior_componente": 52.03209940460781,
+          "componentes_isolados": 274,
+          "fragmentacao": 0.4796790059539219
+        },
+        {
+          "nos_removidos": 1127,
+          "percentual_removido": 22.809147945759968,
+          "num_componentes": 459,
+          "tamanho_maior_componente": 1920,
+          "percentual_maior_componente": 50.340849501835336,
+          "componentes_isolados": 299,
+          "fragmentacao": 0.4965915049816466
+        },
+        {
+          "nos_removidos": 1176,
+          "percentual_removido": 23.800850030358227,
+          "num_componentes": 480,
+          "tamanho_maior_componente": 1801,
+          "percentual_maior_componente": 47.83532536520585,
+          "componentes_isolados": 306,
+          "fragmentacao": 0.5216467463479415
+        },
+        {
+          "nos_removidos": 1225,
+          "percentual_removido": 24.792552114956486,
+          "num_componentes": 495,
+          "tamanho_maior_componente": 1257,
+          "percentual_maior_componente": 33.82669537136706,
+          "componentes_isolados": 317,
+          "fragmentacao": 0.6617330462863293
+        },
+        {
+          "nos_removidos": 1274,
+          "percentual_removido": 25.784254199554745,
+          "num_componentes": 517,
+          "tamanho_maior_componente": 1192,
+          "percentual_maior_componente": 32.50613580583583,
+          "componentes_isolados": 328,
+          "fragmentacao": 0.6749386419416417
+        },
+        {
+          "nos_removidos": 1323,
+          "percentual_removido": 26.775956284153008,
+          "num_componentes": 542,
+          "tamanho_maior_componente": 1168,
+          "percentual_maior_componente": 32.28302929795467,
+          "componentes_isolados": 339,
+          "fragmentacao": 0.6771697070204533
+        },
+        {
+          "nos_removidos": 1372,
+          "percentual_removido": 27.767658368751263,
+          "num_componentes": 555,
+          "tamanho_maior_componente": 1137,
+          "percentual_maior_componente": 31.857663210983468,
+          "componentes_isolados": 342,
+          "fragmentacao": 0.6814233678901653
+        },
+        {
+          "nos_removidos": 1421,
+          "percentual_removido": 28.759360453349526,
+          "num_componentes": 565,
+          "tamanho_maior_componente": 1126,
+          "percentual_maior_componente": 31.988636363636363,
+          "componentes_isolados": 348,
+          "fragmentacao": 0.6801136363636364
+        },
+        {
+          "nos_removidos": 1470,
+          "percentual_removido": 29.75106253794778,
+          "num_componentes": 592,
+          "tamanho_maior_componente": 898,
+          "percentual_maior_componente": 25.871506770383174,
+          "componentes_isolados": 364,
+          "fragmentacao": 0.7412849322961683
+        },
+        {
+          "nos_removidos": 1519,
+          "percentual_removido": 30.742764622546044,
+          "num_componentes": 629,
+          "tamanho_maior_componente": 848,
+          "percentual_maior_componente": 24.78082992402104,
+          "componentes_isolados": 385,
+          "fragmentacao": 0.7521917007597896
+        },
+        {
+          "nos_removidos": 1568,
+          "percentual_removido": 31.734466707144303,
+          "num_componentes": 649,
+          "tamanho_maior_componente": 779,
+          "percentual_maior_componente": 23.09516750667062,
+          "componentes_isolados": 407,
+          "fragmentacao": 0.7690483249332938
+        },
+        {
+          "nos_removidos": 1617,
+          "percentual_removido": 32.72616879174256,
+          "num_componentes": 675,
+          "tamanho_maior_componente": 759,
+          "percentual_maior_componente": 22.833935018050543,
+          "componentes_isolados": 420,
+          "fragmentacao": 0.7716606498194946
+        },
+        {
+          "nos_removidos": 1666,
+          "percentual_removido": 33.717870876340825,
+          "num_componentes": 682,
+          "tamanho_maior_componente": 703,
+          "percentual_maior_componente": 21.465648854961835,
+          "componentes_isolados": 417,
+          "fragmentacao": 0.7853435114503817
+        },
+        {
+          "nos_removidos": 1715,
+          "percentual_removido": 34.709572960939084,
+          "num_componentes": 702,
+          "tamanho_maior_componente": 686,
+          "percentual_maior_componente": 21.26472411655301,
+          "componentes_isolados": 429,
+          "fragmentacao": 0.78735275883447
+        },
+        {
+          "nos_removidos": 1764,
+          "percentual_removido": 35.701275045537336,
+          "num_componentes": 727,
+          "tamanho_maior_componente": 660,
+          "percentual_maior_componente": 20.77431539187913,
+          "componentes_isolados": 442,
+          "fragmentacao": 0.7922568460812087
+        },
+        {
+          "nos_removidos": 1813,
+          "percentual_removido": 36.6929771301356,
+          "num_componentes": 741,
+          "tamanho_maior_componente": 587,
+          "percentual_maior_componente": 18.765984654731458,
+          "componentes_isolados": 453,
+          "fragmentacao": 0.8123401534526854
+        },
+        {
+          "nos_removidos": 1862,
+          "percentual_removido": 37.684679214733855,
+          "num_componentes": 764,
+          "tamanho_maior_componente": 341,
+          "percentual_maior_componente": 11.075024358557974,
+          "componentes_isolados": 466,
+          "fragmentacao": 0.8892497564144203
+        },
+        {
+          "nos_removidos": 1911,
+          "percentual_removido": 38.67638129933212,
+          "num_componentes": 785,
+          "tamanho_maior_componente": 323,
+          "percentual_maior_componente": 10.66006600660066,
+          "componentes_isolados": 477,
+          "fragmentacao": 0.8933993399339935
+        },
+        {
+          "nos_removidos": 1960,
+          "percentual_removido": 39.66808338393038,
+          "num_componentes": 809,
+          "tamanho_maior_componente": 321,
+          "percentual_maior_componente": 10.768198591076821,
+          "componentes_isolados": 497,
+          "fragmentacao": 0.8923180140892318
+        },
+        {
+          "nos_removidos": 2009,
+          "percentual_removido": 40.65978546852864,
+          "num_componentes": 822,
+          "tamanho_maior_componente": 288,
+          "percentual_maior_componente": 9.822646657571624,
+          "componentes_isolados": 510,
+          "fragmentacao": 0.9017735334242838
+        },
+        {
+          "nos_removidos": 2058,
+          "percentual_removido": 41.6514875531269,
+          "num_componentes": 843,
+          "tamanho_maior_componente": 282,
+          "percentual_maior_componente": 9.781477627471384,
+          "componentes_isolados": 533,
+          "fragmentacao": 0.9021852237252862
+        },
+        {
+          "nos_removidos": 2107,
+          "percentual_removido": 42.64318963772516,
+          "num_componentes": 848,
+          "tamanho_maior_componente": 274,
+          "percentual_maior_componente": 9.668313338038109,
+          "componentes_isolados": 540,
+          "fragmentacao": 0.903316866619619
+        },
+        {
+          "nos_removidos": 2156,
+          "percentual_removido": 43.63489172232342,
+          "num_componentes": 859,
+          "tamanho_maior_componente": 270,
+          "percentual_maior_componente": 9.694793536804308,
+          "componentes_isolados": 550,
+          "fragmentacao": 0.9030520646319569
+        },
+        {
+          "nos_removidos": 2205,
+          "percentual_removido": 44.626593806921676,
+          "num_componentes": 864,
+          "tamanho_maior_componente": 265,
+          "percentual_maior_componente": 9.685672514619883,
+          "componentes_isolados": 553,
+          "fragmentacao": 0.9031432748538012
+        },
+        {
+          "nos_removidos": 2254,
+          "percentual_removido": 45.618295891519935,
+          "num_componentes": 870,
+          "tamanho_maior_componente": 261,
+          "percentual_maior_componente": 9.713435057685151,
+          "componentes_isolados": 553,
+          "fragmentacao": 0.9028656494231485
+        },
+        {
+          "nos_removidos": 2303,
+          "percentual_removido": 46.609997976118194,
+          "num_componentes": 881,
+          "tamanho_maior_componente": 247,
+          "percentual_maior_componente": 9.363153904473085,
+          "componentes_isolados": 562,
+          "fragmentacao": 0.9063684609552691
+        },
+        {
+          "nos_removidos": 2352,
+          "percentual_removido": 47.60170006071645,
+          "num_componentes": 886,
+          "tamanho_maior_componente": 240,
+          "percentual_maior_componente": 9.269988412514484,
+          "componentes_isolados": 569,
+          "fragmentacao": 0.9073001158748552
+        },
+        {
+          "nos_removidos": 2401,
+          "percentual_removido": 48.59340214531471,
+          "num_componentes": 899,
+          "tamanho_maior_componente": 239,
+          "percentual_maior_componente": 9.409448818897639,
+          "componentes_isolados": 580,
+          "fragmentacao": 0.9059055118110236
+        },
+        {
+          "nos_removidos": 2450,
+          "percentual_removido": 49.58510422991297,
+          "num_componentes": 900,
+          "tamanho_maior_componente": 227,
+          "percentual_maior_componente": 9.112806101967081,
+          "componentes_isolados": 583,
+          "fragmentacao": 0.9088719389803291
+        },
+        {
+          "nos_removidos": 2499,
+          "percentual_removido": 50.57680631451124,
+          "num_componentes": 900,
+          "tamanho_maior_componente": 224,
+          "percentual_maior_componente": 9.172809172809172,
+          "componentes_isolados": 584,
+          "fragmentacao": 0.9082719082719083
+        }
+      ],
+      "ponto_critico": 23.800850030358227,
+      "fragmentacao_final": 0.9082719082719083
+    },
+    "ataque_grau": {
+      "curva": [
+        {
+          "nos_removidos": 0,
+          "percentual_removido": 0.0,
+          "num_componentes": 1,
+          "tamanho_maior_componente": 4941,
+          "percentual_maior_componente": 100.0,
+          "componentes_isolados": 0,
+          "fragmentacao": 0.0
+        },
+        {
+          "nos_removidos": 49,
+          "percentual_removido": 0.9917020845982595,
+          "num_componentes": 100,
+          "tamanho_maior_componente": 4651,
+          "percentual_maior_componente": 95.07358953393296,
+          "componentes_isolados": 57,
+          "fragmentacao": 0.04926410466067044
+        },
+        {
+          "nos_removidos": 98,
+          "percentual_removido": 1.983404169196519,
+          "num_componentes": 208,
+          "tamanho_maior_componente": 4342,
+          "percentual_maior_componente": 89.65517241379311,
+          "componentes_isolados": 129,
+          "fragmentacao": 0.10344827586206895
+        },
+        {
+          "nos_removidos": 147,
+          "percentual_removido": 2.9751062537947783,
+          "num_componentes": 303,
+          "tamanho_maior_componente": 3700,
+          "percentual_maior_componente": 77.17980809345015,
+          "componentes_isolados": 182,
+          "fragmentacao": 0.22820191906549858
+        },
+        {
+          "nos_removidos": 196,
+          "percentual_removido": 3.966808338393038,
+          "num_componentes": 419,
+          "tamanho_maior_componente": 2843,
+          "percentual_maior_componente": 59.91570073761855,
+          "componentes_isolados": 247,
+          "fragmentacao": 0.4008429926238145
+        },
+        {
+          "nos_removidos": 245,
+          "percentual_removido": 4.9585104229912975,
+          "num_componentes": 509,
+          "tamanho_maior_componente": 2591,
+          "percentual_maior_componente": 55.17461669505963,
+          "componentes_isolados": 286,
+          "fragmentacao": 0.4482538330494037
+        },
+        {
+          "nos_removidos": 294,
+          "percentual_removido": 5.950212507589557,
+          "num_componentes": 609,
+          "tamanho_maior_componente": 2212,
+          "percentual_maior_componente": 47.60060253927265,
+          "componentes_isolados": 346,
+          "fragmentacao": 0.5239939746072735
+        },
+        {
+          "nos_removidos": 343,
+          "percentual_removido": 6.941914592187816,
+          "num_componentes": 693,
+          "tamanho_maior_componente": 916,
+          "percentual_maior_componente": 19.921705089169205,
+          "componentes_isolados": 386,
+          "fragmentacao": 0.8007829491083079
+        },
+        {
+          "nos_removidos": 392,
+          "percentual_removido": 7.933616676786076,
+          "num_componentes": 815,
+          "tamanho_maior_componente": 745,
+          "percentual_maior_componente": 16.377225763904153,
+          "componentes_isolados": 446,
+          "fragmentacao": 0.8362277423609584
+        },
+        {
+          "nos_removidos": 441,
+          "percentual_removido": 8.925318761384334,
+          "num_componentes": 935,
+          "tamanho_maior_componente": 467,
+          "percentual_maior_componente": 10.377777777777778,
+          "componentes_isolados": 514,
+          "fragmentacao": 0.8962222222222223
+        },
+        {
+          "nos_removidos": 490,
+          "percentual_removido": 9.917020845982595,
+          "num_componentes": 1037,
+          "tamanho_maior_componente": 350,
+          "percentual_maior_componente": 7.863401482812852,
+          "componentes_isolados": 569,
+          "fragmentacao": 0.9213659851718715
+        },
+        {
+          "nos_removidos": 539,
+          "percentual_removido": 10.908722930580854,
+          "num_componentes": 1133,
+          "tamanho_maior_componente": 164,
+          "percentual_maior_componente": 3.7255792821444795,
+          "componentes_isolados": 602,
+          "fragmentacao": 0.9627442071785552
+        },
+        {
+          "nos_removidos": 588,
+          "percentual_removido": 11.900425015179113,
+          "num_componentes": 1236,
+          "tamanho_maior_componente": 111,
+          "percentual_maior_componente": 2.5499655410062028,
+          "componentes_isolados": 649,
+          "fragmentacao": 0.974500344589938
+        },
+        {
+          "nos_removidos": 637,
+          "percentual_removido": 12.892127099777372,
+          "num_componentes": 1351,
+          "tamanho_maior_componente": 111,
+          "percentual_maior_componente": 2.578996282527881,
+          "componentes_isolados": 716,
+          "fragmentacao": 0.9742100371747212
+        },
+        {
+          "nos_removidos": 686,
+          "percentual_removido": 13.883829184375632,
+          "num_componentes": 1438,
+          "tamanho_maior_componente": 111,
+          "percentual_maior_componente": 2.608695652173913,
+          "componentes_isolados": 767,
+          "fragmentacao": 0.9739130434782609
+        },
+        {
+          "nos_removidos": 735,
+          "percentual_removido": 14.87553126897389,
+          "num_componentes": 1510,
+          "tamanho_maior_componente": 83,
+          "percentual_maior_componente": 1.9733713742272945,
+          "componentes_isolados": 817,
+          "fragmentacao": 0.980266286257727
+        },
+        {
+          "nos_removidos": 784,
+          "percentual_removido": 15.867233353572152,
+          "num_componentes": 1585,
+          "tamanho_maior_componente": 83,
+          "percentual_maior_componente": 1.9966321866730814,
+          "componentes_isolados": 872,
+          "fragmentacao": 0.9800336781332691
+        },
+        {
+          "nos_removidos": 833,
+          "percentual_removido": 16.858935438170413,
+          "num_componentes": 1668,
+          "tamanho_maior_componente": 64,
+          "percentual_maior_componente": 1.557935735150925,
+          "componentes_isolados": 916,
+          "fragmentacao": 0.9844206426484907
+        },
+        {
+          "nos_removidos": 882,
+          "percentual_removido": 17.850637522768668,
+          "num_componentes": 1743,
+          "tamanho_maior_componente": 40,
+          "percentual_maior_componente": 0.9854644000985464,
+          "componentes_isolados": 957,
+          "fragmentacao": 0.9901453559990145
+        },
+        {
+          "nos_removidos": 931,
+          "percentual_removido": 18.842339607366927,
+          "num_componentes": 1819,
+          "tamanho_maior_componente": 39,
+          "percentual_maior_componente": 0.972568578553616,
+          "componentes_isolados": 1012,
+          "fragmentacao": 0.9902743142144639
+        },
+        {
+          "nos_removidos": 980,
+          "percentual_removido": 19.83404169196519,
+          "num_componentes": 1891,
+          "tamanho_maior_componente": 39,
+          "percentual_maior_componente": 0.9845998485231002,
+          "componentes_isolados": 1069,
+          "fragmentacao": 0.990154001514769
+        },
+        {
+          "nos_removidos": 1029,
+          "percentual_removido": 20.82574377656345,
+          "num_componentes": 1976,
+          "tamanho_maior_componente": 24,
+          "percentual_maior_componente": 0.6134969325153374,
+          "componentes_isolados": 1131,
+          "fragmentacao": 0.9938650306748467
+        },
+        {
+          "nos_removidos": 1078,
+          "percentual_removido": 21.81744586116171,
+          "num_componentes": 2059,
+          "tamanho_maior_componente": 24,
+          "percentual_maior_componente": 0.6212787988609888,
+          "componentes_isolados": 1214,
+          "fragmentacao": 0.9937872120113901
+        },
+        {
+          "nos_removidos": 1127,
+          "percentual_removido": 22.809147945759968,
+          "num_componentes": 2130,
+          "tamanho_maior_componente": 13,
+          "percentual_maior_componente": 0.34084950183534346,
+          "componentes_isolados": 1266,
+          "fragmentacao": 0.9965915049816466
+        },
+        {
+          "nos_removidos": 1176,
+          "percentual_removido": 23.800850030358227,
+          "num_componentes": 2161,
+          "tamanho_maior_componente": 13,
+          "percentual_maior_componente": 0.3452855245683931,
+          "componentes_isolados": 1324,
+          "fragmentacao": 0.996547144754316
+        },
+        {
+          "nos_removidos": 1225,
+          "percentual_removido": 24.792552114956486,
+          "num_componentes": 2190,
+          "tamanho_maior_componente": 13,
+          "percentual_maior_componente": 0.34983853606027987,
+          "componentes_isolados": 1375,
+          "fragmentacao": 0.9965016146393972
+        },
+        {
+          "nos_removidos": 1274,
+          "percentual_removido": 25.784254199554745,
+          "num_componentes": 2223,
+          "tamanho_maior_componente": 13,
+          "percentual_maior_componente": 0.35451322607035723,
+          "componentes_isolados": 1435,
+          "fragmentacao": 0.9964548677392965
+        },
+        {
+          "nos_removidos": 1323,
+          "percentual_removido": 26.775956284153008,
+          "num_componentes": 2250,
+          "tamanho_maior_componente": 11,
+          "percentual_maior_componente": 0.30403537866224434,
+          "componentes_isolados": 1477,
+          "fragmentacao": 0.9969596462133775
+        },
+        {
+          "nos_removidos": 1372,
+          "percentual_removido": 27.767658368751263,
+          "num_componentes": 2275,
+          "tamanho_maior_componente": 10,
+          "percentual_maior_componente": 0.2801905295601009,
+          "componentes_isolados": 1516,
+          "fragmentacao": 0.997198094704399
+        },
+        {
+          "nos_removidos": 1421,
+          "percentual_removido": 28.759360453349526,
+          "num_componentes": 2308,
+          "tamanho_maior_componente": 10,
+          "percentual_maior_componente": 0.2840909090909091,
+          "componentes_isolados": 1571,
+          "fragmentacao": 0.9971590909090909
+        },
+        {
+          "nos_removidos": 1470,
+          "percentual_removido": 29.75106253794778,
+          "num_componentes": 2342,
+          "tamanho_maior_componente": 10,
+          "percentual_maior_componente": 0.2881014116969173,
+          "componentes_isolados": 1636,
+          "fragmentacao": 0.9971189858830308
+        },
+        {
+          "nos_removidos": 1519,
+          "percentual_removido": 30.742764622546044,
+          "num_componentes": 2367,
+          "tamanho_maior_componente": 9,
+          "percentual_maior_componente": 0.2630040911747516,
+          "componentes_isolados": 1681,
+          "fragmentacao": 0.9973699590882524
+        },
+        {
+          "nos_removidos": 1568,
+          "percentual_removido": 31.734466707144303,
+          "num_componentes": 2398,
+          "tamanho_maior_componente": 9,
+          "percentual_maior_componente": 0.26682478505781204,
+          "componentes_isolados": 1740,
+          "fragmentacao": 0.9973317521494218
+        },
+        {
+          "nos_removidos": 1617,
+          "percentual_removido": 32.72616879174256,
+          "num_componentes": 2429,
+          "tamanho_maior_componente": 9,
+          "percentual_maior_componente": 0.2707581227436823,
+          "componentes_isolados": 1801,
+          "fragmentacao": 0.9972924187725631
+        },
+        {
+          "nos_removidos": 1666,
+          "percentual_removido": 33.717870876340825,
+          "num_componentes": 2453,
+          "tamanho_maior_componente": 9,
+          "percentual_maior_componente": 0.2748091603053435,
+          "componentes_isolados": 1845,
+          "fragmentacao": 0.9972519083969466
+        },
+        {
+          "nos_removidos": 1715,
+          "percentual_removido": 34.709572960939084,
+          "num_componentes": 2481,
+          "tamanho_maior_componente": 9,
+          "percentual_maior_componente": 0.27898326100433973,
+          "componentes_isolados": 1900,
+          "fragmentacao": 0.9972101673899566
+        },
+        {
+          "nos_removidos": 1764,
+          "percentual_removido": 35.701275045537336,
+          "num_componentes": 2510,
+          "tamanho_maior_componente": 9,
+          "percentual_maior_componente": 0.28328611898017,
+          "componentes_isolados": 1955,
+          "fragmentacao": 0.9971671388101983
+        },
+        {
+          "nos_removidos": 1813,
+          "percentual_removido": 36.6929771301356,
+          "num_componentes": 2545,
+          "tamanho_maior_componente": 9,
+          "percentual_maior_componente": 0.2877237851662404,
+          "componentes_isolados": 2020,
+          "fragmentacao": 0.9971227621483376
+        },
+        {
+          "nos_removidos": 1862,
+          "percentual_removido": 37.684679214733855,
+          "num_componentes": 2572,
+          "tamanho_maior_componente": 6,
+          "percentual_maior_componente": 0.1948684637869438,
+          "componentes_isolados": 2073,
+          "fragmentacao": 0.9980513153621305
+        },
+        {
+          "nos_removidos": 1911,
+          "percentual_removido": 38.67638129933212,
+          "num_componentes": 2558,
+          "tamanho_maior_componente": 2,
+          "percentual_maior_componente": 0.066006600660066,
+          "componentes_isolados": 2086,
+          "fragmentacao": 0.9993399339933994
+        },
+        {
+          "nos_removidos": 1960,
+          "percentual_removido": 39.66808338393038,
+          "num_componentes": 2535,
+          "tamanho_maior_componente": 2,
+          "percentual_maior_componente": 0.06709158000670916,
+          "componentes_isolados": 2089,
+          "fragmentacao": 0.9993290841999329
+        },
+        {
+          "nos_removidos": 2009,
+          "percentual_removido": 40.65978546852864,
+          "num_componentes": 2516,
+          "tamanho_maior_componente": 2,
+          "percentual_maior_componente": 0.06821282401091405,
+          "componentes_isolados": 2100,
+          "fragmentacao": 0.9993178717598908
+        },
+        {
+          "nos_removidos": 2058,
+          "percentual_removido": 41.6514875531269,
+          "num_componentes": 2492,
+          "tamanho_maior_componente": 2,
+          "percentual_maior_componente": 0.0693721817551162,
+          "componentes_isolados": 2101,
+          "fragmentacao": 0.9993062781824489
+        },
+        {
+          "nos_removidos": 2107,
+          "percentual_removido": 42.64318963772516,
+          "num_componentes": 2474,
+          "tamanho_maior_componente": 2,
+          "percentual_maior_componente": 0.07057163020465773,
+          "componentes_isolados": 2114,
+          "fragmentacao": 0.9992942836979535
+        },
+        {
+          "nos_removidos": 2156,
+          "percentual_removido": 43.63489172232342,
+          "num_componentes": 2459,
+          "tamanho_maior_componente": 2,
+          "percentual_maior_componente": 0.0718132854578097,
+          "componentes_isolados": 2133,
+          "fragmentacao": 0.9992818671454219
+        },
+        {
+          "nos_removidos": 2205,
+          "percentual_removido": 44.626593806921676,
+          "num_componentes": 2441,
+          "tamanho_maior_componente": 2,
+          "percentual_maior_componente": 0.07309941520467836,
+          "componentes_isolados": 2146,
+          "fragmentacao": 0.9992690058479532
+        },
+        {
+          "nos_removidos": 2254,
+          "percentual_removido": 45.618295891519935,
+          "num_componentes": 2418,
+          "tamanho_maior_componente": 2,
+          "percentual_maior_componente": 0.07443245254931151,
+          "componentes_isolados": 2149,
+          "fragmentacao": 0.9992556754745069
+        },
+        {
+          "nos_removidos": 2303,
+          "percentual_removido": 46.609997976118194,
+          "num_componentes": 2395,
+          "tamanho_maior_componente": 2,
+          "percentual_maior_componente": 0.0758150113722517,
+          "componentes_isolados": 2152,
+          "fragmentacao": 0.9992418498862775
+        },
+        {
+          "nos_removidos": 2352,
+          "percentual_removido": 47.60170006071645,
+          "num_componentes": 2382,
+          "tamanho_maior_componente": 2,
+          "percentual_maior_componente": 0.0772499034376207,
+          "componentes_isolados": 2175,
+          "fragmentacao": 0.9992275009656237
+        },
+        {
+          "nos_removidos": 2401,
+          "percentual_removido": 48.59340214531471,
+          "num_componentes": 2369,
+          "tamanho_maior_componente": 2,
+          "percentual_maior_componente": 0.07874015748031496,
+          "componentes_isolados": 2198,
+          "fragmentacao": 0.9992125984251968
+        },
+        {
+          "nos_removidos": 2450,
+          "percentual_removido": 49.58510422991297,
+          "num_componentes": 2345,
+          "tamanho_maior_componente": 2,
+          "percentual_maior_componente": 0.08028904054596547,
+          "componentes_isolados": 2199,
+          "fragmentacao": 0.9991971095945403
+        },
+        {
+          "nos_removidos": 2470,
+          "percentual_removido": 49.989880590973485,
+          "num_componentes": 2336,
+          "tamanho_maior_componente": 2,
+          "percentual_maior_componente": 0.08093889113719142,
+          "componentes_isolados": 2201,
+          "fragmentacao": 0.9991906110886281
+        }
+      ],
+      "ponto_critico": 5.950212507589557,
+      "fragmentacao_final": 0.9991906110886281
+    },
+    "ataque_betweenness": {
+      "curva": [
+        {
+          "nos_removidos": 0,
+          "percentual_removido": 0.0,
+          "num_componentes": 1,
+          "tamanho_maior_componente": 4941,
+          "percentual_maior_componente": 100.0,
+          "componentes_isolados": 0,
+          "fragmentacao": 0.0
+        },
+        {
+          "nos_removidos": 49,
+          "percentual_removido": 0.9917020845982595,
+          "num_componentes": 19,
+          "tamanho_maior_componente": 4861,
+          "percentual_maior_componente": 99.36631234668847,
+          "componentes_isolados": 15,
+          "fragmentacao": 0.006336876533115321
+        },
+        {
+          "nos_removidos": 98,
+          "percentual_removido": 1.983404169196519,
+          "num_componentes": 55,
+          "tamanho_maior_componente": 3812,
+          "percentual_maior_componente": 78.71154243237662,
+          "componentes_isolados": 42,
+          "fragmentacao": 0.21288457567623376
+        },
+        {
+          "nos_removidos": 147,
+          "percentual_removido": 2.9751062537947783,
+          "num_componentes": 98,
+          "tamanho_maior_componente": 2398,
+          "percentual_maior_componente": 50.02085940759282,
+          "componentes_isolados": 69,
+          "fragmentacao": 0.4997914059240718
+        },
+        {
+          "nos_removidos": 196,
+          "percentual_removido": 3.966808338393038,
+          "num_componentes": 137,
+          "tamanho_maior_componente": 1179,
+          "percentual_maior_componente": 24.847207586933614,
+          "componentes_isolados": 88,
+          "fragmentacao": 0.7515279241306638
+        },
+        {
+          "nos_removidos": 245,
+          "percentual_removido": 4.9585104229912975,
+          "num_componentes": 192,
+          "tamanho_maior_componente": 1085,
+          "percentual_maior_componente": 23.104770017035776,
+          "componentes_isolados": 115,
+          "fragmentacao": 0.7689522998296423
+        },
+        {
+          "nos_removidos": 294,
+          "percentual_removido": 5.950212507589557,
+          "num_componentes": 216,
+          "tamanho_maior_componente": 816,
+          "percentual_maior_componente": 17.559715945771465,
+          "componentes_isolados": 123,
+          "fragmentacao": 0.8244028405422854
+        },
+        {
+          "nos_removidos": 343,
+          "percentual_removido": 6.941914592187816,
+          "num_componentes": 245,
+          "tamanho_maior_componente": 522,
+          "percentual_maior_componente": 11.352762070465419,
+          "componentes_isolados": 136,
+          "fragmentacao": 0.8864723792953458
+        },
+        {
+          "nos_removidos": 392,
+          "percentual_removido": 7.933616676786076,
+          "num_componentes": 315,
+          "tamanho_maior_componente": 261,
+          "percentual_maior_componente": 5.737524730710046,
+          "componentes_isolados": 160,
+          "fragmentacao": 0.9426247526928996
+        },
+        {
+          "nos_removidos": 441,
+          "percentual_removido": 8.925318761384334,
+          "num_componentes": 344,
+          "tamanho_maior_componente": 195,
+          "percentual_maior_componente": 4.333333333333334,
+          "componentes_isolados": 169,
+          "fragmentacao": 0.9566666666666667
+        },
+        {
+          "nos_removidos": 490,
+          "percentual_removido": 9.917020845982595,
+          "num_componentes": 418,
+          "tamanho_maior_componente": 177,
+          "percentual_maior_componente": 3.9766344641653557,
+          "componentes_isolados": 198,
+          "fragmentacao": 0.9602336553583465
+        },
+        {
+          "nos_removidos": 539,
+          "percentual_removido": 10.908722930580854,
+          "num_componentes": 478,
+          "tamanho_maior_componente": 131,
+          "percentual_maior_componente": 2.975920036347115,
+          "componentes_isolados": 234,
+          "fragmentacao": 0.9702407996365289
+        },
+        {
+          "nos_removidos": 588,
+          "percentual_removido": 11.900425015179113,
+          "num_componentes": 552,
+          "tamanho_maior_componente": 103,
+          "percentual_maior_componente": 2.3661842407535034,
+          "componentes_isolados": 266,
+          "fragmentacao": 0.976338157592465
+        },
+        {
+          "nos_removidos": 637,
+          "percentual_removido": 12.892127099777372,
+          "num_componentes": 627,
+          "tamanho_maior_componente": 88,
+          "percentual_maior_componente": 2.0446096654275094,
+          "componentes_isolados": 296,
+          "fragmentacao": 0.9795539033457249
+        },
+        {
+          "nos_removidos": 686,
+          "percentual_removido": 13.883829184375632,
+          "num_componentes": 705,
+          "tamanho_maior_componente": 76,
+          "percentual_maior_componente": 1.7861339600470034,
+          "componentes_isolados": 321,
+          "fragmentacao": 0.98213866039953
+        },
+        {
+          "nos_removidos": 735,
+          "percentual_removido": 14.87553126897389,
+          "num_componentes": 771,
+          "tamanho_maior_componente": 51,
+          "percentual_maior_componente": 1.2125534950071328,
+          "componentes_isolados": 352,
+          "fragmentacao": 0.9878744650499287
+        },
+        {
+          "nos_removidos": 784,
+          "percentual_removido": 15.867233353572152,
+          "num_componentes": 824,
+          "tamanho_maior_componente": 32,
+          "percentual_maior_componente": 0.7697859032956459,
+          "componentes_isolados": 368,
+          "fragmentacao": 0.9923021409670435
+        },
+        {
+          "nos_removidos": 833,
+          "percentual_removido": 16.858935438170413,
+          "num_componentes": 906,
+          "tamanho_maior_componente": 27,
+          "percentual_maior_componente": 0.6572541382667966,
+          "componentes_isolados": 405,
+          "fragmentacao": 0.9934274586173321
+        },
+        {
+          "nos_removidos": 882,
+          "percentual_removido": 17.850637522768668,
+          "num_componentes": 976,
+          "tamanho_maior_componente": 25,
+          "percentual_maior_componente": 0.6159152500615915,
+          "componentes_isolados": 431,
+          "fragmentacao": 0.9938408474993841
+        },
+        {
+          "nos_removidos": 931,
+          "percentual_removido": 18.842339607366927,
+          "num_componentes": 1051,
+          "tamanho_maior_componente": 23,
+          "percentual_maior_componente": 0.57356608478803,
+          "componentes_isolados": 462,
+          "fragmentacao": 0.9942643391521196
+        },
+        {
+          "nos_removidos": 980,
+          "percentual_removido": 19.83404169196519,
+          "num_componentes": 1138,
+          "tamanho_maior_componente": 17,
+          "percentual_maior_componente": 0.4291845493562232,
+          "componentes_isolados": 505,
+          "fragmentacao": 0.9957081545064378
+        },
+        {
+          "nos_removidos": 1029,
+          "percentual_removido": 20.82574377656345,
+          "num_componentes": 1227,
+          "tamanho_maior_componente": 16,
+          "percentual_maior_componente": 0.408997955010225,
+          "componentes_isolados": 531,
+          "fragmentacao": 0.9959100204498977
+        },
+        {
+          "nos_removidos": 1078,
+          "percentual_removido": 21.81744586116171,
+          "num_componentes": 1294,
+          "tamanho_maior_componente": 12,
+          "percentual_maior_componente": 0.3106393994304944,
+          "componentes_isolados": 566,
+          "fragmentacao": 0.9968936060056951
+        },
+        {
+          "nos_removidos": 1127,
+          "percentual_removido": 22.809147945759968,
+          "num_componentes": 1374,
+          "tamanho_maior_componente": 11,
+          "percentual_maior_componente": 0.2884111169375983,
+          "componentes_isolados": 613,
+          "fragmentacao": 0.997115888830624
+        },
+        {
+          "nos_removidos": 1176,
+          "percentual_removido": 23.800850030358227,
+          "num_componentes": 1476,
+          "tamanho_maior_componente": 10,
+          "percentual_maior_componente": 0.2656042496679947,
+          "componentes_isolados": 685,
+          "fragmentacao": 0.99734395750332
+        },
+        {
+          "nos_removidos": 1225,
+          "percentual_removido": 24.792552114956486,
+          "num_componentes": 1554,
+          "tamanho_maior_componente": 10,
+          "percentual_maior_componente": 0.2691065662002153,
+          "componentes_isolados": 732,
+          "fragmentacao": 0.9973089343379978
+        },
+        {
+          "nos_removidos": 1274,
+          "percentual_removido": 25.784254199554745,
+          "num_componentes": 1617,
+          "tamanho_maior_componente": 9,
+          "percentual_maior_componente": 0.24543223343332427,
+          "componentes_isolados": 769,
+          "fragmentacao": 0.9975456776656667
+        },
+        {
+          "nos_removidos": 1323,
+          "percentual_removido": 26.775956284153008,
+          "num_componentes": 1706,
+          "tamanho_maior_componente": 7,
+          "percentual_maior_componente": 0.19347705914870095,
+          "componentes_isolados": 849,
+          "fragmentacao": 0.9980652294085129
+        },
+        {
+          "nos_removidos": 1372,
+          "percentual_removido": 27.767658368751263,
+          "num_componentes": 1783,
+          "tamanho_maior_componente": 7,
+          "percentual_maior_componente": 0.1961333706920706,
+          "componentes_isolados": 912,
+          "fragmentacao": 0.9980386662930792
+        },
+        {
+          "nos_removidos": 1421,
+          "percentual_removido": 28.759360453349526,
+          "num_componentes": 1839,
+          "tamanho_maior_componente": 6,
+          "percentual_maior_componente": 0.17045454545454544,
+          "componentes_isolados": 955,
+          "fragmentacao": 0.9982954545454545
+        },
+        {
+          "nos_removidos": 1470,
+          "percentual_removido": 29.75106253794778,
+          "num_componentes": 1906,
+          "tamanho_maior_componente": 6,
+          "percentual_maior_componente": 0.17286084701815038,
+          "componentes_isolados": 991,
+          "fragmentacao": 0.9982713915298185
+        },
+        {
+          "nos_removidos": 1519,
+          "percentual_removido": 30.742764622546044,
+          "num_componentes": 1984,
+          "tamanho_maior_componente": 5,
+          "percentual_maior_componente": 0.14611338398597312,
+          "componentes_isolados": 1104,
+          "fragmentacao": 0.9985388661601403
+        },
+        {
+          "nos_removidos": 1568,
+          "percentual_removido": 31.734466707144303,
+          "num_componentes": 2032,
+          "tamanho_maior_componente": 5,
+          "percentual_maior_componente": 0.14823599169878449,
+          "componentes_isolados": 1178,
+          "fragmentacao": 0.9985176400830121
+        },
+        {
+          "nos_removidos": 1617,
+          "percentual_removido": 32.72616879174256,
+          "num_componentes": 2061,
+          "tamanho_maior_componente": 5,
+          "percentual_maior_componente": 0.15042117930204574,
+          "componentes_isolados": 1227,
+          "fragmentacao": 0.9984957882069796
+        },
+        {
+          "nos_removidos": 1666,
+          "percentual_removido": 33.717870876340825,
+          "num_componentes": 2090,
+          "tamanho_maior_componente": 5,
+          "percentual_maior_componente": 0.15267175572519084,
+          "componentes_isolados": 1276,
+          "fragmentacao": 0.9984732824427481
+        },
+        {
+          "nos_removidos": 1715,
+          "percentual_removido": 34.709572960939084,
+          "num_componentes": 2118,
+          "tamanho_maior_componente": 5,
+          "percentual_maior_componente": 0.15499070055796654,
+          "componentes_isolados": 1325,
+          "fragmentacao": 0.9984500929944203
+        },
+        {
+          "nos_removidos": 1764,
+          "percentual_removido": 35.701275045537336,
+          "num_componentes": 2158,
+          "tamanho_maior_componente": 5,
+          "percentual_maior_componente": 0.15738117721120554,
+          "componentes_isolados": 1405,
+          "fragmentacao": 0.998426188227888
+        },
+        {
+          "nos_removidos": 1813,
+          "percentual_removido": 36.6929771301356,
+          "num_componentes": 2207,
+          "tamanho_maior_componente": 5,
+          "percentual_maior_componente": 0.159846547314578,
+          "componentes_isolados": 1503,
+          "fragmentacao": 0.9984015345268542
+        },
+        {
+          "nos_removidos": 1862,
+          "percentual_removido": 37.684679214733855,
+          "num_componentes": 2256,
+          "tamanho_maior_componente": 5,
+          "percentual_maior_componente": 0.16239038648911985,
+          "componentes_isolados": 1601,
+          "fragmentacao": 0.9983760961351088
+        },
+        {
+          "nos_removidos": 1911,
+          "percentual_removido": 38.67638129933212,
+          "num_componentes": 2299,
+          "tamanho_maior_componente": 4,
+          "percentual_maior_componente": 0.132013201320132,
+          "componentes_isolados": 1689,
+          "fragmentacao": 0.9986798679867986
+        },
+        {
+          "nos_removidos": 1960,
+          "percentual_removido": 39.66808338393038,
+          "num_componentes": 2348,
+          "tamanho_maior_componente": 4,
+          "percentual_maior_componente": 0.13418316001341832,
+          "componentes_isolados": 1787,
+          "fragmentacao": 0.9986581683998658
+        },
+        {
+          "nos_removidos": 2009,
+          "percentual_removido": 40.65978546852864,
+          "num_componentes": 2396,
+          "tamanho_maior_componente": 4,
+          "percentual_maior_componente": 0.1364256480218281,
+          "componentes_isolados": 1883,
+          "fragmentacao": 0.9986357435197817
+        },
+        {
+          "nos_removidos": 2058,
+          "percentual_removido": 41.6514875531269,
+          "num_componentes": 2365,
+          "tamanho_maior_componente": 4,
+          "percentual_maior_componente": 0.1387443635102324,
+          "componentes_isolados": 1861,
+          "fragmentacao": 0.9986125563648977
+        },
+        {
+          "nos_removidos": 2107,
+          "percentual_removido": 42.64318963772516,
+          "num_componentes": 2327,
+          "tamanho_maior_componente": 4,
+          "percentual_maior_componente": 0.14114326040931546,
+          "componentes_isolados": 1833,
+          "fragmentacao": 0.9985885673959068
+        },
+        {
+          "nos_removidos": 2156,
+          "percentual_removido": 43.63489172232342,
+          "num_componentes": 2289,
+          "tamanho_maior_componente": 4,
+          "percentual_maior_componente": 0.1436265709156194,
+          "componentes_isolados": 1806,
+          "fragmentacao": 0.9985637342908438
+        },
+        {
+          "nos_removidos": 2205,
+          "percentual_removido": 44.626593806921676,
+          "num_componentes": 2250,
+          "tamanho_maior_componente": 4,
+          "percentual_maior_componente": 0.14619883040935672,
+          "componentes_isolados": 1777,
+          "fragmentacao": 0.9985380116959064
+        },
+        {
+          "nos_removidos": 2254,
+          "percentual_removido": 45.618295891519935,
+          "num_componentes": 2213,
+          "tamanho_maior_componente": 4,
+          "percentual_maior_componente": 0.14886490509862302,
+          "componentes_isolados": 1752,
+          "fragmentacao": 0.9985113509490138
+        },
+        {
+          "nos_removidos": 2303,
+          "percentual_removido": 46.609997976118194,
+          "num_componentes": 2170,
+          "tamanho_maior_componente": 4,
+          "percentual_maior_componente": 0.1516300227445034,
+          "componentes_isolados": 1715,
+          "fragmentacao": 0.9984836997725549
+        },
+        {
+          "nos_removidos": 2352,
+          "percentual_removido": 47.60170006071645,
+          "num_componentes": 2134,
+          "tamanho_maior_componente": 4,
+          "percentual_maior_componente": 0.1544998068752414,
+          "componentes_isolados": 1692,
+          "fragmentacao": 0.9984550019312476
+        },
+        {
+          "nos_removidos": 2401,
+          "percentual_removido": 48.59340214531471,
+          "num_componentes": 2088,
+          "tamanho_maior_componente": 4,
+          "percentual_maior_componente": 0.15748031496062992,
+          "componentes_isolados": 1649,
+          "fragmentacao": 0.9984251968503937
+        },
+        {
+          "nos_removidos": 2450,
+          "percentual_removido": 49.58510422991297,
+          "num_componentes": 2050,
+          "tamanho_maior_componente": 4,
+          "percentual_maior_componente": 0.16057808109193095,
+          "componentes_isolados": 1622,
+          "fragmentacao": 0.9983942191890807
+        },
+        {
+          "nos_removidos": 2470,
+          "percentual_removido": 49.989880590973485,
+          "num_componentes": 2033,
+          "tamanho_maior_componente": 4,
+          "percentual_maior_componente": 0.16187778227438285,
+          "componentes_isolados": 1608,
+          "fragmentacao": 0.9983812221772562
+        }
+      ],
+      "ponto_critico": 3.966808338393038,
+      "fragmentacao_final": 0.9983812221772562
+    },
+    "ataque_articulacao": {
+      "curva": [
+        {
+          "nos_removidos": 0,
+          "percentual_removido": 0.0,
+          "num_componentes": 1,
+          "tamanho_maior_componente": 4941,
+          "percentual_maior_componente": 100.0,
+          "componentes_isolados": 0,
+          "fragmentacao": 0.0
+        },
+        {
+          "nos_removidos": 49,
+          "percentual_removido": 0.9917020845982595,
+          "num_componentes": 134,
+          "tamanho_maior_componente": 4597,
+          "percentual_maior_componente": 93.96974652493869,
+          "componentes_isolados": 88,
+          "fragmentacao": 0.0603025347506132
+        },
+        {
+          "nos_removidos": 98,
+          "percentual_removido": 1.983404169196519,
+          "num_componentes": 265,
+          "tamanho_maior_componente": 4050,
+          "percentual_maior_componente": 83.62585174478629,
+          "componentes_isolados": 163,
+          "fragmentacao": 0.16374148255213705
+        },
+        {
+          "nos_removidos": 147,
+          "percentual_removido": 2.9751062537947783,
+          "num_componentes": 364,
+          "tamanho_maior_componente": 3511,
+          "percentual_maior_componente": 73.23738005840634,
+          "componentes_isolados": 225,
+          "fragmentacao": 0.26762619941593657
+        },
+        {
+          "nos_removidos": 196,
+          "percentual_removido": 3.966808338393038,
+          "num_componentes": 472,
+          "tamanho_maior_componente": 2920,
+          "percentual_maior_componente": 61.53846153846154,
+          "componentes_isolados": 285,
+          "fragmentacao": 0.3846153846153846
+        },
+        {
+          "nos_removidos": 245,
+          "percentual_removido": 4.9585104229912975,
+          "num_componentes": 579,
+          "tamanho_maior_componente": 2441,
+          "percentual_maior_componente": 51.98040885860307,
+          "componentes_isolados": 339,
+          "fragmentacao": 0.48019591141396933
+        },
+        {
+          "nos_removidos": 294,
+          "percentual_removido": 5.950212507589557,
+          "num_componentes": 684,
+          "tamanho_maior_componente": 2105,
+          "percentual_maior_componente": 45.2980417473639,
+          "componentes_isolados": 394,
+          "fragmentacao": 0.5470195825263611
+        },
+        {
+          "nos_removidos": 343,
+          "percentual_removido": 6.941914592187816,
+          "num_componentes": 773,
+          "tamanho_maior_componente": 1149,
+          "percentual_maior_componente": 24.989125706829057,
+          "componentes_isolados": 440,
+          "fragmentacao": 0.7501087429317095
+        },
+        {
+          "nos_removidos": 392,
+          "percentual_removido": 7.933616676786076,
+          "num_componentes": 892,
+          "tamanho_maior_componente": 1116,
+          "percentual_maior_componente": 24.53286436579468,
+          "componentes_isolados": 508,
+          "fragmentacao": 0.7546713563420532
+        },
+        {
+          "nos_removidos": 441,
+          "percentual_removido": 8.925318761384334,
+          "num_componentes": 988,
+          "tamanho_maior_componente": 316,
+          "percentual_maior_componente": 7.022222222222223,
+          "componentes_isolados": 549,
+          "fragmentacao": 0.9297777777777778
+        },
+        {
+          "nos_removidos": 490,
+          "percentual_removido": 9.917020845982595,
+          "num_componentes": 1090,
+          "tamanho_maior_componente": 176,
+          "percentual_maior_componente": 3.9541676027858905,
+          "componentes_isolados": 591,
+          "fragmentacao": 0.9604583239721411
+        },
+        {
+          "nos_removidos": 539,
+          "percentual_removido": 10.908722930580854,
+          "num_componentes": 1177,
+          "tamanho_maior_componente": 158,
+          "percentual_maior_componente": 3.5892776010904135,
+          "componentes_isolados": 631,
+          "fragmentacao": 0.9641072239890959
+        },
+        {
+          "nos_removidos": 588,
+          "percentual_removido": 11.900425015179113,
+          "num_componentes": 1268,
+          "tamanho_maior_componente": 152,
+          "percentual_maior_componente": 3.491844704801286,
+          "componentes_isolados": 682,
+          "fragmentacao": 0.9650815529519872
+        },
+        {
+          "nos_removidos": 637,
+          "percentual_removido": 12.892127099777372,
+          "num_componentes": 1363,
+          "tamanho_maior_componente": 127,
+          "percentual_maior_componente": 2.950743494423792,
+          "componentes_isolados": 727,
+          "fragmentacao": 0.9704925650557621
+        },
+        {
+          "nos_removidos": 686,
+          "percentual_removido": 13.883829184375632,
+          "num_componentes": 1461,
+          "tamanho_maior_componente": 127,
+          "percentual_maior_componente": 2.9847238542890717,
+          "componentes_isolados": 789,
+          "fragmentacao": 0.9701527614571093
+        },
+        {
+          "nos_removidos": 735,
+          "percentual_removido": 14.87553126897389,
+          "num_componentes": 1533,
+          "tamanho_maior_componente": 127,
+          "percentual_maior_componente": 3.0194959581550167,
+          "componentes_isolados": 830,
+          "fragmentacao": 0.9698050404184498
+        },
+        {
+          "nos_removidos": 784,
+          "percentual_removido": 15.867233353572152,
+          "num_componentes": 1599,
+          "tamanho_maior_componente": 127,
+          "percentual_maior_componente": 3.0550878037045948,
+          "componentes_isolados": 869,
+          "fragmentacao": 0.9694491219629541
+        },
+        {
+          "nos_removidos": 833,
+          "percentual_removido": 16.858935438170413,
+          "num_componentes": 1672,
+          "tamanho_maior_componente": 123,
+          "percentual_maior_componente": 2.994157740993184,
+          "componentes_isolados": 925,
+          "fragmentacao": 0.9700584225900681
+        },
+        {
+          "nos_removidos": 882,
+          "percentual_removido": 17.850637522768668,
+          "num_componentes": 1747,
+          "tamanho_maior_componente": 82,
+          "percentual_maior_componente": 2.0202020202020203,
+          "componentes_isolados": 977,
+          "fragmentacao": 0.9797979797979798
+        },
+        {
+          "nos_removidos": 931,
+          "percentual_removido": 18.842339607366927,
+          "num_componentes": 1819,
+          "tamanho_maior_componente": 58,
+          "percentual_maior_componente": 1.4463840399002494,
+          "componentes_isolados": 1011,
+          "fragmentacao": 0.9855361596009975
+        },
+        {
+          "nos_removidos": 980,
+          "percentual_removido": 19.83404169196519,
+          "num_componentes": 1893,
+          "tamanho_maior_componente": 39,
+          "percentual_maior_componente": 0.9845998485231002,
+          "componentes_isolados": 1065,
+          "fragmentacao": 0.990154001514769
+        },
+        {
+          "nos_removidos": 1029,
+          "percentual_removido": 20.82574377656345,
+          "num_componentes": 1970,
+          "tamanho_maior_componente": 31,
+          "percentual_maior_componente": 0.7924335378323109,
+          "componentes_isolados": 1124,
+          "fragmentacao": 0.9920756646216768
+        },
+        {
+          "nos_removidos": 1078,
+          "percentual_removido": 21.81744586116171,
+          "num_componentes": 2049,
+          "tamanho_maior_componente": 24,
+          "percentual_maior_componente": 0.6212787988609888,
+          "componentes_isolados": 1193,
+          "fragmentacao": 0.9937872120113901
+        },
+        {
+          "nos_removidos": 1127,
+          "percentual_removido": 22.809147945759968,
+          "num_componentes": 2131,
+          "tamanho_maior_componente": 15,
+          "percentual_maior_componente": 0.39328788673308857,
+          "componentes_isolados": 1266,
+          "fragmentacao": 0.9960671211326692
+        },
+        {
+          "nos_removidos": 1176,
+          "percentual_removido": 23.800850030358227,
+          "num_componentes": 2168,
+          "tamanho_maior_componente": 10,
+          "percentual_maior_componente": 0.2656042496679947,
+          "componentes_isolados": 1320,
+          "fragmentacao": 0.99734395750332
+        },
+        {
+          "nos_removidos": 1225,
+          "percentual_removido": 24.792552114956486,
+          "num_componentes": 2197,
+          "tamanho_maior_componente": 10,
+          "percentual_maior_componente": 0.2691065662002153,
+          "componentes_isolados": 1377,
+          "fragmentacao": 0.9973089343379978
+        },
+        {
+          "nos_removidos": 1274,
+          "percentual_removido": 25.784254199554745,
+          "num_componentes": 2223,
+          "tamanho_maior_componente": 10,
+          "percentual_maior_componente": 0.2727024815925825,
+          "componentes_isolados": 1429,
+          "fragmentacao": 0.9972729751840742
+        },
+        {
+          "nos_removidos": 1323,
+          "percentual_removido": 26.775956284153008,
+          "num_componentes": 2251,
+          "tamanho_maior_componente": 10,
+          "percentual_maior_componente": 0.2763957987838585,
+          "componentes_isolados": 1484,
+          "fragmentacao": 0.9972360420121614
+        },
+        {
+          "nos_removidos": 1372,
+          "percentual_removido": 27.767658368751263,
+          "num_componentes": 2280,
+          "tamanho_maior_componente": 10,
+          "percentual_maior_componente": 0.2801905295601009,
+          "componentes_isolados": 1541,
+          "fragmentacao": 0.997198094704399
+        },
+        {
+          "nos_removidos": 1421,
+          "percentual_removido": 28.759360453349526,
+          "num_componentes": 2300,
+          "tamanho_maior_componente": 10,
+          "percentual_maior_componente": 0.2840909090909091,
+          "componentes_isolados": 1580,
+          "fragmentacao": 0.9971590909090909
+        },
+        {
+          "nos_removidos": 1470,
+          "percentual_removido": 29.75106253794778,
+          "num_componentes": 2322,
+          "tamanho_maior_componente": 10,
+          "percentual_maior_componente": 0.2881014116969173,
+          "componentes_isolados": 1624,
+          "fragmentacao": 0.9971189858830308
+        },
+        {
+          "nos_removidos": 1519,
+          "percentual_removido": 30.742764622546044,
+          "num_componentes": 2349,
+          "tamanho_maior_componente": 10,
+          "percentual_maior_componente": 0.29222676797194624,
+          "componentes_isolados": 1678,
+          "fragmentacao": 0.9970777323202805
+        },
+        {
+          "nos_removidos": 1568,
+          "percentual_removido": 31.734466707144303,
+          "num_componentes": 2368,
+          "tamanho_maior_componente": 9,
+          "percentual_maior_componente": 0.26682478505781204,
+          "componentes_isolados": 1716,
+          "fragmentacao": 0.9973317521494218
+        },
+        {
+          "nos_removidos": 1617,
+          "percentual_removido": 32.72616879174256,
+          "num_componentes": 2403,
+          "tamanho_maior_componente": 9,
+          "percentual_maior_componente": 0.2707581227436823,
+          "componentes_isolados": 1785,
+          "fragmentacao": 0.9972924187725631
+        },
+        {
+          "nos_removidos": 1666,
+          "percentual_removido": 33.717870876340825,
+          "num_componentes": 2435,
+          "tamanho_maior_componente": 9,
+          "percentual_maior_componente": 0.2748091603053435,
+          "componentes_isolados": 1849,
+          "fragmentacao": 0.9972519083969466
+        },
+        {
+          "nos_removidos": 1715,
+          "percentual_removido": 34.709572960939084,
+          "num_componentes": 2459,
+          "tamanho_maior_componente": 9,
+          "percentual_maior_componente": 0.27898326100433973,
+          "componentes_isolados": 1897,
+          "fragmentacao": 0.9972101673899566
+        },
+        {
+          "nos_removidos": 1764,
+          "percentual_removido": 35.701275045537336,
+          "num_componentes": 2487,
+          "tamanho_maior_componente": 9,
+          "percentual_maior_componente": 0.28328611898017,
+          "componentes_isolados": 1953,
+          "fragmentacao": 0.9971671388101983
+        },
+        {
+          "nos_removidos": 1813,
+          "percentual_removido": 36.6929771301356,
+          "num_componentes": 2519,
+          "tamanho_maior_componente": 9,
+          "percentual_maior_componente": 0.2877237851662404,
+          "componentes_isolados": 2017,
+          "fragmentacao": 0.9971227621483376
+        },
+        {
+          "nos_removidos": 1862,
+          "percentual_removido": 37.684679214733855,
+          "num_componentes": 2547,
+          "tamanho_maior_componente": 9,
+          "percentual_maior_componente": 0.2923026956804157,
+          "componentes_isolados": 2073,
+          "fragmentacao": 0.9970769730431959
+        },
+        {
+          "nos_removidos": 1911,
+          "percentual_removido": 38.67638129933212,
+          "num_componentes": 2562,
+          "tamanho_maior_componente": 5,
+          "percentual_maior_componente": 0.16501650165016502,
+          "componentes_isolados": 2108,
+          "fragmentacao": 0.9983498349834984
+        },
+        {
+          "nos_removidos": 1960,
+          "percentual_removido": 39.66808338393038,
+          "num_componentes": 2545,
+          "tamanho_maior_componente": 2,
+          "percentual_maior_componente": 0.06709158000670916,
+          "componentes_isolados": 2109,
+          "fragmentacao": 0.9993290841999329
+        },
+        {
+          "nos_removidos": 2009,
+          "percentual_removido": 40.65978546852864,
+          "num_componentes": 2524,
+          "tamanho_maior_componente": 2,
+          "percentual_maior_componente": 0.06821282401091405,
+          "componentes_isolados": 2116,
+          "fragmentacao": 0.9993178717598908
+        },
+        {
+          "nos_removidos": 2058,
+          "percentual_removido": 41.6514875531269,
+          "num_componentes": 2502,
+          "tamanho_maior_componente": 2,
+          "percentual_maior_componente": 0.0693721817551162,
+          "componentes_isolados": 2121,
+          "fragmentacao": 0.9993062781824489
+        },
+        {
+          "nos_removidos": 2107,
+          "percentual_removido": 42.64318963772516,
+          "num_componentes": 2482,
+          "tamanho_maior_componente": 2,
+          "percentual_maior_componente": 0.07057163020465773,
+          "componentes_isolados": 2130,
+          "fragmentacao": 0.9992942836979535
+        },
+        {
+          "nos_removidos": 2156,
+          "percentual_removido": 43.63489172232342,
+          "num_componentes": 2458,
+          "tamanho_maior_componente": 2,
+          "percentual_maior_componente": 0.0718132854578097,
+          "componentes_isolados": 2131,
+          "fragmentacao": 0.9992818671454219
+        },
+        {
+          "nos_removidos": 2205,
+          "percentual_removido": 44.626593806921676,
+          "num_componentes": 2444,
+          "tamanho_maior_componente": 2,
+          "percentual_maior_componente": 0.07309941520467836,
+          "componentes_isolados": 2152,
+          "fragmentacao": 0.9992690058479532
+        },
+        {
+          "nos_removidos": 2254,
+          "percentual_removido": 45.618295891519935,
+          "num_componentes": 2426,
+          "tamanho_maior_componente": 2,
+          "percentual_maior_componente": 0.07443245254931151,
+          "componentes_isolados": 2165,
+          "fragmentacao": 0.9992556754745069
+        },
+        {
+          "nos_removidos": 2303,
+          "percentual_removido": 46.609997976118194,
+          "num_componentes": 2403,
+          "tamanho_maior_componente": 2,
+          "percentual_maior_componente": 0.0758150113722517,
+          "componentes_isolados": 2168,
+          "fragmentacao": 0.9992418498862775
+        },
+        {
+          "nos_removidos": 2352,
+          "percentual_removido": 47.60170006071645,
+          "num_componentes": 2382,
+          "tamanho_maior_componente": 2,
+          "percentual_maior_componente": 0.0772499034376207,
+          "componentes_isolados": 2175,
+          "fragmentacao": 0.9992275009656237
+        },
+        {
+          "nos_removidos": 2401,
+          "percentual_removido": 48.59340214531471,
+          "num_componentes": 2371,
+          "tamanho_maior_componente": 2,
+          "percentual_maior_componente": 0.07874015748031496,
+          "componentes_isolados": 2202,
+          "fragmentacao": 0.9992125984251968
+        },
+        {
+          "nos_removidos": 2450,
+          "percentual_removido": 49.58510422991297,
+          "num_componentes": 2351,
+          "tamanho_maior_componente": 2,
+          "percentual_maior_componente": 0.08028904054596547,
+          "componentes_isolados": 2211,
+          "fragmentacao": 0.9991971095945403
+        },
+        {
+          "nos_removidos": 2470,
+          "percentual_removido": 49.989880590973485,
+          "num_componentes": 2341,
+          "tamanho_maior_componente": 2,
+          "percentual_maior_componente": 0.08093889113719142,
+          "componentes_isolados": 2211,
+          "fragmentacao": 0.9991906110886281
+        }
+      ],
+      "ponto_critico": 5.950212507589557,
+      "fragmentacao_final": 0.9991906110886281
+    }
+  },
+  "vulnerabilidades_criticas": {
+    "remocao_top_10_hubs": {
+      "nos_removidos": [
+        2553,
+        4458,
+        831,
+        3468,
+        4345,
+        2542,
+        2382,
+        2575,
+        2585,
+        3895
+      ],
+      "impacto": {
+        "num_componentes": 33,
+        "tamanho_maior_componente": 4880,
+        "percentual_maior_componente": 98.96572703305617,
+        "componentes_isolados": 25,
+        "fragmentacao": 0.010342729669438278
+      }
+    },
+    "remocao_top_10_articulacao": {
+      "nos_removidos": [
+        386,
+        391,
+        430,
+        416,
+        441,
+        442,
+        405,
+        402,
+        411,
+        1216
+      ],
+      "impacto": {
+        "num_componentes": 15,
+        "tamanho_maior_componente": 4915,
+        "percentual_maior_componente": 99.675522206449,
+        "componentes_isolados": 13,
+        "fragmentacao": 0.003244777935510035
+      }
+    },
+    "remocao_combinada": {
+      "nos_removidos": [
+        416,
+        386,
+        4345,
+        391,
+        4458,
+        441,
+        3468,
+        430,
+        2553,
+        831
+      ],
+      "impacto": {
+        "num_componentes": 32,
+        "tamanho_maior_componente": 4889,
+        "percentual_maior_componente": 99.14824579192862,
+        "componentes_isolados": 26,
+        "fragmentacao": 0.008517542080713869
+      }
+    }
+  },
+  "analise_comparativa": {
+    "ponto_critico_aleatorio": 23.800850030358227,
+    "ponto_critico_grau": 5.950212507589557,
+    "ponto_critico_betweenness": 3.966808338393038,
+    "ponto_critico_articulacao": 5.950212507589557,
+    "estrategia_mais_eficaz": "Betweenness",
+    "diferenca_aleatorio_direcionado": 19.83404169196519,
+    "nivel_robustez": "MÉDIA",
+    "descricao_robustez": "Diferença moderada indica alguma vulnerabilidade a ataques direcionados"
+  },
+  "interpretacao": [
+    "Ataque aleatório: fragmentação significativa após 23.8% de remoções",
+    "Ataque por grau: fragmentação significativa após 6.0% de remoções",
+    "Ataque por betweenness: fragmentação significativa após 4.0% de remoções",
+    "Ataque a pontos de articulação: fragmentação significativa após 6.0% de remoções",
+    "\n🎯 Estratégia mais eficaz: Betweenness (fragmenta com apenas 4.0% de remoções)",
+    "\n🛡️ Robustez da rede: MÉDIA",
+    "Diferença moderada indica alguma vulnerabilidade a ataques direcionados"
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "metricas_robustez": {
+    "algebraic_connectivity": 0.0007592122113416985,
+    "eficiencia_global": 0.062428186426267664,
+    "eficiencia_local": 0.2454449096192263,
+    "avg_path_length": 18.989185424445708,
+    "diameter": 46,
+    "radius": 23,
+    "node_connectivity": 1,
+    "edge_connectivity": 1,
+    "assortativity": 0.0034569877442048825,
+    "densidade": 0.0005403026973346214
+  },
+  "analise_resiliencia": {
+    "eficiencia_original": 0.06196203767647476,
+    "nos_criticos_testados": [
+      2553,
+      4458,
+      831,
+      3468,
+      4345,
+      2542,
+      2382,
+      2575,
+      2585,
+      3895
+    ],
+    "curva_recuperacao": [
+      {
+        "nos_recuperados": 0,
+        "percentual_recuperado": 0.0,
+        "eficiencia_global": 0.06185645498346432
+      },
+      {
+        "nos_recuperados": 1,
+        "percentual_recuperado": 10.0,
+        "eficiencia_global": 0.06258200828479607
+      },
+      {
+        "nos_recuperados": 2,
+        "percentual_recuperado": 20.0,
+        "eficiencia_global": 0.06188916152380661
+      },
+      {
+        "nos_recuperados": 3,
+        "percentual_recuperado": 30.0,
+        "eficiencia_global": 0.06209348157764967
+      },
+      {
+        "nos_recuperados": 4,
+        "percentual_recuperado": 40.0,
+        "eficiencia_global": 0.06270537312352578
+      },
+      {
+        "nos_recuperados": 5,
+        "percentual_recuperado": 50.0,
+        "eficiencia_global": 0.06207393412474493
+      },
+      {
+        "nos_recuperados": 6,
+        "percentual_recuperado": 60.0,
+        "eficiencia_global": 0.061815594683473626
+      },
+      {
+        "nos_recuperados": 7,
+        "percentual_recuperado": 70.0,
+        "eficiencia_global": 0.06273906825333374
+      },
+      {
+        "nos_recuperados": 8,
+        "percentual_recuperado": 80.0,
+        "eficiencia_global": 0.06304622187783801
+      },
+      {
+        "nos_recuperados": 9,
+        "percentual_recuperado": 90.0,
+        "eficiencia_global": 0.06243856386456555
+      },
+      {
+        "nos_recuperados": 10,
+        "percentual_recuperado": 100.0,
+        "eficiencia_global": 0.0628917087942545
+      }
+    ],
+    "tempo_recuperacao_90": 0.0,
+    "impacto_remocao": {
+      "eficiencia_apos_falha": 0.06185645498346432,
+      "perda_eficiencia": 0.17039900069414174
+    }
+  },
+  "comparacao_teorica": {
+    "rede_real": {
+      "eficiencia_global": 0.0636291633307061,
+      "clustering": 0.08010361108159712,
+      "assortativity": 0.0034569877442048825
+    },
+    "erdos_renyi": {
+      "eficiencia_global": 0.12079814224044876,
+      "clustering": 0.0005021154383631616,
+      "assortativity": 0.01675603159301199
+    },
+    "barabasi_albert": {
+      "eficiencia_global": 0.14037490856144288,
+      "clustering": 0.0,
+      "assortativity": -0.05520217310630439
+    },
+    "interpretacao": {
+      "similaridade_ER": "Alta",
+      "similaridade_BA": "Alta"
+    }
+  },
+  "interpretacao": [
+    "✗ Conectividade algébrica baixa (0.0008) - vulnerável a particionamento",
+    "✗ Eficiência global baixa (0.0624)",
+    "✗ Node connectivity baixo (1) - pontos únicos de falha",
+    "Rede neutra (assortativity=0.003)"
+  ]
+}

@@ -108,7 +108,8 @@ def analisar_topologia_rede():
             'grau_minimo': grau_minimo
         },
         'distribuicao_graus': [
-            {'grau': grau, 'quantidade': quantidade, 'percentual': round(quantidade / len(graus) * 100, 2)}
+            {'grau': grau, 'quantidade': quantidade,
+                'percentual': round(quantidade / len(graus) * 100, 2)}
             for grau, quantidade in sorted(distribuicao_graus.items())
         ],
         'top_hubs': [
