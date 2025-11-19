@@ -39,6 +39,11 @@ def inferir_papel_no(grau: int, betweenness: float,
     """
     Infere o papel do nó baseado em suas características topológicas
 
+    *** ATENÇÃO: CLASSIFICAÇÃO HEURÍSTICA ***
+    Esta função realiza INFERÊNCIA TOPOLÓGICA, não possui dados reais.
+    Os papéis são aproximações baseadas em padrões observados em redes elétricas,
+    mas podem NÃO corresponder à função real do nó.
+
     Lógica de classificação:
     - CONSUMIDOR: grau = 1 (nó terminal)
     - GERADOR: grau alto (≥8), hub da comunidade, alta betweenness
@@ -294,6 +299,8 @@ def main():
     }
 
     resultado = {
+        'AVISO_METODOLOGICO': 'Papéis inferidos topologicamente (grau, betweenness, clustering). Dataset original NÃO contém metadados sobre função real dos nós.',
+        'LIMITACOES': 'Classificação heurística baseada em métricas de rede. Pode não refletir infraestrutura real. Validação de campo necessária para uso operacional.',
         'total_nos': len(grafo.nodes()),
         'estatisticas_gerais': estatisticas['estatisticas'],
         'contagem_papeis': estatisticas['contagem'],

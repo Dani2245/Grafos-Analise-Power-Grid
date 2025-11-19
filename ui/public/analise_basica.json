@@ -7,18 +7,26 @@
     "grau_minimo": 1
   },
   "scale_free_analysis": {
-    "metodo": "regressao_linear",
-    "eh_scale_free": true,
-    "expoente_gamma": 2.8445,
-    "xmin": 1,
-    "teste_vs_exponencial": null,
-    "teste_vs_lognormal": null,
+    "metodo": "powerlaw_library",
+    "eh_scale_free": false,
+    "expoente_gamma": 3.2175,
+    "xmin": 3,
+    "teste_vs_exponencial": {
+      "R": -1.7587,
+      "p_value": 0.0786,
+      "powerlaw_melhor": false
+    },
+    "teste_vs_lognormal": {
+      "R": -6.7587,
+      "p_value": 0.0,
+      "powerlaw_melhor": false
+    },
     "regressao_linear": {
       "expoente_gamma": 2.8445,
       "r_quadrado": 0.8808,
       "p_value": 0.0
     },
-    "interpretacao": "Rede apresenta características SCALE-FREE (γ=2.84, xmin=1)",
+    "interpretacao": "Rede NÃO apresenta características scale-free clara (melhor ajuste: distribuição alternativa)",
     "dados_log_log": [
       {
         "grau": 1,

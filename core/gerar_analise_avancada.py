@@ -75,9 +75,9 @@ def analisar_percolacao(grafo, pontos_articulacao):
     """
     print("   Simulando percolação (remoção de pontos de articulação)...")
 
-    # Limitar análise aos top 100 pontos de articulação mais críticos
+    # Limitar análise aos top 500 pontos de articulação mais críticos
     # (ordenados por betweenness - será calculado antes)
-    pontos_analisar = list(pontos_articulacao)[:100]
+    pontos_analisar = list(pontos_articulacao)[:500]
 
     resultados_percolacao = []
 

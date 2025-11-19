@@ -2,3 +2,4 @@ pyvis
 networkx
 numpy
 scipy
+powerlaw

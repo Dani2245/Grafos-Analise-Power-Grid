@@ -6,6 +6,8 @@ Calcula métricas estruturais de robustez e eficiência sob falhas
 import networkx as nx
 import csv
 import json
+import sys
+import os
 import numpy as np
 import random
 from typing import List, Dict
@@ -13,12 +15,21 @@ from typing import List, Dict
 
 def carregar_grafo(arquivo: str) -> nx.Graph:
     """Carrega o grafo a partir do arquivo CSV"""
+    if not os.path.exists(arquivo):
+        print(f"❌ ERRO: Arquivo '{arquivo}' não encontrado!")
+        sys.exit(1)
+
     grafo = nx.Graph()
     with open(arquivo, 'r', encoding='utf-8') as f:
         leitor_csv = csv.reader(f)
         for linha in leitor_csv:
             origem, destino = int(linha[0]), int(linha[1])
             grafo.add_edge(origem, destino)
+
+    if grafo.number_of_nodes() == 0:
+        print("❌ ERRO: Grafo vazio!")
+        sys.exit(1)
+
     return grafo
 
 
@@ -234,6 +245,76 @@ def analisar_resiliencia(grafo: nx.Graph) -> Dict:
     }
 
 
+def calcular_threshold_percolacao(grafo: nx.Graph) -> Dict:
+    """
+    Calcula o threshold de percolação (fração crítica de nós removidos 
+    onde a rede fragmenta significativamente)
+    """
+    print("🎯 Calculando threshold de percolação...")
+
+    nos_originais = list(grafo.nodes())
+    n_total = len(nos_originais)
+
+    # Simula remoção incremental aleatória de nós
+    resultados = []
+    grafo_simulado = grafo.copy()
+    nos_removidos = []
+
+    # Remove nós em incrementos de 1% até 50%
+    random.shuffle(nos_originais)
+
+    for percentual in range(0, 51, 1):  # 0% a 50% em passos de 1%
+        fracao_alvo = percentual / 100.0
+        num_remover = int(n_total * fracao_alvo)
+
+        # Remove nós adicionais até atingir a fração alvo
+        while len(nos_removidos) < num_remover and len(nos_originais) > len(nos_removidos):
+            no = nos_originais[len(nos_removidos)]
+            if grafo_simulado.has_node(no):
+                grafo_simulado.remove_node(no)
+            nos_removidos.append(no)
+
+        # Analisa fragmentação
+        if len(grafo_simulado.nodes()) > 0:
+            componentes = list(nx.connected_components(grafo_simulado))
+            tamanho_maior = len(max(componentes, key=len)
+                                ) if componentes else 0
+            fragmentacao = 100.0 * (1 - tamanho_maior / n_total)
+        else:
+            fragmentacao = 100.0
+            tamanho_maior = 0
+
+        resultados.append({
+            'percentual_removido': percentual,
+            'nos_removidos': len(nos_removidos),
+            'fragmentacao': round(fragmentacao, 2),
+            'tamanho_maior_componente': tamanho_maior
+        })
+
+    # Identifica threshold (primeira vez que fragmentação > 50%)
+    threshold_50 = None
+    for res in resultados:
+        if res['fragmentacao'] > 50.0:
+            threshold_50 = res['percentual_removido']
+            break
+
+    if threshold_50 is None:
+        threshold_50 = 50  # Não atingiu 50% de fragmentação
+
+    print(
+        f"  ✓ Threshold de percolação (50% fragmentação): {threshold_50}% de nós removidos")
+
+    return {
+        'threshold_50_pct': threshold_50,
+        'curva_fragmentacao': resultados,
+        'interpretacao': (
+            f"Rede colapsa (>50% fragmentação) ao remover {threshold_50}% dos nós aleatoriamente"
+            if threshold_50 < 50
+            else "Rede mantém componente principal mesmo com 50% de nós removidos"
+        )
+    }
+
+
 def comparar_com_redes_teoricas(grafo: nx.Graph) -> Dict:
     """Compara métricas com redes teóricas (Erdős-Rényi, Barabási-Albert)"""
     print("📊 Comparando com redes teóricas...")
@@ -255,9 +336,11 @@ def comparar_com_redes_teoricas(grafo: nx.Graph) -> Dict:
     # Calcula métricas para comparação
     print("  - Calculando métricas...")
 
+    # Nota: clustering é calculado em gerar_analise_avancada.py para evitar duplicação
+    # Aqui usamos apenas para comparação com redes teóricas
+
     metricas_real = {
         'eficiencia_global': calcular_eficiencia_global(grafo),
-        'clustering': nx.average_clustering(grafo),
         'assortativity': nx.degree_assortativity_coefficient(grafo)
     }
 
@@ -278,7 +361,7 @@ def comparar_com_redes_teoricas(grafo: nx.Graph) -> Dict:
         'erdos_renyi': metricas_er,
         'barabasi_albert': metricas_ba,
         'interpretacao': {
-            'similaridade_ER': 'Baixa' if abs(metricas_real['clustering'] - metricas_er['clustering']) > 0.1 else 'Alta',
+            'similaridade_ER': 'Comparar com clustering em analise_criticidade.json',
             'similaridade_BA': 'Alta' if abs(metricas_real['assortativity'] - metricas_ba['assortativity']) < 0.2 else 'Baixa'
         }
     }
@@ -352,6 +435,9 @@ def main():
     # Análise de resiliência
     analise_resiliencia = analisar_resiliencia(grafo)
 
+    # Threshold de percolação
+    threshold_percolacao = calcular_threshold_percolacao(grafo)
+
     # Comparação com redes teóricas
     comparacao_teorica = comparar_com_redes_teoricas(grafo)
 
@@ -362,6 +448,7 @@ def main():
     resultado = {
         'metricas_robustez': metricas_robustez,
         'analise_resiliencia': analise_resiliencia,
+        'threshold_percolacao': threshold_percolacao,
         'comparacao_teorica': comparacao_teorica,
         'interpretacao': interpretacao
     }
@@ -382,6 +469,11 @@ def main():
         f"  - Tempo de recuperação (90%): {analise_resiliencia['tempo_recuperacao_90']:.1f}% dos nós")
     print(
         f"  - Perda de eficiência após falha: {analise_resiliencia['impacto_remocao']['perda_eficiencia']:.1f}%")
+
+    print("\n🎯 Percolação:")
+    print(
+        f"  - Threshold (50% fragmentação): {threshold_percolacao['threshold_50_pct']}% dos nós")
+    print(f"  - {threshold_percolacao['interpretacao']}")
 
     print(f"\n✅ Análise de robustez salva em '{caminho_saida}'")
 

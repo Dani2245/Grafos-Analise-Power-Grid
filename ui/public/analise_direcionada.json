@@ -1,0 +1,1188 @@
+{
+  "AVISO_METODOLOGICO": "Grafo direcionado INFERIDO topologicamente. Dataset original é não-direcionado (sem informação de fluxo real de energia).",
+  "LIMITACOES": "Direções de arestas inferidas baseadas em hierarquia de papéis (também inferidos). Análise é simulação teórica, não representa fluxo real de energia.",
+  "estatisticas_gerais": {
+    "num_fontes": 472,
+    "num_sumidouros": 2225,
+    "num_intermediarios": 2244
+  },
+  "fontes": [
+    386,
+    395,
+    1,
+    4930,
+    88,
+    13,
+    9,
+    94,
+    18,
+    199,
+    21,
+    4445,
+    4446,
+    58,
+    27,
+    98,
+    123,
+    31,
+    174,
+    35,
+    163,
+    184,
+    111,
+    119,
+    1030,
+    108,
+    71,
+    112,
+    76,
+    170,
+    496,
+    129,
+    96,
+    210,
+    187,
+    252,
+    240,
+    351,
+    284,
+    342,
+    335,
+    246,
+    313,
+    311,
+    260,
+    263,
+    308,
+    4435,
+    1119,
+    383
+  ],
+  "sumidouros": [
+    3586,
+    3587,
+    2,
+    3,
+    4,
+    6,
+    7,
+    50,
+    125,
+    12,
+    15,
+    16,
+    17,
+    130,
+    20,
+    22,
+    23,
+    131,
+    203,
+    166,
+    28,
+    160,
+    30,
+    62,
+    155,
+    33,
+    142,
+    37,
+    38,
+    39,
+    202,
+    167,
+    232,
+    43,
+    44,
+    45,
+    46,
+    101,
+    49,
+    172,
+    149,
+    152,
+    175,
+    57,
+    60,
+    188,
+    209,
+    63,
+    64,
+    65
+  ],
+  "comparacao_top_nos": [
+    {
+      "no": 2047,
+      "papel": "LINHA_TRANSMISSAO",
+      "pagerank": 0.001026,
+      "in_degree": 3,
+      "out_degree": 0,
+      "degree": 3,
+      "betweenness_direcionado": 0.0,
+      "betweenness_nao_direcionado": 0.000216,
+      "diferenca_betweenness": -0.000216
+    },
+    {
+      "no": 196,
+      "papel": "LINHA_TRANSMISSAO",
+      "pagerank": 0.000936,
+      "in_degree": 2,
+      "out_degree": 0,
+      "degree": 2,
+      "betweenness_direcionado": 0.0,
+      "betweenness_nao_direcionado": 0.000964,
+      "diferenca_betweenness": -0.000964
+    },
+    {
+      "no": 4408,
+      "papel": "TRANSFORMADOR",
+      "pagerank": 0.000835,
+      "in_degree": 6,
+      "out_degree": 0,
+      "degree": 6,
+      "betweenness_direcionado": 0.0,
+      "betweenness_nao_direcionado": 3e-06,
+      "diferenca_betweenness": -3e-06
+    },
+    {
+      "no": 1381,
+      "papel": "LINHA_TRANSMISSAO",
+      "pagerank": 0.000835,
+      "in_degree": 1,
+      "out_degree": 1,
+      "degree": 2,
+      "betweenness_direcionado": 3e-06,
+      "betweenness_nao_direcionado": 0.001214,
+      "diferenca_betweenness": -0.001211
+    },
+    {
+      "no": 4939,
+      "papel": "LINHA_TRANSMISSAO",
+      "pagerank": 0.00081,
+      "in_degree": 2,
+      "out_degree": 0,
+      "degree": 2,
+      "betweenness_direcionado": 0.0,
+      "betweenness_nao_direcionado": 2.6e-05,
+      "diferenca_betweenness": -2.6e-05
+    },
+    {
+      "no": 1382,
+      "papel": "LINHA_TRANSMISSAO",
+      "pagerank": 0.00081,
+      "in_degree": 2,
+      "out_degree": 1,
+      "degree": 3,
+      "betweenness_direcionado": 4e-06,
+      "betweenness_nao_direcionado": 0.00403,
+      "diferenca_betweenness": -0.004026
+    },
+    {
+      "no": 145,
+      "papel": "LINHA_TRANSMISSAO",
+      "pagerank": 0.000773,
+      "in_degree": 2,
+      "out_degree": 1,
+      "degree": 3,
+      "betweenness_direcionado": 1e-06,
+      "betweenness_nao_direcionado": 0.001374,
+      "diferenca_betweenness": -0.001374
+    },
+    {
+      "no": 1397,
+      "papel": "LINHA_TRANSMISSAO",
+      "pagerank": 0.000746,
+      "in_degree": 1,
+      "out_degree": 1,
+      "degree": 2,
+      "betweenness_direcionado": 2e-06,
+      "betweenness_nao_direcionado": 0.00081,
+      "diferenca_betweenness": -0.000807
+    },
+    {
+      "no": 2147,
+      "papel": "CONSUMIDOR",
+      "pagerank": 0.000707,
+      "in_degree": 1,
+      "out_degree": 0,
+      "degree": 1,
+      "betweenness_direcionado": 0.0,
+      "betweenness_nao_direcionado": 0.0,
+      "diferenca_betweenness": 0.0
+    },
+    {
+      "no": 2146,
+      "papel": "LINHA_TRANSMISSAO",
+      "pagerank": 0.00069,
+      "in_degree": 2,
+      "out_degree": 1,
+      "degree": 3,
+      "betweenness_direcionado": 1e-06,
+      "betweenness_nao_direcionado": 0.000486,
+      "diferenca_betweenness": -0.000486
+    },
+    {
+      "no": 1042,
+      "papel": "CONSUMIDOR",
+      "pagerank": 0.000689,
+      "in_degree": 1,
+      "out_degree": 0,
+      "degree": 1,
+      "betweenness_direcionado": 0.0,
+      "betweenness_nao_direcionado": 0.0,
+      "diferenca_betweenness": 0.0
+    },
+    {
+      "no": 2175,
+      "papel": "LINHA_TRANSMISSAO",
+      "pagerank": 0.000688,
+      "in_degree": 2,
+      "out_degree": 1,
+      "degree": 3,
+      "betweenness_direcionado": 1e-06,
+      "betweenness_nao_direcionado": 0.000408,
+      "diferenca_betweenness": -0.000407
+    },
+    {
+      "no": 4049,
+      "papel": "LINHA_TRANSMISSAO",
+      "pagerank": 0.000675,
+      "in_degree": 3,
+      "out_degree": 0,
+      "degree": 3,
+      "betweenness_direcionado": 0.0,
+      "betweenness_nao_direcionado": 0.00273,
+      "diferenca_betweenness": -0.00273
+    },
+    {
+      "no": 1393,
+      "papel": "LINHA_TRANSMISSAO",
+      "pagerank": 0.000673,
+      "in_degree": 1,
+      "out_degree": 1,
+      "degree": 2,
+      "betweenness_direcionado": 1e-06,
+      "betweenness_nao_direcionado": 0.000405,
+      "diferenca_betweenness": -0.000404
+    },
+    {
+      "no": 3910,
+      "papel": "LINHA_TRANSMISSAO",
+      "pagerank": 0.000668,
+      "in_degree": 2,
+      "out_degree": 0,
+      "degree": 2,
+      "betweenness_direcionado": 0.0,
+      "betweenness_nao_direcionado": 0.000234,
+      "diferenca_betweenness": -0.000234
+    },
+    {
+      "no": 2174,
+      "papel": "CONSUMIDOR",
+      "pagerank": 0.000665,
+      "in_degree": 1,
+      "out_degree": 0,
+      "degree": 1,
+      "betweenness_direcionado": 0.0,
+      "betweenness_nao_direcionado": 0.0,
+      "diferenca_betweenness": 0.0
+    },
+    {
+      "no": 2158,
+      "papel": "LINHA_TRANSMISSAO",
+      "pagerank": 0.000662,
+      "in_degree": 3,
+      "out_degree": 0,
+      "degree": 3,
+      "betweenness_direcionado": 0.0,
+      "betweenness_nao_direcionado": 0.0,
+      "diferenca_betweenness": -0.0
+    },
+    {
+      "no": 1041,
+      "papel": "LINHA_TRANSMISSAO",
+      "pagerank": 0.000658,
+      "in_degree": 2,
+      "out_degree": 1,
+      "degree": 3,
+      "betweenness_direcionado": 0.0,
+      "betweenness_nao_direcionado": 0.000407,
+      "diferenca_betweenness": -0.000406
+    },
+    {
+      "no": 508,
+      "papel": "LINHA_TRANSMISSAO",
+      "pagerank": 0.000651,
+      "in_degree": 2,
+      "out_degree": 0,
+      "degree": 2,
+      "betweenness_direcionado": 0.0,
+      "betweenness_nao_direcionado": 0.0,
+      "diferenca_betweenness": -0.0
+    },
+    {
+      "no": 150,
+      "papel": "LINHA_TRANSMISSAO",
+      "pagerank": 0.000637,
+      "in_degree": 3,
+      "out_degree": 0,
+      "degree": 3,
+      "betweenness_direcionado": 0.0,
+      "betweenness_nao_direcionado": 0.002297,
+      "diferenca_betweenness": -0.002297
+    },
+    {
+      "no": 726,
+      "papel": "TRANSFORMADOR",
+      "pagerank": 0.000307,
+      "in_degree": 5,
+      "out_degree": 2,
+      "degree": 7,
+      "betweenness_direcionado": 1.3e-05,
+      "betweenness_nao_direcionado": 0.055178,
+      "diferenca_betweenness": -0.055165
+    },
+    {
+      "no": 3781,
+      "papel": "TRANSFORMADOR",
+      "pagerank": 0.000249,
+      "in_degree": 1,
+      "out_degree": 6,
+      "degree": 7,
+      "betweenness_direcionado": 1.4e-05,
+      "betweenness_nao_direcionado": 0.051737,
+      "diferenca_betweenness": -0.051723
+    },
+    {
+      "no": 1267,
+      "papel": "TRANSFORMADOR",
+      "pagerank": 0.000225,
+      "in_degree": 4,
+      "out_degree": 2,
+      "degree": 6,
+      "betweenness_direcionado": 8e-06,
+      "betweenness_nao_direcionado": 0.248271,
+      "diferenca_betweenness": -0.248263
+    },
+    {
+      "no": 2223,
+      "papel": "TRANSFORMADOR",
+      "pagerank": 0.000223,
+      "in_degree": 3,
+      "out_degree": 3,
+      "degree": 6,
+      "betweenness_direcionado": 7e-06,
+      "betweenness_nao_direcionado": 0.132778,
+      "diferenca_betweenness": -0.132771
+    },
+    {
+      "no": 1243,
+      "papel": "TRANSFORMADOR",
+      "pagerank": 0.000214,
+      "in_degree": 1,
+      "out_degree": 5,
+      "degree": 6,
+      "betweenness_direcionado": 9e-06,
+      "betweenness_nao_direcionado": 0.279695,
+      "diferenca_betweenness": -0.279686
+    },
+    {
+      "no": 3785,
+      "papel": "TRANSFORMADOR",
+      "pagerank": 0.000208,
+      "in_degree": 4,
+      "out_degree": 3,
+      "degree": 7,
+      "betweenness_direcionado": 6e-06,
+      "betweenness_nao_direcionado": 0.075904,
+      "diferenca_betweenness": -0.075897
+    },
+    {
+      "no": 1159,
+      "papel": "TRANSFORMADOR",
+      "pagerank": 0.000207,
+      "in_degree": 4,
+      "out_degree": 3,
+      "degree": 7,
+      "betweenness_direcionado": 7e-06,
+      "betweenness_nao_direcionado": 0.059806,
+      "diferenca_betweenness": -0.0598
+    },
+    {
+      "no": 4138,
+      "papel": "TRANSFORMADOR",
+      "pagerank": 0.000205,
+      "in_degree": 2,
+      "out_degree": 4,
+      "degree": 6,
+      "betweenness_direcionado": 7e-06,
+      "betweenness_nao_direcionado": 0.006791,
+      "diferenca_betweenness": -0.006785
+    },
+    {
+      "no": 1257,
+      "papel": "TRANSFORMADOR",
+      "pagerank": 0.000204,
+      "in_degree": 1,
+      "out_degree": 5,
+      "degree": 6,
+      "betweenness_direcionado": 7e-06,
+      "betweenness_nao_direcionado": 0.047828,
+      "diferenca_betweenness": -0.047821
+    },
+    {
+      "no": 2383,
+      "papel": "TRANSFORMADOR",
+      "pagerank": 0.000202,
+      "in_degree": 3,
+      "out_degree": 2,
+      "degree": 5,
+      "betweenness_direcionado": 6e-06,
+      "betweenness_nao_direcionado": 0.011831,
+      "diferenca_betweenness": -0.011825
+    },
+    {
+      "no": 800,
+      "papel": "TRANSFORMADOR",
+      "pagerank": 0.0002,
+      "in_degree": 2,
+      "out_degree": 2,
+      "degree": 4,
+      "betweenness_direcionado": 8e-06,
+      "betweenness_nao_direcionado": 0.036637,
+      "diferenca_betweenness": -0.036629
+    },
+    {
+      "no": 1308,
+      "papel": "TRANSFORMADOR",
+      "pagerank": 0.000199,
+      "in_degree": 2,
+      "out_degree": 3,
+      "degree": 5,
+      "betweenness_direcionado": 7e-06,
+      "betweenness_nao_direcionado": 0.236517,
+      "diferenca_betweenness": -0.23651
+    },
+    {
+      "no": 2559,
+      "papel": "TRANSFORMADOR",
+      "pagerank": 0.000199,
+      "in_degree": 2,
+      "out_degree": 5,
+      "degree": 7,
+      "betweenness_direcionado": 6e-06,
+      "betweenness_nao_direcionado": 0.008353,
+      "diferenca_betweenness": -0.008347
+    },
+    {
+      "no": 4110,
+      "papel": "TRANSFORMADOR",
+      "pagerank": 0.000192,
+      "in_degree": 2,
+      "out_degree": 3,
+      "degree": 5,
+      "betweenness_direcionado": 7e-06,
+      "betweenness_nao_direcionado": 0.003704,
+      "diferenca_betweenness": -0.003697
+    },
+    {
+      "no": 1307,
+      "papel": "TRANSFORMADOR",
+      "pagerank": 0.000175,
+      "in_degree": 1,
+      "out_degree": 3,
+      "degree": 4,
+      "betweenness_direcionado": 5e-06,
+      "betweenness_nao_direcionado": 0.009717,
+      "diferenca_betweenness": -0.009711
+    },
+    {
+      "no": 1353,
+      "papel": "TRANSFORMADOR",
+      "pagerank": 0.000163,
+      "in_degree": 2,
+      "out_degree": 5,
+      "degree": 7,
+      "betweenness_direcionado": 6e-06,
+      "betweenness_nao_direcionado": 0.055776,
+      "diferenca_betweenness": -0.05577
+    },
+    {
+      "no": 780,
+      "papel": "TRANSFORMADOR",
+      "pagerank": 0.000158,
+      "in_degree": 1,
+      "out_degree": 7,
+      "degree": 8,
+      "betweenness_direcionado": 6e-06,
+      "betweenness_nao_direcionado": 0.005844,
+      "diferenca_betweenness": -0.005838
+    },
+    {
+      "no": 3779,
+      "papel": "TRANSFORMADOR",
+      "pagerank": 0.000154,
+      "in_degree": 1,
+      "out_degree": 5,
+      "degree": 6,
+      "betweenness_direcionado": 5e-06,
+      "betweenness_nao_direcionado": 0.008498,
+      "diferenca_betweenness": -0.008492
+    },
+    {
+      "no": 2585,
+      "papel": "GERADOR",
+      "pagerank": 0.000139,
+      "in_degree": 2,
+      "out_degree": 11,
+      "degree": 13,
+      "betweenness_direcionado": 2e-06,
+      "betweenness_nao_direcionado": 0.025757,
+      "diferenca_betweenness": -0.025755
+    },
+    {
+      "no": 2575,
+      "papel": "GERADOR",
+      "pagerank": 0.000131,
+      "in_degree": 1,
+      "out_degree": 12,
+      "degree": 13,
+      "betweenness_direcionado": 2e-06,
+      "betweenness_nao_direcionado": 0.013523,
+      "diferenca_betweenness": -0.013521
+    },
+    {
+      "no": 2607,
+      "papel": "GERADOR",
+      "pagerank": 0.000131,
+      "in_degree": 1,
+      "out_degree": 7,
+      "degree": 8,
+      "betweenness_direcionado": 6e-06,
+      "betweenness_nao_direcionado": 0.047367,
+      "diferenca_betweenness": -0.047361
+    },
+    {
+      "no": 2554,
+      "papel": "GERADOR",
+      "pagerank": 0.00013,
+      "in_degree": 1,
+      "out_degree": 9,
+      "degree": 10,
+      "betweenness_direcionado": 5e-06,
+      "betweenness_nao_direcionado": 0.022919,
+      "diferenca_betweenness": -0.022914
+    },
+    {
+      "no": 4345,
+      "papel": "GERADOR",
+      "pagerank": 0.000128,
+      "in_degree": 1,
+      "out_degree": 13,
+      "degree": 14,
+      "betweenness_direcionado": 1e-06,
+      "betweenness_nao_direcionado": 0.006394,
+      "diferenca_betweenness": -0.006393
+    },
+    {
+      "no": 2542,
+      "papel": "GERADOR",
+      "pagerank": 0.000128,
+      "in_degree": 1,
+      "out_degree": 12,
+      "degree": 13,
+      "betweenness_direcionado": 3e-06,
+      "betweenness_nao_direcionado": 0.022471,
+      "diferenca_betweenness": -0.022468
+    },
+    {
+      "no": 2662,
+      "papel": "GERADOR",
+      "pagerank": 0.000127,
+      "in_degree": 1,
+      "out_degree": 11,
+      "degree": 12,
+      "betweenness_direcionado": 1e-06,
+      "betweenness_nao_direcionado": 0.008126,
+      "diferenca_betweenness": -0.008124
+    },
+    {
+      "no": 2434,
+      "papel": "GERADOR",
+      "pagerank": 0.000118,
+      "in_degree": 0,
+      "out_degree": 12,
+      "degree": 12,
+      "betweenness_direcionado": 0.0,
+      "betweenness_nao_direcionado": 0.01606,
+      "diferenca_betweenness": -0.01606
+    },
+    {
+      "no": 1030,
+      "papel": "GERADOR",
+      "pagerank": 0.000118,
+      "in_degree": 0,
+      "out_degree": 10,
+      "degree": 10,
+      "betweenness_direcionado": 0.0,
+      "betweenness_nao_direcionado": 0.038828,
+      "diferenca_betweenness": -0.038828
+    },
+    {
+      "no": 2439,
+      "papel": "GERADOR",
+      "pagerank": 0.000118,
+      "in_degree": 0,
+      "out_degree": 12,
+      "degree": 12,
+      "betweenness_direcionado": 0.0,
+      "betweenness_nao_direcionado": 0.003928,
+      "diferenca_betweenness": -0.003928
+    },
+    {
+      "no": 3468,
+      "papel": "GERADOR",
+      "pagerank": 0.000118,
+      "in_degree": 0,
+      "out_degree": 14,
+      "degree": 14,
+      "betweenness_direcionado": 0.0,
+      "betweenness_nao_direcionado": 0.00873,
+      "diferenca_betweenness": -0.00873
+    },
+    {
+      "no": 4381,
+      "papel": "GERADOR",
+      "pagerank": 0.000118,
+      "in_degree": 0,
+      "out_degree": 11,
+      "degree": 11,
+      "betweenness_direcionado": 0.0,
+      "betweenness_nao_direcionado": 0.01912,
+      "diferenca_betweenness": -0.01912
+    }
+  ],
+  "validacao_papeis": {
+    "total_inconsistencias": 278,
+    "inconsistencias": [
+      {
+        "no": 386,
+        "papel": "TRANSFORMADOR",
+        "in_degree": 0,
+        "out_degree": 6,
+        "motivo_inconsistencia": "Transformador sem fluxo bidirecional"
+      },
+      {
+        "no": 395,
+        "papel": "TRANSFORMADOR",
+        "in_degree": 0,
+        "out_degree": 5,
+        "motivo_inconsistencia": "Transformador sem fluxo bidirecional"
+      },
+      {
+        "no": 1,
+        "papel": "TRANSFORMADOR",
+        "in_degree": 0,
+        "out_degree": 4,
+        "motivo_inconsistencia": "Transformador sem fluxo bidirecional"
+      },
+      {
+        "no": 13,
+        "papel": "TRANSFORMADOR",
+        "in_degree": 0,
+        "out_degree": 5,
+        "motivo_inconsistencia": "Transformador sem fluxo bidirecional"
+      },
+      {
+        "no": 9,
+        "papel": "TRANSFORMADOR",
+        "in_degree": 0,
+        "out_degree": 6,
+        "motivo_inconsistencia": "Transformador sem fluxo bidirecional"
+      },
+      {
+        "no": 94,
+        "papel": "TRANSFORMADOR",
+        "in_degree": 0,
+        "out_degree": 7,
+        "motivo_inconsistencia": "Transformador sem fluxo bidirecional"
+      },
+      {
+        "no": 199,
+        "papel": "TRANSFORMADOR",
+        "in_degree": 0,
+        "out_degree": 4,
+        "motivo_inconsistencia": "Transformador sem fluxo bidirecional"
+      },
+      {
+        "no": 4445,
+        "papel": "TRANSFORMADOR",
+        "in_degree": 0,
+        "out_degree": 3,
+        "motivo_inconsistencia": "Transformador sem fluxo bidirecional"
+      },
+      {
+        "no": 4446,
+        "papel": "TRANSFORMADOR",
+        "in_degree": 0,
+        "out_degree": 6,
+        "motivo_inconsistencia": "Transformador sem fluxo bidirecional"
+      },
+      {
+        "no": 58,
+        "papel": "TRANSFORMADOR",
+        "in_degree": 0,
+        "out_degree": 4,
+        "motivo_inconsistencia": "Transformador sem fluxo bidirecional"
+      },
+      {
+        "no": 123,
+        "papel": "TRANSFORMADOR",
+        "in_degree": 0,
+        "out_degree": 5,
+        "motivo_inconsistencia": "Transformador sem fluxo bidirecional"
+      },
+      {
+        "no": 174,
+        "papel": "TRANSFORMADOR",
+        "in_degree": 0,
+        "out_degree": 4,
+        "motivo_inconsistencia": "Transformador sem fluxo bidirecional"
+      },
+      {
+        "no": 35,
+        "papel": "TRANSFORMADOR",
+        "in_degree": 0,
+        "out_degree": 5,
+        "motivo_inconsistencia": "Transformador sem fluxo bidirecional"
+      },
+      {
+        "no": 163,
+        "papel": "TRANSFORMADOR",
+        "in_degree": 0,
+        "out_degree": 4,
+        "motivo_inconsistencia": "Transformador sem fluxo bidirecional"
+      },
+      {
+        "no": 184,
+        "papel": "TRANSFORMADOR",
+        "in_degree": 0,
+        "out_degree": 7,
+        "motivo_inconsistencia": "Transformador sem fluxo bidirecional"
+      },
+      {
+        "no": 111,
+        "papel": "TRANSFORMADOR",
+        "in_degree": 0,
+        "out_degree": 4,
+        "motivo_inconsistencia": "Transformador sem fluxo bidirecional"
+      },
+      {
+        "no": 119,
+        "papel": "TRANSFORMADOR",
+        "in_degree": 0,
+        "out_degree": 4,
+        "motivo_inconsistencia": "Transformador sem fluxo bidirecional"
+      },
+      {
+        "no": 108,
+        "papel": "TRANSFORMADOR",
+        "in_degree": 0,
+        "out_degree": 4,
+        "motivo_inconsistencia": "Transformador sem fluxo bidirecional"
+      },
+      {
+        "no": 112,
+        "papel": "TRANSFORMADOR",
+        "in_degree": 0,
+        "out_degree": 3,
+        "motivo_inconsistencia": "Transformador sem fluxo bidirecional"
+      },
+      {
+        "no": 76,
+        "papel": "TRANSFORMADOR",
+        "in_degree": 0,
+        "out_degree": 4,
+        "motivo_inconsistencia": "Transformador sem fluxo bidirecional"
+      }
+    ]
+  },
+  "estatisticas_por_papel": {
+    "GERADOR": {
+      "quantidade": 81,
+      "in_degree_medio": 0.3,
+      "out_degree_medio": 9.7,
+      "pagerank_medio": 0.000122
+    },
+    "TRANSFORMADOR": {
+      "quantidade": 1016,
+      "in_degree_medio": 1.25,
+      "out_degree_medio": 3.63,
+      "pagerank_medio": 0.000156
+    },
+    "LINHA_TRANSMISSAO": {
+      "quantidade": 2618,
+      "in_degree_medio": 1.56,
+      "out_degree_medio": 0.81,
+      "pagerank_medio": 0.000225
+    },
+    "CONSUMIDOR": {
+      "quantidade": 1226,
+      "in_degree_medio": 1.0,
+      "out_degree_medio": 0.0,
+      "pagerank_medio": 0.000196
+    }
+  },
+  "top_pagerank": [
+    {
+      "no": 2047,
+      "pagerank": 0.001026,
+      "papel": "LINHA_TRANSMISSAO",
+      "in_degree": 3,
+      "out_degree": 0
+    },
+    {
+      "no": 196,
+      "pagerank": 0.000936,
+      "papel": "LINHA_TRANSMISSAO",
+      "in_degree": 2,
+      "out_degree": 0
+    },
+    {
+      "no": 1381,
+      "pagerank": 0.000835,
+      "papel": "LINHA_TRANSMISSAO",
+      "in_degree": 1,
+      "out_degree": 1
+    },
+    {
+      "no": 4408,
+      "pagerank": 0.000835,
+      "papel": "TRANSFORMADOR",
+      "in_degree": 6,
+      "out_degree": 0
+    },
+    {
+      "no": 1382,
+      "pagerank": 0.00081,
+      "papel": "LINHA_TRANSMISSAO",
+      "in_degree": 2,
+      "out_degree": 1
+    },
+    {
+      "no": 4939,
+      "pagerank": 0.00081,
+      "papel": "LINHA_TRANSMISSAO",
+      "in_degree": 2,
+      "out_degree": 0
+    },
+    {
+      "no": 145,
+      "pagerank": 0.000773,
+      "papel": "LINHA_TRANSMISSAO",
+      "in_degree": 2,
+      "out_degree": 1
+    },
+    {
+      "no": 1397,
+      "pagerank": 0.000746,
+      "papel": "LINHA_TRANSMISSAO",
+      "in_degree": 1,
+      "out_degree": 1
+    },
+    {
+      "no": 2147,
+      "pagerank": 0.000707,
+      "papel": "CONSUMIDOR",
+      "in_degree": 1,
+      "out_degree": 0
+    },
+    {
+      "no": 2146,
+      "pagerank": 0.00069,
+      "papel": "LINHA_TRANSMISSAO",
+      "in_degree": 2,
+      "out_degree": 1
+    },
+    {
+      "no": 1042,
+      "pagerank": 0.000689,
+      "papel": "CONSUMIDOR",
+      "in_degree": 1,
+      "out_degree": 0
+    },
+    {
+      "no": 2175,
+      "pagerank": 0.000688,
+      "papel": "LINHA_TRANSMISSAO",
+      "in_degree": 2,
+      "out_degree": 1
+    },
+    {
+      "no": 4049,
+      "pagerank": 0.000675,
+      "papel": "LINHA_TRANSMISSAO",
+      "in_degree": 3,
+      "out_degree": 0
+    },
+    {
+      "no": 1393,
+      "pagerank": 0.000673,
+      "papel": "LINHA_TRANSMISSAO",
+      "in_degree": 1,
+      "out_degree": 1
+    },
+    {
+      "no": 3910,
+      "pagerank": 0.000668,
+      "papel": "LINHA_TRANSMISSAO",
+      "in_degree": 2,
+      "out_degree": 0
+    },
+    {
+      "no": 2174,
+      "pagerank": 0.000665,
+      "papel": "CONSUMIDOR",
+      "in_degree": 1,
+      "out_degree": 0
+    },
+    {
+      "no": 2158,
+      "pagerank": 0.000662,
+      "papel": "LINHA_TRANSMISSAO",
+      "in_degree": 3,
+      "out_degree": 0
+    },
+    {
+      "no": 1041,
+      "pagerank": 0.000658,
+      "papel": "LINHA_TRANSMISSAO",
+      "in_degree": 2,
+      "out_degree": 1
+    },
+    {
+      "no": 508,
+      "pagerank": 0.000651,
+      "papel": "LINHA_TRANSMISSAO",
+      "in_degree": 2,
+      "out_degree": 0
+    },
+    {
+      "no": 150,
+      "pagerank": 0.000637,
+      "papel": "LINHA_TRANSMISSAO",
+      "in_degree": 3,
+      "out_degree": 0
+    },
+    {
+      "no": 2354,
+      "pagerank": 0.000631,
+      "papel": "LINHA_TRANSMISSAO",
+      "in_degree": 3,
+      "out_degree": 0
+    },
+    {
+      "no": 1958,
+      "pagerank": 0.000625,
+      "papel": "LINHA_TRANSMISSAO",
+      "in_degree": 2,
+      "out_degree": 0
+    },
+    {
+      "no": 2349,
+      "pagerank": 0.000622,
+      "papel": "LINHA_TRANSMISSAO",
+      "in_degree": 3,
+      "out_degree": 0
+    },
+    {
+      "no": 1404,
+      "pagerank": 0.000614,
+      "papel": "CONSUMIDOR",
+      "in_degree": 1,
+      "out_degree": 0
+    },
+    {
+      "no": 2033,
+      "pagerank": 0.000608,
+      "papel": "LINHA_TRANSMISSAO",
+      "in_degree": 2,
+      "out_degree": 0
+    },
+    {
+      "no": 4384,
+      "pagerank": 0.000606,
+      "papel": "TRANSFORMADOR",
+      "in_degree": 10,
+      "out_degree": 1
+    },
+    {
+      "no": 4028,
+      "pagerank": 0.000603,
+      "papel": "LINHA_TRANSMISSAO",
+      "in_degree": 3,
+      "out_degree": 0
+    },
+    {
+      "no": 4874,
+      "pagerank": 0.000603,
+      "papel": "LINHA_TRANSMISSAO",
+      "in_degree": 3,
+      "out_degree": 0
+    },
+    {
+      "no": 2032,
+      "pagerank": 0.000603,
+      "papel": "LINHA_TRANSMISSAO",
+      "in_degree": 1,
+      "out_degree": 2
+    },
+    {
+      "no": 1937,
+      "pagerank": 0.000603,
+      "papel": "CONSUMIDOR",
+      "in_degree": 1,
+      "out_degree": 0
+    },
+    {
+      "no": 3909,
+      "pagerank": 0.000602,
+      "papel": "LINHA_TRANSMISSAO",
+      "in_degree": 2,
+      "out_degree": 0
+    },
+    {
+      "no": 4213,
+      "pagerank": 0.000601,
+      "papel": "LINHA_TRANSMISSAO",
+      "in_degree": 2,
+      "out_degree": 0
+    },
+    {
+      "no": 4940,
+      "pagerank": 0.0006,
+      "papel": "LINHA_TRANSMISSAO",
+      "in_degree": 1,
+      "out_degree": 1
+    },
+    {
+      "no": 1978,
+      "pagerank": 0.000595,
+      "papel": "LINHA_TRANSMISSAO",
+      "in_degree": 2,
+      "out_degree": 1
+    },
+    {
+      "no": 237,
+      "pagerank": 0.000595,
+      "papel": "CONSUMIDOR",
+      "in_degree": 1,
+      "out_degree": 0
+    },
+    {
+      "no": 930,
+      "pagerank": 0.000587,
+      "papel": "LINHA_TRANSMISSAO",
+      "in_degree": 3,
+      "out_degree": 0
+    },
+    {
+      "no": 1757,
+      "pagerank": 0.000584,
+      "papel": "LINHA_TRANSMISSAO",
+      "in_degree": 3,
+      "out_degree": 0
+    },
+    {
+      "no": 1054,
+      "pagerank": 0.00058,
+      "papel": "LINHA_TRANSMISSAO",
+      "in_degree": 2,
+      "out_degree": 0
+    },
+    {
+      "no": 206,
+      "pagerank": 0.000577,
+      "papel": "LINHA_TRANSMISSAO",
+      "in_degree": 2,
+      "out_degree": 0
+    },
+    {
+      "no": 4853,
+      "pagerank": 0.000575,
+      "papel": "CONSUMIDOR",
+      "in_degree": 1,
+      "out_degree": 0
+    },
+    {
+      "no": 2316,
+      "pagerank": 0.000575,
+      "papel": "LINHA_TRANSMISSAO",
+      "in_degree": 2,
+      "out_degree": 0
+    },
+    {
+      "no": 562,
+      "pagerank": 0.000575,
+      "papel": "LINHA_TRANSMISSAO",
+      "in_degree": 2,
+      "out_degree": 0
+    },
+    {
+      "no": 819,
+      "pagerank": 0.000574,
+      "papel": "LINHA_TRANSMISSAO",
+      "in_degree": 2,
+      "out_degree": 1
+    },
+    {
+      "no": 2201,
+      "pagerank": 0.000574,
+      "papel": "LINHA_TRANSMISSAO",
+      "in_degree": 2,
+      "out_degree": 0
+    },
+    {
+      "no": 2046,
+      "pagerank": 0.000569,
+      "papel": "LINHA_TRANSMISSAO",
+      "in_degree": 2,
+      "out_degree": 1
+    },
+    {
+      "no": 2351,
+      "pagerank": 0.000566,
+      "papel": "LINHA_TRANSMISSAO",
+      "in_degree": 2,
+      "out_degree": 0
+    },
+    {
+      "no": 4732,
+      "pagerank": 0.00056,
+      "papel": "LINHA_TRANSMISSAO",
+      "in_degree": 2,
+      "out_degree": 0
+    },
+    {
+      "no": 1769,
+      "pagerank": 0.000551,
+      "papel": "LINHA_TRANSMISSAO",
+      "in_degree": 1,
+      "out_degree": 1
+    },
+    {
+      "no": 1632,
+      "pagerank": 0.000551,
+      "papel": "LINHA_TRANSMISSAO",
+      "in_degree": 2,
+      "out_degree": 0
+    },
+    {
+      "no": 4735,
+      "pagerank": 0.000549,
+      "papel": "LINHA_TRANSMISSAO",
+      "in_degree": 2,
+      "out_degree": 0
+    }
+  ]
+}
