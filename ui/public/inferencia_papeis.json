@@ -1,4 +1,6 @@
 {
+  "AVISO_METODOLOGICO": "Papéis inferidos topologicamente (grau, betweenness, clustering). Dataset original NÃO contém metadados sobre função real dos nós.",
+  "LIMITACOES": "Classificação heurística baseada em métricas de rede. Pode não refletir infraestrutura real. Validação de campo necessária para uso operacional.",
   "total_nos": 4941,
   "estatisticas_gerais": {
     "CONSUMIDOR": {
