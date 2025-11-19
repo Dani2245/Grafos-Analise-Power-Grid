@@ -35,7 +35,7 @@ const AbaScaleFree = ({ analiseBasica }: AbaScaleFreeProps) => {
         <CartaoMetrica
           icon={<Network size={24} />}
           titulo="Qualidade do Ajuste (R²)"
-          valor={analiseBasica.scale_free_analysis.r_quadrado.toFixed(4)}
+          valor={analiseBasica.scale_free_analysis.regressao_linear.r_quadrado.toFixed(4)}
           subtitulo="Coeficiente de determinação"
         />
       </div>
@@ -43,36 +43,36 @@ const AbaScaleFree = ({ analiseBasica }: AbaScaleFreeProps) => {
       <div className="bg-slate-800 rounded-lg p-6">
         <h3 className="text-xl font-semibold mb-4">📊 Distribuição de Graus (Escala Log-Log)</h3>
         <p className="text-slate-400 text-sm mb-4">
-          Em redes scale-free, a distribuição de graus segue uma lei de potência P(k) ~ k^(-γ). 
+          Em redes scale-free, a distribuição de graus segue uma lei de potência P(k) ~ k^(-γ).
           No gráfico log-log abaixo, isso aparece como uma linha reta.
         </p>
         <ScatterChart width={900} height={400} data={analiseBasica.scale_free_analysis.dados_log_log}>
           <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-          <XAxis 
-            dataKey="log_grau" 
-            stroke="#94a3b8" 
+          <XAxis
+            dataKey="log_grau"
+            stroke="#94a3b8"
             label={{ value: 'log(Grau)', position: 'insideBottom', offset: -5, fill: '#94a3b8' }}
           />
-          <YAxis 
-            dataKey="log_freq" 
+          <YAxis
+            dataKey="log_freq"
             stroke="#94a3b8"
             label={{ value: 'log(Frequência)', angle: -90, position: 'insideLeft', fill: '#94a3b8' }}
           />
-          <Tooltip 
+          <Tooltip
             contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #475569' }}
             formatter={(value: any) => value.toFixed(3)}
           />
           <Scatter name="Dados observados" fill="#8b5cf6" />
         </ScatterChart>
-        
+
         <div className="mt-4 p-4 bg-purple-900/20 rounded border border-purple-700">
           <p className="text-sm text-purple-200">
             <strong>Interpretação:</strong> {analiseBasica.scale_free_analysis.interpretacao}
           </p>
           <p className="text-xs text-slate-400 mt-2">
-            Expoente γ = {analiseBasica.scale_free_analysis.expoente_gamma.toFixed(4)} | 
-            R² = {analiseBasica.scale_free_analysis.r_quadrado.toFixed(4)} | 
-            p-value = {analiseBasica.scale_free_analysis.p_value}
+            Expoente γ = {analiseBasica.scale_free_analysis.expoente_gamma.toFixed(4)} |
+            R² = {analiseBasica.scale_free_analysis.regressao_linear.r_quadrado.toFixed(4)} |
+            p-value = {analiseBasica.scale_free_analysis.regressao_linear.p_value.toExponential(3)}
           </p>
         </div>
       </div>

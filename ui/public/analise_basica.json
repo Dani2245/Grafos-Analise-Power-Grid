@@ -6,6 +6,118 @@
     "grau_maximo": 19,
     "grau_minimo": 1
   },
+  "scale_free_analysis": {
+    "metodo": "regressao_linear",
+    "eh_scale_free": true,
+    "expoente_gamma": 2.8445,
+    "xmin": 1,
+    "teste_vs_exponencial": null,
+    "teste_vs_lognormal": null,
+    "regressao_linear": {
+      "expoente_gamma": 2.8445,
+      "r_quadrado": 0.8808,
+      "p_value": 0.0
+    },
+    "interpretacao": "Rede apresenta características SCALE-FREE (γ=2.84, xmin=1)",
+    "dados_log_log": [
+      {
+        "grau": 1,
+        "frequencia": 1226,
+        "log_grau": 0.0,
+        "log_freq": 7.112
+      },
+      {
+        "grau": 2,
+        "frequencia": 1656,
+        "log_grau": 0.693,
+        "log_freq": 7.412
+      },
+      {
+        "grau": 3,
+        "frequencia": 1060,
+        "log_grau": 1.099,
+        "log_freq": 6.966
+      },
+      {
+        "grau": 4,
+        "frequencia": 401,
+        "log_grau": 1.386,
+        "log_freq": 5.994
+      },
+      {
+        "grau": 5,
+        "frequencia": 252,
+        "log_grau": 1.609,
+        "log_freq": 5.529
+      },
+      {
+        "grau": 6,
+        "frequencia": 137,
+        "log_grau": 1.792,
+        "log_freq": 4.92
+      },
+      {
+        "grau": 7,
+        "frequencia": 84,
+        "log_grau": 1.946,
+        "log_freq": 4.431
+      },
+      {
+        "grau": 8,
+        "frequencia": 46,
+        "log_grau": 2.079,
+        "log_freq": 3.829
+      },
+      {
+        "grau": 9,
+        "frequencia": 27,
+        "log_grau": 2.197,
+        "log_freq": 3.296
+      },
+      {
+        "grau": 10,
+        "frequencia": 26,
+        "log_grau": 2.303,
+        "log_freq": 3.258
+      },
+      {
+        "grau": 11,
+        "frequencia": 11,
+        "log_grau": 2.398,
+        "log_freq": 2.398
+      },
+      {
+        "grau": 12,
+        "frequencia": 5,
+        "log_grau": 2.485,
+        "log_freq": 1.609
+      },
+      {
+        "grau": 13,
+        "frequencia": 5,
+        "log_grau": 2.565,
+        "log_freq": 1.609
+      },
+      {
+        "grau": 14,
+        "frequencia": 3,
+        "log_grau": 2.639,
+        "log_freq": 1.099
+      },
+      {
+        "grau": 18,
+        "frequencia": 1,
+        "log_grau": 2.89,
+        "log_freq": 0.0
+      },
+      {
+        "grau": 19,
+        "frequencia": 1,
+        "log_grau": 2.944,
+        "log_freq": 0.0
+      }
+    ]
+  },
   "distribuicao_graus": [
     {
       "grau": 1,
