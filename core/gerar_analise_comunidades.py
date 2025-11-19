@@ -1,11 +1,18 @@
 import networkx as nx
 import csv
 import json
+import sys
+import os
+import numpy as np
 from collections import defaultdict
 
 
 def carregar_rede():
     """Carrega a rede elétrica do arquivo CSV"""
+    if not os.path.exists('powergrid.edgelist.csv'):
+        print("❌ ERRO: Arquivo 'powergrid.edgelist.csv' não encontrado!")
+        sys.exit(1)
+
     grafo = nx.Graph()
 
     with open('powergrid.edgelist.csv', 'r', encoding='utf-8') as arquivo:
@@ -203,8 +210,138 @@ def identificar_grupos_consumidores(grafo, comunidades):
     }
 
 
+def inferir_localizacao_espacial(grafo, comunidades):
+    """
+    Infere localização espacial aproximada das comunidades usando spring layout.
+
+    *** IMPORTANTE: LIMITAÇÃO METODOLÓGICA ***
+    O dataset NÃO possui coordenadas geográficas reais.
+    O Spring Layout é um algoritmo de VISUALIZAÇÃO baseado em forças físicas simuladas,
+    NÃO representa posições geográficas reais.
+
+    Responde à pergunta do professor: "Onde estão localizados os grupos consumidores?"
+
+    INTERPRETAÇÃO CORRETA:
+    - Nós próximos no layout = Fortemente conectados topologicamente
+    - Nós distantes no layout = Fracamente conectados
+    - Proximidade indica CONECTIVIDADE da rede, não LOCALIZAÇÃO física
+
+    Nota: Usamos inferência topológica baseada em conectividade da rede.
+    """
+    print("   Inferindo localização espacial das comunidades...")
+
+    # Criar mapeamento: nó -> comunidade
+    no_para_comunidade = {}
+    for idx, comunidade in enumerate(comunidades):
+        for no in comunidade:
+            no_para_comunidade[no] = idx
+
+    # Calcular layout spring (força-direcionado) para posicionar nós
+    # Nós conectados ficam próximos, comunidades separadas ficam distantes
+    print("      Calculando spring layout (pode demorar para grafos grandes)...")
+
+    # Usar amostragem se grafo for muito grande (>1000 nós)
+    if len(grafo.nodes()) > 1000:
+        # Amostrar 500 nós representativos (hubs + amostra aleatória)
+        graus = dict(grafo.degree())
+        top_hubs = sorted(
+            graus.items(), key=lambda x: x[1], reverse=True)[:200]
+        hub_nodes = [n for n, _ in top_hubs]
+
+        outros_nos = list(set(grafo.nodes()) - set(hub_nodes))
+        amostra_outros = list(np.random.choice(
+            outros_nos, min(300, len(outros_nos)), replace=False))
+
+        nos_amostrados = hub_nodes + amostra_outros
+        subgrafo = grafo.subgraph(nos_amostrados)
+
+        pos = nx.spring_layout(subgrafo, k=0.5, iterations=50, seed=42)
+        print(
+            f"      ✓ Layout calculado para {len(nos_amostrados)} nós (amostra)")
+    else:
+        pos = nx.spring_layout(grafo, k=0.5, iterations=50, seed=42)
+        print(f"      ✓ Layout calculado para {len(grafo.nodes())} nós")
+
+    # Calcular centroide de cada comunidade (posição média dos nós)
+    centroides_comunidades = []
+
+    for idx, comunidade in enumerate(comunidades):
+        # Filtrar apenas nós que têm posição (podem estar na amostra)
+        nos_com_pos = [n for n in comunidade if n in pos]
+
+        if nos_com_pos:
+            # Calcular centroide
+            coords = np.array([pos[n] for n in nos_com_pos])
+            centroide_x = float(np.mean(coords[:, 0]))
+            centroide_y = float(np.mean(coords[:, 1]))
+
+            # Calcular raio (distância média dos nós ao centroide)
+            distancias = [np.sqrt((pos[n][0] - centroide_x)**2 + (pos[n][1] - centroide_y)**2)
+                          for n in nos_com_pos]
+            raio_medio = float(np.mean(distancias))
+
+            centroides_comunidades.append({
+                "comunidade_id": idx,
+                "centroide_x": round(centroide_x, 4),
+                "centroide_y": round(centroide_y, 4),
+                "raio_medio": round(raio_medio, 4),
+                "nos_mapeados": len(nos_com_pos)
+            })
+        else:
+            # Comunidade não tem nós na amostra
+            centroides_comunidades.append({
+                "comunidade_id": idx,
+                "centroide_x": None,
+                "centroide_y": None,
+                "raio_medio": None,
+                "nos_mapeados": 0
+            })
+
+    # Calcular distâncias entre centroides (proximidade entre comunidades)
+    distancias_intercomunidades = []
+    for i in range(len(centroides_comunidades)):
+        for j in range(i + 1, len(centroides_comunidades)):
+            c1 = centroides_comunidades[i]
+            c2 = centroides_comunidades[j]
+
+            if c1['centroide_x'] is not None and c2['centroide_x'] is not None:
+                dist = np.sqrt((c1['centroide_x'] - c2['centroide_x'])**2 +
+                               (c1['centroide_y'] - c2['centroide_y'])**2)
+
+                distancias_intercomunidades.append({
+                    "comunidade_1": i,
+                    "comunidade_2": j,
+                    "distancia_espacial": round(float(dist), 4)
+                })
+
+    # Ordenar por distância (mais próximas primeiro)
+    distancias_intercomunidades.sort(key=lambda x: x['distancia_espacial'])
+
+    # Identificar clusters espaciais (comunidades próximas geograficamente)
+    # Threshold: distância < 0.3 (ajustar conforme necessário)
+    clusters_espaciais = []
+    threshold_proximidade = 0.3
+
+    for dist_info in distancias_intercomunidades[:20]:  # Top 20 pares próximos
+        if dist_info['distancia_espacial'] < threshold_proximidade:
+            clusters_espaciais.append(dist_info)
+
+    return {
+        "metodo": "spring_layout_inferencia_topologica",
+        "disclaimer": "IMPORTANTE: Posições baseadas em layout de força (spring layout) para visualização topológica. NÃO representam coordenadas geográficas reais. Proximidade indica conectividade da rede, não localização física.",
+        "centroides_comunidades": centroides_comunidades,
+        # Top 30
+        "distancias_intercomunidades": distancias_intercomunidades[:30],
+        "clusters_espaciais_proximos": clusters_espaciais,
+        "interpretacao": (
+            f"Detectados {len(clusters_espaciais)} pares de comunidades espacialmente próximas "
+            f"(distância < {threshold_proximidade}). Comunidades próximas compartilham infraestrutura local."
+        )
+    }
+
+
 def gerar_analise_json(comunidades, modularidade, analise_comunidades,
-                       conexoes_intercomunidades, grupos_consumidores):
+                       conexoes_intercomunidades, grupos_consumidores, localizacao_espacial):
     """Gera arquivo JSON com todas as informações de comunidades"""
 
     dados = {
@@ -225,7 +362,8 @@ def gerar_analise_json(comunidades, modularidade, analise_comunidades,
         },
         "comunidades": analise_comunidades,
         "conexoes_intercomunidades": conexoes_intercomunidades,
-        "grupos_consumidores": grupos_consumidores
+        "grupos_consumidores": grupos_consumidores,
+        "localizacao_espacial": localizacao_espacial
     }
 
     return dados
@@ -236,28 +374,31 @@ def main():
     print("ANÁLISE DE COMUNIDADES DA REDE ELÉTRICA")
     print("=" * 80)
 
-    print("\n[1/6] Carregando rede elétrica...")
+    print("\n[1/7] Carregando rede elétrica...")
     grafo = carregar_rede()
     print(
         f"   ✅ Rede carregada: {grafo.number_of_nodes()} nós, {grafo.number_of_edges()} arestas")
 
-    print("\n[2/6] Detectando comunidades (Greedy Modularity)...")
+    print("\n[2/7] Detectando comunidades (Greedy Modularity)...")
     comunidades, modularidade = detectar_comunidades(grafo)
 
-    print("\n[3/6] Analisando propriedades de cada comunidade...")
+    print("\n[3/7] Analisando propriedades de cada comunidade...")
     analise_comunidades = analisar_comunidades(grafo, comunidades)
 
-    print("\n[4/6] Analisando conexões entre comunidades...")
+    print("\n[4/7] Analisando conexões entre comunidades...")
     conexoes_intercomunidades = analisar_conexoes_intercomunidades(
         grafo, comunidades)
 
-    print("\n[5/6] Identificando grupos de consumidores...")
+    print("\n[5/7] Identificando grupos de consumidores...")
     grupos_consumidores = identificar_grupos_consumidores(grafo, comunidades)
 
-    print("\n[6/6] Gerando análise de comunidades e exportando para JSON...")
+    print("\n[6/7] Inferindo localização espacial das comunidades...")
+    localizacao_espacial = inferir_localizacao_espacial(grafo, comunidades)
+
+    print("\n[7/7] Gerando análise de comunidades e exportando para JSON...")
     dados = gerar_analise_json(
         comunidades, modularidade, analise_comunidades,
-        conexoes_intercomunidades, grupos_consumidores
+        conexoes_intercomunidades, grupos_consumidores, localizacao_espacial
     )
 
     with open('../ui/public/analise_comunidades.json', 'w', encoding='utf-8') as f:
@@ -299,6 +440,11 @@ def main():
         f"   • Percentual da rede: {dados['grupos_consumidores']['percentual_rede']}%")
     print(
         f"   • Distribuídos em: {len(dados['grupos_consumidores']['grupos'])} comunidades")
+
+    print("\n📍 Localização Espacial (Inferência Topológica):")
+    print(f"   • {dados['localizacao_espacial']['interpretacao']}")
+    print(
+        f"   • Clusters espaciais identificados: {len(dados['localizacao_espacial']['clusters_espaciais_proximos'])}")
 
     print("\n📋 Top 5 Maiores Comunidades:")
     for i, comunidade in enumerate(analise_comunidades[:5], 1):

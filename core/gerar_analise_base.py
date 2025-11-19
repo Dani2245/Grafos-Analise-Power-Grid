@@ -8,9 +8,11 @@ from scipy import stats
 def analisar_scale_free(graus):
     """
     Verifica se a rede apresenta características scale-free (livre de escala)
-    através da análise power-law da distribuição de graus.
+    através da análise power-law da distribuição de graus usando método rigoroso.
 
     Redes scale-free: P(k) ~ k^(-γ)
+
+    Usa biblioteca powerlaw (Clauset-Shalizi-Newman algorithm) para detecção rigorosa.
     """
     print("\n   Analisando distribuição scale-free (power-law)...")
 
@@ -22,34 +24,88 @@ def analisar_scale_free(graus):
     x = unique_graus[mask]
     y = counts[mask]
 
-    # Análise log-log: log(P(k)) = -gamma * log(k) + C
+    # === Método 1: Regressão Linear (método antigo, para comparação) ===
     log_x = np.log(x)
     log_y = np.log(y)
-
-    # Regressão linear
     slope, _, r_value, p_value, _ = stats.linregress(log_x, log_y)
-
-    gamma = -slope  # Expoente da power-law
+    gamma_regressao = -slope
     r_squared = r_value ** 2
 
-    # Critério: R² > 0.8 indica boa aderência à power-law
-    eh_scale_free = r_squared > 0.8
+    # === Método 2: Powerlaw Library (rigoroso - Clauset-Shalizi-Newman) ===
+    try:
+        import powerlaw
 
-    print(f"   • Expoente γ (gamma): {gamma:.3f}")
-    print(f"   • R² (ajuste): {r_squared:.3f}")
-    print(f"   • P-value: {p_value:.6f}")
-    print(
-        f"   • Classificação: {'SCALE-FREE' if eh_scale_free else 'NÃO SCALE-FREE'}")
+        # Fit power-law aos dados
+        fit = powerlaw.Fit(graus, discrete=True, verbose=False)
+
+        # Expoente estimado
+        gamma_powerlaw = fit.power_law.alpha
+
+        # Valor mínimo (xmin) onde power-law começa
+        xmin = fit.power_law.xmin
+
+        # Teste de razão de verossimilhança: power-law vs exponencial
+        R_exp, p_exp = fit.distribution_compare(
+            'power_law', 'exponential', normalized_ratio=True)
+
+        # Teste: power-law vs log-normal
+        R_ln, p_ln = fit.distribution_compare(
+            'power_law', 'lognormal', normalized_ratio=True)
+
+        # Interpretação:
+        # R > 0: power-law é melhor
+        # R < 0: alternativa é melhor
+        # p < 0.05: diferença significativa
+
+        eh_scale_free_powerlaw = (R_exp > 0 and p_exp < 0.05)
+
+        print(f"   • [Powerlaw] Expoente γ (alpha): {gamma_powerlaw:.3f}")
+        print(f"   • [Powerlaw] xmin: {xmin}")
+        print(f"   • [Powerlaw] R vs Exponencial: {R_exp:.3f} (p={p_exp:.4f})")
+        print(f"   • [Powerlaw] R vs Log-Normal: {R_ln:.3f} (p={p_ln:.4f})")
+        print(
+            f"   • [Regressão Linear] Expoente γ: {gamma_regressao:.3f}, R²: {r_squared:.3f}")
+        print(
+            f"   • Classificação: {'SCALE-FREE (powerlaw)' if eh_scale_free_powerlaw else 'NÃO SCALE-FREE'}")
+
+        powerlaw_disponivel = True
+
+    except ImportError:
+        print("   ⚠️  AVISO: Biblioteca 'powerlaw' não instalada. Usando método de regressão linear.")
+        print("   💡 Recomendação: pip install powerlaw")
+        powerlaw_disponivel = False
+        eh_scale_free_powerlaw = r_squared > 0.8
+        gamma_powerlaw = gamma_regressao
+        xmin = min(graus)
+        R_exp = None
+        p_exp = None
+        R_ln = None
+        p_ln = None
 
     return {
-        "eh_scale_free": bool(eh_scale_free),
-        "expoente_gamma": round(gamma, 4),
-        "r_quadrado": round(r_squared, 4),
-        "p_value": round(p_value, 6),
+        "metodo": "powerlaw_library" if powerlaw_disponivel else "regressao_linear",
+        "eh_scale_free": bool(eh_scale_free_powerlaw),
+        "expoente_gamma": round(gamma_powerlaw, 4),
+        "xmin": int(xmin),
+        "teste_vs_exponencial": {
+            "R": round(R_exp, 4) if R_exp is not None else None,
+            "p_value": round(p_exp, 4) if p_exp is not None else None,
+            "powerlaw_melhor": bool(R_exp > 0) if R_exp is not None else None
+        } if powerlaw_disponivel else None,
+        "teste_vs_lognormal": {
+            "R": round(R_ln, 4) if R_ln is not None else None,
+            "p_value": round(p_ln, 4) if p_ln is not None else None,
+            "powerlaw_melhor": bool(R_ln > 0) if R_ln is not None else None
+        } if powerlaw_disponivel else None,
+        "regressao_linear": {
+            "expoente_gamma": round(gamma_regressao, 4),
+            "r_quadrado": round(r_squared, 4),
+            "p_value": round(p_value, 6)
+        },
         "interpretacao": (
-            f"Rede apresenta características SCALE-FREE com expoente γ={gamma:.2f}"
-            if eh_scale_free
-            else f"Rede NÃO apresenta características scale-free (R²={r_squared:.2f} < 0.8)"
+            f"Rede apresenta características SCALE-FREE (γ={gamma_powerlaw:.2f}, xmin={xmin})"
+            if eh_scale_free_powerlaw
+            else "Rede NÃO apresenta características scale-free clara (melhor ajuste: distribuição alternativa)"
         ),
         "dados_log_log": [
             {"grau": int(k), "frequencia": int(f), "log_grau": round(
