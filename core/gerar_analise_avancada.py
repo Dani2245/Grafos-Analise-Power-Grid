@@ -2,10 +2,11 @@ import networkx as nx
 import csv
 import json
 
+
 def carregar_rede():
     """Carrega a rede elétrica do arquivo CSV"""
     grafo = nx.Graph()
-    
+
     with open('powergrid.edgelist.csv', 'r', encoding='utf-8') as arquivo:
         leitor_csv = csv.reader(arquivo)
         for linha in leitor_csv:
@@ -13,13 +14,14 @@ def carregar_rede():
                 origem = int(linha[0])
                 destino = int(linha[1])
                 grafo.add_edge(origem, destino)
-    
+
     return grafo
+
 
 def calcular_betweenness_centrality(grafo):
     """
     Calcula a Centralidade de Intermediação (Betweenness Centrality)
-    
+
     Mede quantas vezes um nó aparece no caminho mais curto entre outros nós.
     Valores altos indicam nós críticos para o fluxo de energia.
     """
@@ -28,39 +30,43 @@ def calcular_betweenness_centrality(grafo):
     print(f"   ✅ Betweenness calculada para {len(betweenness)} nós")
     return betweenness
 
+
 def encontrar_pontos_articulacao(grafo):
     """
     Encontra Pontos de Articulação (Articulation Points / Cut Vertices)
-    
+
     Nós cuja remoção desconectaria a rede. São pontos de falha críticos.
     """
     print("   Identificando pontos de articulação...")
     pontos = set(nx.articulation_points(grafo))
-    print(f"   ✅ Encontrados {len(pontos)} pontos de articulação ({len(pontos)/grafo.number_of_nodes()*100:.1f}% da rede)")
+    print(
+        f"   ✅ Encontrados {len(pontos)} pontos de articulação ({len(pontos)/grafo.number_of_nodes()*100:.1f}% da rede)")
     return pontos
+
 
 def calcular_clustering(grafo):
     """
     Calcula Coeficiente de Agrupamento (Clustering Coefficient)
-    
+
     Mede a tendência dos vizinhos de um nó estarem conectados entre si.
     Valores altos indicam estrutura comunitária forte.
     """
     print("   Calculando coeficiente de clustering...")
-    
+
     # Clustering por nó
     clustering_por_no = nx.clustering(grafo)
-    
+
     # Clustering médio da rede
     clustering_medio = nx.average_clustering(grafo)
-    
+
     # Transitividade (clustering global)
     transitividade = nx.transitivity(grafo)
-    
+
     print(f"   ✅ Clustering médio: {clustering_medio:.6f}")
     print(f"   ✅ Transitividade: {transitividade:.6f}")
-    
+
     return clustering_por_no, clustering_medio, transitividade
+
 
 def analisar_percolacao(grafo, pontos_articulacao):
     """
@@ -68,33 +74,35 @@ def analisar_percolacao(grafo, pontos_articulacao):
     e mede o impacto na fragmentação da rede.
     """
     print("   Simulando percolação (remoção de pontos de articulação)...")
-    
+
     # Limitar análise aos top 100 pontos de articulação mais críticos
     # (ordenados por betweenness - será calculado antes)
     pontos_analisar = list(pontos_articulacao)[:100]
-    
+
     resultados_percolacao = []
-    
+
     for no in pontos_analisar:
         # Criar cópia do grafo
         G_simulado = grafo.copy()
-        
+
         # Remover o ponto de articulação
         G_simulado.remove_node(no)
-        
+
         # Analisar fragmentação
         componentes = list(nx.connected_components(G_simulado))
         num_componentes = len(componentes)
-        
+
         # Tamanho do maior componente
-        tamanho_maior_componente = len(max(componentes, key=len)) if componentes else 0
-        
+        tamanho_maior_componente = len(
+            max(componentes, key=len)) if componentes else 0
+
         # Percentual do maior componente em relação ao total original
-        percentual_maior = (tamanho_maior_componente / grafo.number_of_nodes()) * 100
-        
+        percentual_maior = (tamanho_maior_componente /
+                            grafo.number_of_nodes()) * 100
+
         # Número de nós isolados
         nos_isolados = sum(1 for c in componentes if len(c) == 1)
-        
+
         resultados_percolacao.append({
             "no_removido": no,
             "grau_no": grafo.degree(no),
@@ -104,42 +112,47 @@ def analisar_percolacao(grafo, pontos_articulacao):
             "nos_isolados": nos_isolados,
             "fragmentacao_percentual": round(100 - percentual_maior, 2)
         })
-    
+
     # Ordenar por fragmentação (maior impacto primeiro)
-    resultados_percolacao.sort(key=lambda x: x['fragmentacao_percentual'], reverse=True)
-    
-    print(f"   ✅ Percolação analisada para {len(resultados_percolacao)} pontos de articulação")
-    
+    resultados_percolacao.sort(
+        key=lambda x: x['fragmentacao_percentual'], reverse=True)
+
+    print(
+        f"   ✅ Percolação analisada para {len(resultados_percolacao)} pontos de articulação")
+
     return resultados_percolacao
+
 
 def gerar_distribuicao_clustering(clustering_por_no):
     """Gera distribuição de clustering coefficient em bins"""
-    from collections import Counter
-    
+
     # Criar bins: 0-0.1, 0.1-0.2, ..., 0.9-1.0
     bins = [(i/10, (i+1)/10) for i in range(10)]
     distribuicao = {f"{b[0]:.1f}-{b[1]:.1f}": 0 for b in bins}
-    
+
     for coef in clustering_por_no.values():
         for bin_range in bins:
             if bin_range[0] <= coef < bin_range[1] or (coef == 1.0 and bin_range[1] == 1.0):
                 key = f"{bin_range[0]:.1f}-{bin_range[1]:.1f}"
                 distribuicao[key] += 1
                 break
-    
+
     return [{"range": k, "count": v} for k, v in distribuicao.items()]
+
 
 def gerar_analise_json(grafo, betweenness, pontos_articulacao):
     """Gera arquivo JSON com todas as informações de criticidade"""
-    
+
     # Top 50 nós por betweenness
-    top_betweenness = sorted(betweenness.items(), key=lambda x: x[1], reverse=True)[:50]
-    
+    top_betweenness = sorted(
+        betweenness.items(), key=lambda x: x[1], reverse=True)[:50]
+
     # Estatísticas de betweenness
     valores_bc = list(betweenness.values())
     bc_media = sum(valores_bc) / len(valores_bc)
-    bc_threshold = sorted(valores_bc, reverse=True)[int(len(valores_bc) * 0.05)]  # Top 5%
-    
+    bc_threshold = sorted(valores_bc, reverse=True)[
+        int(len(valores_bc) * 0.05)]  # Top 5%
+
     # Analisar pontos de articulação por grau
     pa_por_grau = {
         'grau_1': [],
@@ -147,7 +160,7 @@ def gerar_analise_json(grafo, betweenness, pontos_articulacao):
         'grau_4_7': [],
         'grau_8_plus': []
     }
-    
+
     for no in pontos_articulacao:
         grau = grafo.degree(no)
         if grau == 1:
@@ -158,19 +171,19 @@ def gerar_analise_json(grafo, betweenness, pontos_articulacao):
             pa_por_grau['grau_4_7'].append(no)
         else:
             pa_por_grau['grau_8_plus'].append(no)
-    
+
     # Classificação de criticidade em 5 níveis
     critico_nivel_1 = []
     critico_nivel_2 = []
     critico_nivel_3 = []
     atencao_nivel_1 = []
     atencao_nivel_2 = []
-    
+
     for no in grafo.nodes():
         grau = grafo.degree(no)
         bc = betweenness[no]
         eh_articulacao = no in pontos_articulacao
-        
+
         if eh_articulacao:
             if grau >= 8 and bc >= bc_threshold:
                 critico_nivel_1.append({
@@ -208,7 +221,7 @@ def gerar_analise_json(grafo, betweenness, pontos_articulacao):
                     'betweenness': round(bc, 6),
                     'motivo': 'Alto Grau mas baixa betweenness e não articulação'
                 })
-    
+
     # Montar JSON completo
     dados = {
         'estatisticas_rede': {
@@ -290,33 +303,37 @@ def gerar_analise_json(grafo, betweenness, pontos_articulacao):
             }
         }
     }
-    
+
     return dados
+
 
 def main():
     print("=" * 80)
     print("ANÁLISE AVANÇADA DE CRITICIDADE DA REDE ELÉTRICA")
     print("=" * 80)
-    
+
     print("\n[1/4] Carregando rede elétrica...")
     grafo = carregar_rede()
-    print(f"   ✅ Rede carregada: {grafo.number_of_nodes()} nós, {grafo.number_of_edges()} arestas")
-    
-    print("\n[2/6] Calculando Centralidade de Intermediação (Betweenness Centrality)...")
+    print(
+        f"   ✅ Rede carregada: {grafo.number_of_nodes()} nós, {grafo.number_of_edges()} arestas")
+
+    print(
+        "\n[2/6] Calculando Centralidade de Intermediação (Betweenness Centrality)...")
     betweenness = calcular_betweenness_centrality(grafo)
-    
+
     print("\n[3/6] Identificando Pontos de Articulação (Articulation Points)...")
     pontos_articulacao = encontrar_pontos_articulacao(grafo)
-    
+
     print("\n[4/6] Calculando Coeficiente de Clustering...")
-    clustering_por_no, clustering_medio, transitividade = calcular_clustering(grafo)
-    
+    clustering_por_no, clustering_medio, transitividade = calcular_clustering(
+        grafo)
+
     print("\n[5/6] Analisando Percolação da Rede...")
     percolacao = analisar_percolacao(grafo, pontos_articulacao)
-    
+
     print("\n[6/6] Gerando análise de criticidade e exportando para JSON...")
     dados = gerar_analise_json(grafo, betweenness, pontos_articulacao)
-    
+
     # Adicionar dados de clustering e percolação
     dados['analise_clustering'] = {
         'clustering_medio': round(clustering_medio, 6),
@@ -329,64 +346,85 @@ def main():
         'clustering_por_no': {str(no): round(coef, 6) for no, coef in list(clustering_por_no.items())[:100]},
         'distribuicao_clustering': gerar_distribuicao_clustering(clustering_por_no)
     }
-    
+
     dados['analise_percolacao'] = {
         'total_analisados': len(percolacao),
         'impacto_maximo_fragmentacao': max(p['fragmentacao_percentual'] for p in percolacao) if percolacao else 0,
         'impacto_medio_fragmentacao': round(
-            sum(p['fragmentacao_percentual'] for p in percolacao) / len(percolacao), 2
+            sum(p['fragmentacao_percentual']
+                for p in percolacao) / len(percolacao), 2
         ) if percolacao else 0,
         'resultados': percolacao[:50]  # Top 50 impactos
     }
-    
+
     with open('../ui/public/analise_criticidade.json', 'w', encoding='utf-8') as f:
         json.dump(dados, f, indent=2, ensure_ascii=False)
-    
+
     print("   ✅ Arquivo '../ui/public/analise_criticidade.json' gerado com sucesso!")
-    
+
     print("\n" + "=" * 80)
     print("RESUMO DA ANÁLISE")
     print("=" * 80)
     print("\n📊 Estatísticas da Rede:")
     print(f"   • Total de nós: {dados['estatisticas_rede']['total_nos']}")
-    print(f"   • Total de arestas: {dados['estatisticas_rede']['total_arestas']}")
+    print(
+        f"   • Total de arestas: {dados['estatisticas_rede']['total_arestas']}")
     print(f"   • Grau médio: {dados['estatisticas_rede']['grau_medio']}")
-    
+
     print("\n🔬 Clustering:")
-    print(f"   • Clustering médio: {dados['analise_clustering']['clustering_medio']}")
-    print(f"   • Transitividade: {dados['analise_clustering']['transitividade']}")
+    print(
+        f"   • Clustering médio: {dados['analise_clustering']['clustering_medio']}")
+    print(
+        f"   • Transitividade: {dados['analise_clustering']['transitividade']}")
     print(f"   • {dados['analise_clustering']['interpretacao']}")
-    
+
     print("\n🔍 Centralidade de Intermediação:")
     print(f"   • Média: {dados['centralidade_intermediacao']['media']}")
-    print(f"   • Top 5% threshold: {dados['centralidade_intermediacao']['threshold_top_5_pct']}")
-    print(f"   • Nó com maior betweenness: Nó {dados['centralidade_intermediacao']['top_50'][0]['no']} ({dados['centralidade_intermediacao']['top_50'][0]['betweenness']})")
-    
+    print(
+        f"   • Top 5% threshold: {dados['centralidade_intermediacao']['threshold_top_5_pct']}")
+    print(
+        f"   • Nó com maior betweenness: Nó {dados['centralidade_intermediacao']['top_50'][0]['no']} ({dados['centralidade_intermediacao']['top_50'][0]['betweenness']})")
+
     print("\n⚠️ Pontos de Articulação:")
-    print(f"   • Total: {dados['pontos_articulacao']['total']} ({dados['pontos_articulacao']['percentual_rede']}% da rede)")
-    print(f"   • Grau 1: {dados['pontos_articulacao']['distribuicao_por_grau']['grau_1']['quantidade']}")
-    print(f"   • Grau 2-3: {dados['pontos_articulacao']['distribuicao_por_grau']['grau_2_3']['quantidade']}")
-    print(f"   • Grau 4-7: {dados['pontos_articulacao']['distribuicao_por_grau']['grau_4_7']['quantidade']}")
-    print(f"   • Grau 8+: {dados['pontos_articulacao']['distribuicao_por_grau']['grau_8_plus']['quantidade']}")
-    
+    print(
+        f"   • Total: {dados['pontos_articulacao']['total']} ({dados['pontos_articulacao']['percentual_rede']}% da rede)")
+    print(
+        f"   • Grau 1: {dados['pontos_articulacao']['distribuicao_por_grau']['grau_1']['quantidade']}")
+    print(
+        f"   • Grau 2-3: {dados['pontos_articulacao']['distribuicao_por_grau']['grau_2_3']['quantidade']}")
+    print(
+        f"   • Grau 4-7: {dados['pontos_articulacao']['distribuicao_por_grau']['grau_4_7']['quantidade']}")
+    print(
+        f"   • Grau 8+: {dados['pontos_articulacao']['distribuicao_por_grau']['grau_8_plus']['quantidade']}")
+
     print("\n💥 Análise de Percolação:")
-    print(f"   • Pontos analisados: {dados['analise_percolacao']['total_analisados']}")
-    print(f"   • Impacto máximo (fragmentação): {dados['analise_percolacao']['impacto_maximo_fragmentacao']:.1f}%")
-    print(f"   • Impacto médio (fragmentação): {dados['analise_percolacao']['impacto_medio_fragmentacao']:.1f}%")
+    print(
+        f"   • Pontos analisados: {dados['analise_percolacao']['total_analisados']}")
+    print(
+        f"   • Impacto máximo (fragmentação): {dados['analise_percolacao']['impacto_maximo_fragmentacao']:.1f}%")
+    print(
+        f"   • Impacto médio (fragmentação): {dados['analise_percolacao']['impacto_medio_fragmentacao']:.1f}%")
     if dados['analise_percolacao']['resultados']:
         top_impacto = dados['analise_percolacao']['resultados'][0]
-        print(f"   • Nó mais crítico: {top_impacto['no_removido']} (fragmenta {top_impacto['fragmentacao_percentual']:.1f}% da rede)")
-    
+        print(
+            f"   • Nó mais crítico: {top_impacto['no_removido']} (fragmenta {top_impacto['fragmentacao_percentual']:.1f}% da rede)")
+
     print("\n🎯 Classificação de Criticidade:")
-    print(f"   🔴 Nível 1 (Crítico Máximo): {dados['classificacao_criticidade']['nivel_1_critico_maximo']['total']} nós")
-    print(f"   🟠 Nível 2 (Crítico Alto): {dados['classificacao_criticidade']['nivel_2_critico_alto']['total']} nós")
-    print(f"   🟡 Nível 3 (Crítico Médio): {dados['classificacao_criticidade']['nivel_3_critico_medio']['total']} nós")
-    print(f"   🔵 Nível 4 (Atenção - Gargalo): {dados['classificacao_criticidade']['nivel_4_atencao_gargalo']['total']} nós")
-    print(f"   🟢 Nível 5 (Atenção - Hub): {dados['classificacao_criticidade']['nivel_5_atencao_hub']['total']} nós")
-    
+    print(
+        f"   🔴 Nível 1 (Crítico Máximo): {dados['classificacao_criticidade']['nivel_1_critico_maximo']['total']} nós")
+    print(
+        f"   🟠 Nível 2 (Crítico Alto): {dados['classificacao_criticidade']['nivel_2_critico_alto']['total']} nós")
+    print(
+        f"   🟡 Nível 3 (Crítico Médio): {dados['classificacao_criticidade']['nivel_3_critico_medio']['total']} nós")
+    print(
+        f"   🔵 Nível 4 (Atenção - Gargalo): {dados['classificacao_criticidade']['nivel_4_atencao_gargalo']['total']} nós")
+    print(
+        f"   🟢 Nível 5 (Atenção - Hub): {dados['classificacao_criticidade']['nivel_5_atencao_hub']['total']} nós")
+
     print("\n" + "=" * 80)
     print("✅ ANÁLISE COMPLETA")
     print("=" * 80)
+
 
 if __name__ == '__main__':
     main()

@@ -3,12 +3,13 @@ Análise de Simulação de Ataques à Rede Elétrica
 Compara impacto de ataques aleatórios vs direcionados (targeted)
 Mede fragmentação progressiva da rede
 """
+from typing import List, Dict
 
-import networkx as nx
 import csv
 import json
+import networkx as nx
 import random
-from typing import List, Dict, Tuple
+
 
 def carregar_grafo(arquivo: str) -> nx.Graph:
     """Carrega o grafo a partir do arquivo CSV"""
@@ -20,6 +21,7 @@ def carregar_grafo(arquivo: str) -> nx.Graph:
             grafo.add_edge(origem, destino)
     return grafo
 
+
 def medir_fragmentacao(grafo: nx.Graph) -> Dict:
     """Mede métricas de fragmentação do grafo"""
     if len(grafo.nodes()) == 0:
@@ -30,12 +32,12 @@ def medir_fragmentacao(grafo: nx.Graph) -> Dict:
             'componentes_isolados': 0,
             'fragmentacao': 1.0
         }
-    
+
     componentes = list(nx.connected_components(grafo))
     tamanhos = [len(c) for c in componentes]
     maior_componente = max(tamanhos) if tamanhos else 0
     num_total_nos = len(grafo.nodes())
-    
+
     return {
         'num_componentes': len(componentes),
         'tamanho_maior_componente': maior_componente,
@@ -44,24 +46,25 @@ def medir_fragmentacao(grafo: nx.Graph) -> Dict:
         'fragmentacao': 1 - (maior_componente / num_total_nos) if num_total_nos > 0 else 1.0
     }
 
+
 def simular_ataque_aleatorio(grafo_original: nx.Graph, num_passos: int = 100) -> List[Dict]:
     """Simula ataque aleatório removendo nós progressivamente"""
     grafo = grafo_original.copy()
     total_nos = len(grafo.nodes())
     nos_para_remover = int(total_nos * 0.5)  # Remove até 50% dos nós
     passo = max(1, nos_para_remover // num_passos)
-    
+
     resultados = []
     nos_disponiveis = list(grafo.nodes())
     random.shuffle(nos_disponiveis)
-    
+
     # Estado inicial
     resultados.append({
         'nos_removidos': 0,
         'percentual_removido': 0.0,
         **medir_fragmentacao(grafo)
     })
-    
+
     # Remoção progressiva
     removidos = 0
     for i in range(0, nos_para_remover, passo):
@@ -71,42 +74,45 @@ def simular_ataque_aleatorio(grafo_original: nx.Graph, num_passos: int = 100) ->
             if grafo.has_node(no):
                 grafo.remove_node(no)
                 removidos += 1
-        
+
         metricas = medir_fragmentacao(grafo)
         resultados.append({
             'nos_removidos': removidos,
             'percentual_removido': (removidos / total_nos * 100),
             **metricas
         })
-    
+
     return resultados
 
-def simular_ataque_direcionado(grafo_original: nx.Graph, num_passos: int = 100, 
+
+def simular_ataque_direcionado(grafo_original: nx.Graph, num_passos: int = 100,
                                criterio: str = 'grau') -> List[Dict]:
     """Simula ataque direcionado aos nós mais importantes"""
     grafo = grafo_original.copy()
     total_nos = len(grafo.nodes())
     nos_para_remover = int(total_nos * 0.5)
     passo = max(1, nos_para_remover // num_passos)
-    
+
     resultados = []
-    
+
     # Estado inicial
     resultados.append({
         'nos_removidos': 0,
         'percentual_removido': 0.0,
         **medir_fragmentacao(grafo)
     })
-    
+
     # Remoção progressiva
     removidos = 0
     while removidos < nos_para_remover and len(grafo.nodes()) > 0:
         # Recalcula importância a cada passo (ataque adaptativo)
         if criterio == 'grau':
-            nos_ordenados = sorted(grafo.degree(), key=lambda x: x[1], reverse=True)
+            nos_ordenados = sorted(
+                grafo.degree(), key=lambda x: x[1], reverse=True)
         elif criterio == 'betweenness':
             betweenness = nx.betweenness_centrality(grafo)
-            nos_ordenados = sorted(betweenness.items(), key=lambda x: x[1], reverse=True)
+            nos_ordenados = sorted(betweenness.items(),
+                                   key=lambda x: x[1], reverse=True)
         elif criterio == 'articulacao':
             pontos_art = list(nx.articulation_points(grafo))
             # Prioriza pontos de articulação, depois por grau
@@ -114,48 +120,54 @@ def simular_ataque_direcionado(grafo_original: nx.Graph, num_passos: int = 100,
             nos_ordenados = [(no, graus[no]) for no in pontos_art]
             nos_ordenados.sort(key=lambda x: x[1], reverse=True)
             # Adiciona os demais nós
-            outros = [(no, grau) for no, grau in graus.items() if no not in pontos_art]
+            outros = [(no, grau)
+                      for no, grau in graus.items() if no not in pontos_art]
             outros.sort(key=lambda x: x[1], reverse=True)
             nos_ordenados.extend(outros)
-        
+
         # Remove próximo lote
-        lote_size = min(passo, len(nos_ordenados), nos_para_remover - removidos)
+        lote_size = min(passo, len(nos_ordenados),
+                        nos_para_remover - removidos)
         for i in range(lote_size):
             no = nos_ordenados[i][0]
             if grafo.has_node(no):
                 grafo.remove_node(no)
                 removidos += 1
-        
+
         metricas = medir_fragmentacao(grafo)
         resultados.append({
             'nos_removidos': removidos,
             'percentual_removido': (removidos / total_nos * 100),
             **metricas
         })
-    
+
     return resultados
+
 
 def comparar_ataques(grafo: nx.Graph) -> Dict:
     """Compara diferentes estratégias de ataque"""
     print("⚔️ Simulando ataque aleatório...")
     ataque_aleatorio = simular_ataque_aleatorio(grafo, num_passos=50)
-    
+
     print("🎯 Simulando ataque direcionado por grau...")
-    ataque_grau = simular_ataque_direcionado(grafo, num_passos=50, criterio='grau')
-    
+    ataque_grau = simular_ataque_direcionado(
+        grafo, num_passos=50, criterio='grau')
+
     print("🎯 Simulando ataque direcionado por betweenness...")
-    ataque_betweenness = simular_ataque_direcionado(grafo, num_passos=50, criterio='betweenness')
-    
+    ataque_betweenness = simular_ataque_direcionado(
+        grafo, num_passos=50, criterio='betweenness')
+
     print("🎯 Simulando ataque direcionado a pontos de articulação...")
-    ataque_articulacao = simular_ataque_direcionado(grafo, num_passos=50, criterio='articulacao')
-    
+    ataque_articulacao = simular_ataque_direcionado(
+        grafo, num_passos=50, criterio='articulacao')
+
     # Calcula pontos críticos de fragmentação (quando fragmentação > 50%)
     def encontrar_ponto_critico(resultados):
         for r in resultados:
             if r['fragmentacao'] > 0.5:
                 return r['percentual_removido']
         return 100.0  # Não fragmentou significativamente
-    
+
     return {
         'ataque_aleatorio': {
             'curva': ataque_aleatorio,
@@ -179,40 +191,41 @@ def comparar_ataques(grafo: nx.Graph) -> Dict:
         }
     }
 
+
 def analisar_vulnerabilidade_critica(grafo: nx.Graph) -> Dict:
     """Identifica combinações de nós que causam máxima fragmentação"""
     print("🔍 Analisando vulnerabilidades críticas...")
-    
+
     # Pontos de articulação (já sabemos que são críticos)
     pontos_art = list(nx.articulation_points(grafo))
-    
+
     # Testa remoção dos top 10 hubs simultaneamente
     graus = dict(grafo.degree())
     top_hubs = sorted(graus.items(), key=lambda x: x[1], reverse=True)[:10]
-    
+
     grafo_sem_hubs = grafo.copy()
     for hub, _ in top_hubs:
         grafo_sem_hubs.remove_node(hub)
-    
+
     impacto_hubs = medir_fragmentacao(grafo_sem_hubs)
-    
+
     # Testa remoção dos top 10 pontos de articulação
     grafo_sem_art = grafo.copy()
     for no in pontos_art[:10]:
         if grafo_sem_art.has_node(no):
             grafo_sem_art.remove_node(no)
-    
+
     impacto_articulacao = medir_fragmentacao(grafo_sem_art)
-    
+
     # Testa combinação (hubs + articulação)
     grafo_combinado = grafo.copy()
     nos_criticos = set([no for no, _ in top_hubs[:5]] + pontos_art[:5])
     for no in nos_criticos:
         if grafo_combinado.has_node(no):
             grafo_combinado.remove_node(no)
-    
+
     impacto_combinado = medir_fragmentacao(grafo_combinado)
-    
+
     return {
         'remocao_top_10_hubs': {
             'nos_removidos': [no for no, _ in top_hubs],
@@ -228,39 +241,45 @@ def analisar_vulnerabilidade_critica(grafo: nx.Graph) -> Dict:
         }
     }
 
+
 def main():
     print("=" * 80)
     print("ANÁLISE DE SIMULAÇÃO DE ATAQUES À REDE ELÉTRICA")
     print("=" * 80)
-    
+
     # Carrega grafo
     print("\n📂 Carregando grafo...")
     grafo = carregar_grafo('powergrid.edgelist.csv')
-    print(f"✓ Grafo carregado: {len(grafo.nodes())} nós, {len(grafo.edges())} arestas")
-    
+    print(
+        f"✓ Grafo carregado: {len(grafo.nodes())} nós, {len(grafo.edges())} arestas")
+
     # Estatísticas iniciais
     estado_inicial = medir_fragmentacao(grafo)
-    
+
     # Comparação de ataques
     comparacao = comparar_ataques(grafo)
-    
+
     # Vulnerabilidades críticas
     vulnerabilidades = analisar_vulnerabilidade_critica(grafo)
-    
+
     # Análise comparativa
     interpretacao = []
-    
+
     # Compara pontos críticos
     pc_aleatorio = comparacao['ataque_aleatorio']['ponto_critico']
     pc_grau = comparacao['ataque_grau']['ponto_critico']
     pc_betweenness = comparacao['ataque_betweenness']['ponto_critico']
     pc_articulacao = comparacao['ataque_articulacao']['ponto_critico']
-    
-    interpretacao.append(f"Ataque aleatório: fragmentação significativa após {pc_aleatorio:.1f}% de remoções")
-    interpretacao.append(f"Ataque por grau: fragmentação significativa após {pc_grau:.1f}% de remoções")
-    interpretacao.append(f"Ataque por betweenness: fragmentação significativa após {pc_betweenness:.1f}% de remoções")
-    interpretacao.append(f"Ataque a pontos de articulação: fragmentação significativa após {pc_articulacao:.1f}% de remoções")
-    
+
+    interpretacao.append(
+        f"Ataque aleatório: fragmentação significativa após {pc_aleatorio:.1f}% de remoções")
+    interpretacao.append(
+        f"Ataque por grau: fragmentação significativa após {pc_grau:.1f}% de remoções")
+    interpretacao.append(
+        f"Ataque por betweenness: fragmentação significativa após {pc_betweenness:.1f}% de remoções")
+    interpretacao.append(
+        f"Ataque a pontos de articulação: fragmentação significativa após {pc_articulacao:.1f}% de remoções")
+
     # Determina estratégia mais eficaz
     estrategias = [
         ('Grau', pc_grau),
@@ -268,9 +287,10 @@ def main():
         ('Articulação', pc_articulacao)
     ]
     estrategia_mais_eficaz = min(estrategias, key=lambda x: x[1])
-    
-    interpretacao.append(f"\n🎯 Estratégia mais eficaz: {estrategia_mais_eficaz[0]} (fragmenta com apenas {estrategia_mais_eficaz[1]:.1f}% de remoções)")
-    
+
+    interpretacao.append(
+        f"\n🎯 Estratégia mais eficaz: {estrategia_mais_eficaz[0]} (fragmenta com apenas {estrategia_mais_eficaz[1]:.1f}% de remoções)")
+
     # Avalia robustez
     diferenca = pc_aleatorio - estrategia_mais_eficaz[1]
     if diferenca > 30:
@@ -282,10 +302,10 @@ def main():
     else:
         nivel_robustez = "ALTA"
         desc_robustez = "Pequena diferença indica boa resiliência mesmo contra ataques direcionados"
-    
+
     interpretacao.append(f"\n🛡️ Robustez da rede: {nivel_robustez}")
     interpretacao.append(desc_robustez)
-    
+
     # Monta resultado
     resultado = {
         'estatisticas_iniciais': {
@@ -307,19 +327,20 @@ def main():
         },
         'interpretacao': interpretacao
     }
-    
+
     # Salva resultado
     caminho_saida = '../ui/public/analise_ataques.json'
     with open(caminho_saida, 'w', encoding='utf-8') as f:
         json.dump(resultado, f, indent=2, ensure_ascii=False)
-    
+
     print("\n" + "=" * 80)
     print("RESUMO DA ANÁLISE")
     print("=" * 80)
     for linha in interpretacao:
         print(linha)
-    
+
     print(f"\n✅ Análise de ataques salva em '{caminho_saida}'")
+
 
 if __name__ == '__main__':
     random.seed(42)  # Para reprodutibilidade
