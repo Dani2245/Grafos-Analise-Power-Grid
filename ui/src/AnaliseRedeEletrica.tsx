@@ -171,8 +171,8 @@ const AnaliseRedeEletrica = () => {
                 key={aba.id}
                 onClick={() => setAbaAtiva(aba.id)}
                 className={`px-4 py-2 font-medium transition-colors whitespace-nowrap flex-shrink-0 ${abaAtiva === aba.id
-                    ? 'text-yellow-400 border-b-2 border-yellow-400'
-                    : 'text-slate-400 hover:text-white'
+                  ? 'text-yellow-400 border-b-2 border-yellow-400'
+                  : 'text-slate-400 hover:text-white'
                   }`}
               >
                 {aba.label}
@@ -250,8 +250,8 @@ const AnaliseRedeEletrica = () => {
         )}
 
         {/* Aba: Clustering */}
-        {abaAtiva === 'clustering' && analiseRobustez && (
-          <AbaClustering analiseRobustez={analiseRobustez} />
+        {abaAtiva === 'clustering' && analiseCriticidade && analiseRobustez && (
+          <AbaClustering analiseCriticidade={analiseCriticidade} analiseRobustez={analiseRobustez} />
         )}
 
         {/* Aba: Comunidades */}

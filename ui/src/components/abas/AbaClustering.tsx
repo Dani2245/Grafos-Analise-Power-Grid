@@ -1,20 +1,76 @@
 import { GitBranch, Network, Activity } from 'lucide-react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import CartaoMetrica from '../CartaoMetrica';
 
 interface AbaClusteringProps {
+  analiseCriticidade: any;
   analiseRobustez: any;
 }
 
-const AbaClustering = ({ analiseRobustez }: AbaClusteringProps) => {
+const AbaClustering = ({ analiseCriticidade, analiseRobustez }: AbaClusteringProps) => {
+  // Dados de clustering vêm de analiseCriticidade (calculado em gerar_analise_avancada.py)
+  const clustering = analiseCriticidade.analise_clustering;
+
   return (
     <div className="space-y-6">
       <div className="bg-gradient-to-r from-blue-900/30 to-slate-800 rounded-lg p-6 border-l-4 border-blue-500">
         <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
           <GitBranch className="text-blue-400" />
+          Coeficiente de Clustering
+        </h2>
+        <p className="text-slate-300 mb-4">
+          Mede a tendência dos vizinhos de um nó estarem conectados entre si. Valores altos indicam estrutura comunitária forte.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <CartaoMetrica
+          icon={<GitBranch size={24} />}
+          titulo="Clustering Médio"
+          valor={clustering.clustering_medio.toFixed(6)}
+          subtitulo="Média dos coeficientes locais"
+        />
+        <CartaoMetrica
+          icon={<Network size={24} />}
+          titulo="Transitividade"
+          valor={clustering.transitividade.toFixed(6)}
+          subtitulo="Clustering global (fórmula alternativa)"
+        />
+      </div>
+
+      <div className="bg-slate-800 rounded-lg p-6">
+        <h3 className="text-xl font-semibold mb-4">📊 Distribuição de Clustering</h3>
+        <ResponsiveContainer width="100%" height={300}>
+          <BarChart data={clustering.distribuicao_clustering}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+            <XAxis
+              dataKey="range"
+              stroke="#94a3b8"
+              label={{ value: 'Faixa de Clustering', position: 'insideBottom', offset: -5, fill: '#94a3b8' }}
+            />
+            <YAxis
+              stroke="#94a3b8"
+              label={{ value: 'Número de Nós', angle: -90, position: 'insideLeft', fill: '#94a3b8' }}
+            />
+            <Tooltip contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #475569' }} />
+            <Legend />
+            <Bar dataKey="count" fill="#3b82f6" name="Quantidade de Nós" />
+          </BarChart>
+        </ResponsiveContainer>
+        <div className="mt-4 p-4 bg-blue-900/20 rounded border border-blue-700">
+          <p className="text-sm text-blue-200">
+            <strong>Interpretação:</strong> {clustering.interpretacao}
+          </p>
+        </div>
+      </div>
+
+      <div className="bg-slate-800 rounded-lg p-6">
+        <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
+          <Network className="text-blue-400" />
           Métricas Estruturais da Rede
         </h2>
         <p className="text-slate-300 mb-4">
-          Análise de propriedades estruturais que indicam padrões de conectividade e organização da rede elétrica.
+          Propriedades estruturais complementares que indicam padrões de conectividade e organização.
         </p>
       </div>
 
@@ -98,10 +154,10 @@ const AbaClustering = ({ analiseRobustez }: AbaClusteringProps) => {
             <div className="text-xs text-slate-500">2º autovalor Laplaciano</div>
           </div>
         </div>
-        
+
         <div className="mt-4 p-4 bg-blue-900/20 rounded border border-blue-700">
           <p className="text-sm text-blue-200">
-            <strong>Interpretação:</strong> Rede com baixa conectividade (node_connectivity=1) indica pontos únicos de falha. 
+            <strong>Interpretação:</strong> Rede com baixa conectividade (node_connectivity=1) indica pontos únicos de falha.
             Conectividade algébrica baixa ({analiseRobustez.metricas_robustez.algebraic_connectivity.toFixed(6)}) sugere vulnerabilidade a particionamento.
           </p>
         </div>
