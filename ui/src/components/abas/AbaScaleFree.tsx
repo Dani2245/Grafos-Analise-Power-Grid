@@ -1,6 +1,8 @@
 import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 import { Activity, AlertCircle, Network } from 'lucide-react';
 import CartaoMetrica from '../CartaoMetrica';
+import TooltipTermoTecnico from '../TooltipTermoTecnico';
+import { GLOSSARIO } from '../../utils/glossario';
 
 interface AbaScaleFreeProps {
   analiseBasica: any;
@@ -12,11 +14,26 @@ const AbaScaleFree = ({ analiseBasica }: AbaScaleFreeProps) => {
       <div className="bg-gradient-to-r from-purple-900/30 to-slate-800 rounded-lg p-6 border-l-4 border-purple-500">
         <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
           <Activity className="text-purple-400" />
-          Propriedades Scale-Free da Rede
+          Propriedades{' '}
+          <TooltipTermoTecnico
+            termo={GLOSSARIO.SCALE_FREE.termo}
+            definicao={GLOSSARIO.SCALE_FREE.definicao}
+            exemplo={GLOSSARIO.SCALE_FREE.exemplo}
+          />{' '}
+          da Rede
         </h2>
         <p className="text-slate-300 mb-4">
           Análise da distribuição de graus para verificar se a rede segue uma lei de potência (power-law), característica de redes scale-free.
         </p>
+        <div className="bg-blue-900/20 border-l-4 border-blue-400 p-4 mt-4">
+          <p className="text-sm text-blue-200 mb-2"><strong>📖 O que significa "Scale-Free"?</strong></p>
+          <p className="text-xs text-slate-300 mb-2">
+            Redes <strong>scale-free</strong> (livres de escala) possuem poucos nós com muitas conexões ("hubs") e muitos nós com poucas conexões. Esta distribuição segue uma "lei de potência": P(k) ~ k^(-γ).
+          </p>
+          <p className="text-xs text-slate-400">
+            <strong>Implicações práticas:</strong> Redes scale-free são <em>resistência a falhas aleatórias</em> (remoção de nós ao acaso tem pouco impacto), mas <em>vulneráveis a ataques direcionados</em> aos hubs (destruir os poucos hubs pode fragmentar a rede). Redes não scale-free tendem a ter distribuição mais uniforme de conexões.
+          </p>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

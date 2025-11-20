@@ -1,21 +1,49 @@
 import React from 'react';
 import { Home, Zap, Cpu, Radio } from 'lucide-react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, Legend, ResponsiveContainer } from 'recharts';
+import TooltipTermoTecnico from '../TooltipTermoTecnico';
+import { GLOSSARIO } from '../../utils/glossario';
 
 interface AbaPapeisProps {
   inferencePapeis: any;
+  analiseBasica: any;
 }
 
-const AbaPapeis: React.FC<AbaPapeisProps> = ({ inferencePapeis }) => {
+const AbaPapeis: React.FC<AbaPapeisProps> = ({ inferencePapeis, analiseBasica }) => {
+  // Prepara dados para o gráfico de distribuição por grau
+  const dadosDistribuicaoGrau = analiseBasica.distribuicao_graus.slice(0, 20).map((d: any) => ({
+    grau: d.grau,
+    quantidade: d.quantidade,
+    percentual: d.percentual
+  }));
+
   return (
     <div className="space-y-6">
-      <div className="bg-slate-800 rounded-lg p-6">
-        <h2 className="text-2xl font-bold mb-4">🏷️ Inferência de Papéis na Rede Elétrica</h2>
-        <p className="text-slate-400 mb-6">
-          Classificação dos nós baseada em métricas topológicas (grau, betweenness, clustering, posição na comunidade).
-          <br />
-          <strong>Nota:</strong> Esta é uma inferência hipotética baseada puramente em estrutura topológica, 
-          sem dados reais sobre função dos nós.
+      {/* Banner explicativo sobre metodologia */}
+      <div className="bg-gradient-to-r from-blue-900/30 to-purple-900/30 border border-blue-700/50 rounded-lg p-6">
+        <h2 className="text-2xl font-bold mb-4 text-blue-300">🏷️ Inferência de Papéis na Rede Elétrica</h2>
+        <p className="text-slate-300 mb-3">
+          Esta análise classifica os nós em <strong>4 papéis funcionais</strong> baseando-se em <strong>métricas topológicas combinadas</strong>:
         </p>
+        <ul className="list-disc list-inside text-slate-400 mb-3 space-y-1">
+          <li><TooltipTermoTecnico termo={GLOSSARIO.GRAU.termo} definicao={GLOSSARIO.GRAU.definicao} exemplo={GLOSSARIO.GRAU.exemplo} /> (número de conexões)</li>
+          <li><TooltipTermoTecnico termo={GLOSSARIO.BETWEENNESS.termo} definicao={GLOSSARIO.BETWEENNESS.definicao} exemplo={GLOSSARIO.BETWEENNESS.exemplo} /> (importância no fluxo)</li>
+          <li><TooltipTermoTecnico termo={GLOSSARIO.CLUSTERING.termo} definicao={GLOSSARIO.CLUSTERING.definicao} exemplo={GLOSSARIO.CLUSTERING.exemplo} /> (densidade local)</li>
+          <li>Pontos de articulação (nós críticos para conectividade)</li>
+          <li>Posição nas comunidades (hubs locais)</li>
+        </ul>
+        <div className="bg-yellow-900/20 border-l-4 border-yellow-500 p-3 rounded">
+          <p className="text-yellow-200 text-sm">
+            ⚠️ <strong>Importante:</strong> Esta é uma <strong>inferência heurística</strong> baseada puramente em topologia.
+            O dataset original não contém metadados sobre função real dos nós. Diferente de uma categorização simples por grau,
+            este método combina múltiplos indicadores para uma classificação mais precisa.
+          </p>
+        </div>
+      </div>
+
+      {/* Cards de resumo */}
+      <div className="bg-slate-800 rounded-lg p-6">
+        <h2 className="text-2xl font-bold mb-4">📊 Resumo da Classificação</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
           <div className="bg-gradient-to-br from-green-900/30 to-emerald-900/30 p-4 rounded border border-green-700/50">
@@ -229,6 +257,40 @@ const AbaPapeis: React.FC<AbaPapeisProps> = ({ inferencePapeis }) => {
             </tbody>
           </table>
         </div>
+      </div>
+
+      {/* Gráfico de Distribuição por Grau */}
+      <div className="bg-slate-800 rounded-lg p-6">
+        <h2 className="text-2xl font-bold mb-4">📈 Distribuição de Nós por Grau</h2>
+        <p className="text-slate-400 mb-4 text-sm">
+          Visualização da distribuição completa dos nós segundo seu grau (número de conexões).
+          A classificação de papéis utiliza esta métrica combinada com outras para determinar a função inferida.
+        </p>
+        <ResponsiveContainer width="100%" height={400}>
+          <BarChart data={dadosDistribuicaoGrau}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+            <XAxis
+              dataKey="grau"
+              stroke="#9ca3af"
+              label={{ value: 'Grau (número de conexões)', position: 'insideBottom', offset: -5 }}
+            />
+            <YAxis
+              stroke="#9ca3af"
+              label={{ value: 'Quantidade de Nós', angle: -90, position: 'insideLeft' }}
+            />
+            <RechartsTooltip
+              contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #475569' }}
+              labelStyle={{ color: '#f3f4f6' }}
+              formatter={(value: any, name: string) => {
+                if (name === 'quantidade') return [value, 'Nós'];
+                if (name === 'percentual') return [`${value.toFixed(1)}%`, 'Percentual'];
+                return [value, name];
+              }}
+            />
+            <Legend />
+            <Bar dataKey="quantidade" fill="#3b82f6" name="Quantidade de Nós" />
+          </BarChart>
+        </ResponsiveContainer>
       </div>
     </div>
   );

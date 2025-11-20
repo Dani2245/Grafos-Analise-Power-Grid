@@ -11,7 +11,7 @@ const AbaRobustez: React.FC<AbaRobustezProps> = ({ analiseRobustez }) => {
       <div className="bg-slate-800 rounded-lg p-6">
         <h2 className="text-2xl font-bold mb-4">🛡️ Métricas de Robustez Estrutural</h2>
         <p className="text-slate-400 mb-6">
-          Robustez mede a capacidade da rede de manter funcionalidade sob falhas. 
+          Robustez mede a capacidade da rede de manter funcionalidade sob falhas.
           Métricas baseadas em teoria de grafos e álgebra linear.
         </p>
 

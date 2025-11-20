@@ -1,5 +1,7 @@
 import { PieChart, Pie, Cell, Tooltip } from 'recharts';
 import { AlertTriangle } from 'lucide-react';
+import TooltipTermoTecnico from '../TooltipTermoTecnico';
+import { GLOSSARIO } from '../../utils/glossario';
 
 interface AbaPontosArticulacaoProps {
   analiseCriticidade: any;
@@ -12,7 +14,11 @@ const AbaPontosArticulacao = ({ analiseCriticidade, analiseBasica }: AbaPontosAr
       <div className="bg-slate-800 rounded-lg p-6 border border-red-700">
         <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
           <AlertTriangle className="text-red-400" />
-          Pontos de Articulação (Cut Vertices)
+          <TooltipTermoTecnico
+            termo={GLOSSARIO.PONTO_ARTICULACAO.termo}
+            definicao={GLOSSARIO.PONTO_ARTICULACAO.definicao}
+            exemplo={GLOSSARIO.PONTO_ARTICULACAO.exemplo}
+          />
         </h2>
         <p className="text-slate-400 mb-6">
           Nós cuja remoção desconectaria a rede. São pontos de falha críticos que podem fragmentar o sistema.
@@ -47,8 +53,8 @@ const AbaPontosArticulacao = ({ analiseCriticidade, analiseBasica }: AbaPontosAr
 
           <div className="bg-slate-700/30 p-4 rounded">
             <div className="text-2xl font-bold">
-              {analiseCriticidade.pontos_articulacao.distribuicao_por_grau.grau_4_7.quantidade + 
-               analiseCriticidade.pontos_articulacao.distribuicao_por_grau.grau_8_plus.quantidade}
+              {analiseCriticidade.pontos_articulacao.distribuicao_por_grau.grau_4_7.quantidade +
+                analiseCriticidade.pontos_articulacao.distribuicao_por_grau.grau_8_plus.quantidade}
             </div>
             <div className="text-sm text-slate-300 mt-1">Grau 4+</div>
             <div className="text-xs text-slate-400">Hubs críticos</div>
@@ -133,7 +139,7 @@ const AbaPontosArticulacao = ({ analiseCriticidade, analiseBasica }: AbaPontosAr
           Pontos de articulação ordenados por criticidade (combinação de grau e betweenness centrality).
           São os nós cuja falha teria maior impacto na fragmentação da rede.
         </p>
-        
+
         <div className="overflow-x-auto max-h-96 overflow-y-auto">
           <table className="w-full text-left">
             <thead className="border-b border-slate-700 sticky top-0 bg-slate-800">

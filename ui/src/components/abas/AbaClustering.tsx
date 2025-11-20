@@ -1,6 +1,8 @@
 import { GitBranch, Network, Activity } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import CartaoMetrica from '../CartaoMetrica';
+import TooltipTermoTecnico from '../TooltipTermoTecnico';
+import { GLOSSARIO } from '../../utils/glossario';
 
 interface AbaClusteringProps {
   analiseCriticidade: any;
@@ -16,7 +18,11 @@ const AbaClustering = ({ analiseCriticidade, analiseRobustez }: AbaClusteringPro
       <div className="bg-gradient-to-r from-blue-900/30 to-slate-800 rounded-lg p-6 border-l-4 border-blue-500">
         <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
           <GitBranch className="text-blue-400" />
-          Coeficiente de Clustering
+          <TooltipTermoTecnico
+            termo={GLOSSARIO.CLUSTERING.termo}
+            definicao={GLOSSARIO.CLUSTERING.definicao}
+            exemplo={GLOSSARIO.CLUSTERING.exemplo}
+          />
         </h2>
         <p className="text-slate-300 mb-4">
           Mede a tendência dos vizinhos de um nó estarem conectados entre si. Valores altos indicam estrutura comunitária forte.

@@ -44,8 +44,8 @@ const AbaComunidades = ({ analiseComunidades }: AbaComunidadesProps) => {
         <h3 className="text-xl font-semibold mb-4">📊 Top 10 Maiores Comunidades</h3>
         <BarChart width={900} height={350} data={analiseComunidades.comunidades.slice(0, 10)}>
           <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-          <XAxis 
-            dataKey="id" 
+          <XAxis
+            dataKey="id"
             stroke="#94a3b8"
             label={{ value: 'ID da Comunidade', position: 'insideBottom', offset: -5, fill: '#94a3b8' }}
           />
@@ -84,7 +84,7 @@ const AbaComunidades = ({ analiseComunidades }: AbaComunidadesProps) => {
             </tbody>
           </table>
         </div>
-        
+
         <div className="mt-4 p-4 bg-green-900/20 rounded border border-green-700">
           <p className="text-sm text-green-200">
             <strong>Interpretação:</strong> {analiseComunidades.estatisticas_gerais.interpretacao_modularidade}
@@ -132,7 +132,7 @@ const AbaComunidades = ({ analiseComunidades }: AbaComunidadesProps) => {
             subtitulo="Distribuição na rede"
           />
         </div>
-        
+
         <div className="mt-4">
           <h4 className="font-semibold mb-3 text-lg">Top 10 Comunidades por Concentração de Consumidores</h4>
           <div className="overflow-x-auto">
