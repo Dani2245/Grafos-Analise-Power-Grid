@@ -1,8 +1,6 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import { Network, Activity, GitBranch, Home } from 'lucide-react';
 import CartaoMetrica from '../CartaoMetrica';
-import TooltipTermoTecnico from '../TooltipTermoTecnico';
-import { GLOSSARIO } from '../../utils/glossario';
 
 interface AbaComunidadesProps {
   analiseComunidades: any;

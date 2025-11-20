@@ -1,7 +1,5 @@
 import { Network, GitBranch, Activity, Zap } from 'lucide-react';
 import CartaoMetrica from '../CartaoMetrica';
-import TooltipTermoTecnico from '../TooltipTermoTecnico';
-import { GLOSSARIO } from '../../utils/glossario';
 
 interface AbaVisaoGeralProps {
   analiseBasica: any;
@@ -14,7 +12,7 @@ const AbaVisaoGeral = ({ analiseBasica, analiseCriticidade }: AbaVisaoGeralProps
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <CartaoMetrica
           icon={<Network size={24} />}
-          titulo={<TooltipTermoTecnico termo={GLOSSARIO.NO.termo} definicao={GLOSSARIO.NO.definicao} exemplo={GLOSSARIO.NO.exemplo} />}
+          titulo="Total de Nós"
           valor={analiseBasica.estatisticas.total_nos.toLocaleString()}
           subtitulo="Elementos da rede"
         />
@@ -26,7 +24,7 @@ const AbaVisaoGeral = ({ analiseBasica, analiseCriticidade }: AbaVisaoGeralProps
         />
         <CartaoMetrica
           icon={<Activity size={24} />}
-          titulo={<TooltipTermoTecnico termo={GLOSSARIO.GRAU.termo} definicao={GLOSSARIO.GRAU.definicao} exemplo={GLOSSARIO.GRAU.exemplo} />}
+          titulo="Grau Médio"
           valor={analiseBasica.estatisticas.grau_medio.toFixed(2)}
           subtitulo="Conexões por nó"
         />

@@ -1,7 +1,5 @@
 import React from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
-import TooltipTermoTecnico from '../TooltipTermoTecnico';
-import { GLOSSARIO } from '../../utils/glossario';
 
 interface AbaRobustezProps {
   analiseRobustez: any;

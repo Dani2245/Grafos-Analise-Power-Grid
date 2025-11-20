@@ -1,5 +1,3 @@
-import TooltipTermoTecnico from '../TooltipTermoTecnico';
-import { GLOSSARIO } from '../../utils/glossario';
 import { AlertCircle } from 'lucide-react';
 import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 

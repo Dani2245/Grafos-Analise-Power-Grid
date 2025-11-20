@@ -16,7 +16,7 @@ const AbaGlossario = () => {
     };
 
     // Filtrar termos baseado na busca
-    const filtrarTermos = (categoria: string, termos: string[]) => {
+    const filtrarTermos = (termos: string[]) => {
         if (!busca) return termos;
 
         return termos.filter(key => {
@@ -65,7 +65,7 @@ const AbaGlossario = () => {
                 {busca && (
                     <div className="mt-2 text-sm text-slate-400">
                         {Object.keys(categorias).reduce((total, cat) =>
-                            total + filtrarTermos(cat, categorias[cat as keyof typeof categorias]).length, 0
+                            total + filtrarTermos(categorias[cat as keyof typeof categorias]).length, 0
                         )} termo(s) encontrado(s)
                     </div>
                 )}
@@ -73,7 +73,7 @@ const AbaGlossario = () => {
 
             {/* Categorias e Termos */}
             {Object.entries(categorias).map(([nomeCategoria, termos]) => {
-                const termosFiltrados = filtrarTermos(nomeCategoria, termos);
+                const termosFiltrados = filtrarTermos(termos);
 
                 // Não mostrar categoria vazia quando há busca ativa
                 if (busca && termosFiltrados.length === 0) return null;
@@ -122,7 +122,7 @@ const AbaGlossario = () => {
 
             {/* Mensagem quando busca não retorna resultados */}
             {busca && Object.keys(categorias).every(cat =>
-                filtrarTermos(cat, categorias[cat as keyof typeof categorias]).length === 0
+                filtrarTermos(categorias[cat as keyof typeof categorias]).length === 0
             ) && (
                     <div className="bg-slate-800 rounded-lg p-8 text-center">
                         <Search className="mx-auto mb-4 text-slate-500" size={48} />

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { AlertCircle, Zap, Activity, ChevronLeft, ChevronRight, Shield, Home, TrendingUp, AlertTriangle, Network, Database } from 'lucide-react';
+import { AlertCircle, Zap, Activity, ChevronLeft, ChevronRight, Shield, Home, TrendingUp, AlertTriangle, Database } from 'lucide-react';
 import ModalGrafo from './components/ModalGrafo';
 import AbaSimulacaoAtaques from './components/abas/AbaSimulacaoAtaques';
 import AbaRobustez from './components/abas/AbaRobustez';

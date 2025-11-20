@@ -1,5 +1,4 @@
 import { AlertCircle, AlertTriangle, Network, Activity } from 'lucide-react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import TooltipTermoTecnico from '../TooltipTermoTecnico';
 import { GLOSSARIO } from '../../utils/glossario';
 

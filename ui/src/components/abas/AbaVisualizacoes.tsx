@@ -1,6 +1,4 @@
 import { Network } from 'lucide-react';
-import TooltipTermoTecnico from '../TooltipTermoTecnico';
-import { GLOSSARIO } from '../../utils/glossario';
 
 interface AbaVisualizacoesProps {
   setModalGrafo: (modal: { aberto: boolean; arquivo: string; titulo: string }) => void;
