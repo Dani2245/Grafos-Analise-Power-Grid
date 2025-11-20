@@ -140,6 +140,14 @@ const AbaPontosArticulacao = ({ analiseCriticidade, analiseBasica }: AbaPontosAr
           São os nós cuja falha teria maior impacto na fragmentação da rede.
         </p>
 
+        <div className="bg-yellow-900/20 p-4 rounded border border-yellow-700/50 mb-4">
+          <p className="text-sm text-yellow-200">
+            ⚠️ <strong>Análise Topológica Simplificada</strong>: Esta análise é baseada apenas na estrutura da rede (nós e conexões).
+            Não considera capacidade elétrica das linhas, fluxo de carga real, ou análise de estabilidade de tensão.
+            Para decisões operacionais críticas, requer validação com análise de fluxo de potência (power flow) e estudos de estabilidade.
+          </p>
+        </div>
+
         <div className="overflow-x-auto max-h-96 overflow-y-auto">
           <table className="w-full text-left">
             <thead className="border-b border-slate-700 sticky top-0 bg-slate-800">
@@ -163,30 +171,40 @@ const AbaPontosArticulacao = ({ analiseCriticidade, analiseBasica }: AbaPontosAr
                       betweenness: analiseCriticidade.centralidade_intermediacao.todos_nos[nodeId] || 0
                     };
                   })
-                  // Ordenar por criticidade: primeiro por betweenness (peso 0.6) e depois por grau (peso 0.4)
+                  // Nova ordenação: prioridade por categoria de risco (grau baixo mais crítico), depois betweenness desc, depois grau asc
                   .sort((a: any, b: any) => {
-                    const scoreA = (a.betweenness * 0.6) + (a.grau * 0.4);
-                    const scoreB = (b.betweenness * 0.6) + (b.grau * 0.4);
-                    return scoreB - scoreA;
+                    const riskRank = (grau: number) => {
+                      if (grau <= 3 && grau > 1) return 1;        // CRÍTICO - Ponte (grau 2-3)
+                      if (grau <= 7 && grau >= 4) return 2;        // ALTO - Gargalo (4-7)
+                      if (grau >= 8) return 3;                     // MÉDIO - Hub Redundante (8+)
+                      if (grau === 1) return 4;                    // BAIXO - Terminal (1)
+                      return 5;                                    // fallback
+                    };
+                    const rA = riskRank(a.grau);
+                    const rB = riskRank(b.grau);
+                    if (rA !== rB) return rA - rB;                 // menor rank = mais crítico primeiro
+                    if (b.betweenness !== a.betweenness) return b.betweenness - a.betweenness; // maior betweenness
+                    return a.grau - b.grau;                        // menor grau primeiro dentro da mesma categoria
                   })
                   .slice(0, 100);
 
                 return pontosComMetricas.map((ponto: any, idx: number) => {
-                  // Determinar categoria de risco
+                  // Determinar categoria de risco (baseada em redundância)
+                  // Quanto MENOR o grau, MAIOR o risco - pontos de articulação com poucas conexões têm zero redundância
                   let risco = '';
                   let corRisco = '';
-                  if (ponto.grau >= 8) {
-                    risco = 'CRÍTICO - Hub';
-                    corRisco = 'bg-red-900/50 text-red-300';
-                  } else if (ponto.grau >= 4) {
-                    risco = 'ALTO - Gargalo';
-                    corRisco = 'bg-orange-900/50 text-orange-300';
-                  } else if (ponto.grau >= 2) {
-                    risco = 'MÉDIO - Ponte';
-                    corRisco = 'bg-yellow-900/50 text-yellow-300';
-                  } else {
+                  if (ponto.grau === 1) {
                     risco = 'BAIXO - Terminal';
                     corRisco = 'bg-blue-900/50 text-blue-300';
+                  } else if (ponto.grau <= 3) {
+                    risco = 'CRÍTICO - Ponte';
+                    corRisco = 'bg-red-900/50 text-red-300';
+                  } else if (ponto.grau <= 7) {
+                    risco = 'ALTO - Gargalo';
+                    corRisco = 'bg-orange-900/50 text-orange-300';
+                  } else {
+                    risco = 'MÉDIO - Hub Redundante';
+                    corRisco = 'bg-yellow-900/50 text-yellow-300';
                   }
 
                   return (
@@ -211,25 +229,28 @@ const AbaPontosArticulacao = ({ analiseCriticidade, analiseBasica }: AbaPontosAr
         </div>
 
         <div className="mt-4 p-4 bg-slate-700/30 rounded">
-          <h4 className="font-semibold text-yellow-400 mb-2">💡 Legenda de Risco</h4>
+          <h4 className="font-semibold text-yellow-400 mb-2">💡 Legenda de Risco (Baseada em Redundância)</h4>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
             <div className="flex items-center gap-2">
               <span className="px-2 py-1 bg-red-900/50 text-red-300 rounded text-xs">CRÍTICO</span>
-              <span className="text-slate-400">Grau ≥ 8</span>
+              <span className="text-slate-400">Grau 2-3 (ponte sem redundância)</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="px-2 py-1 bg-orange-900/50 text-orange-300 rounded text-xs">ALTO</span>
-              <span className="text-slate-400">Grau 4-7</span>
+              <span className="text-slate-400">Grau 4-7 (redundância moderada)</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="px-2 py-1 bg-yellow-900/50 text-yellow-300 rounded text-xs">MÉDIO</span>
-              <span className="text-slate-400">Grau 2-3</span>
+              <span className="text-slate-400">Grau ≥ 8 (hub com redundância)</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="px-2 py-1 bg-blue-900/50 text-blue-300 rounded text-xs">BAIXO</span>
-              <span className="text-slate-400">Grau 1</span>
+              <span className="text-slate-400">Grau 1 (nó terminal)</span>
             </div>
           </div>
+          <p className="text-xs text-slate-400 mt-3">
+            <strong>Lógica</strong>: Pontos de articulação com MENOR grau têm MAIOR risco, pois sua remoção oferece menos caminhos alternativos.
+          </p>
         </div>
       </div>
     </div>
