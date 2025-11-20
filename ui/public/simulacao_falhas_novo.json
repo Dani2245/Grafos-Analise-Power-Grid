@@ -1,0 +1,335 @@
+{
+  "AVISO_METODOLOGICO": "Simulação de falhas em rede de 10 nós. Resultados baseados em médias temporais do dataset operacional.",
+  "info_simulacao": {
+    "total_nos": 10,
+    "total_arestas": 90,
+    "carga_total_media": 2723.72
+  },
+  "simulacoes_remocao": {
+    "total_simulacoes": 10,
+    "resultados": [
+      {
+        "no_removido": 1,
+        "load_no_removido": 265.16,
+        "in_degree_antes": 9,
+        "out_degree_antes": 9,
+        "carga_total_antes": 2723.72,
+        "carga_total_depois": 2458.56,
+        "perda_carga_MW": 265.16,
+        "perda_carga_percentual": 9.74,
+        "num_componentes": 1,
+        "tamanho_maior_componente": 9,
+        "fragmentacao_percentual": 0.0,
+        "arestas_antes": 90,
+        "arestas_depois": 72,
+        "arestas_perdidas": 18,
+        "perda_arestas_percentual": 20.0
+      },
+      {
+        "no_removido": 2,
+        "load_no_removido": 273.69,
+        "in_degree_antes": 9,
+        "out_degree_antes": 9,
+        "carga_total_antes": 2723.72,
+        "carga_total_depois": 2450.02,
+        "perda_carga_MW": 273.69,
+        "perda_carga_percentual": 10.05,
+        "num_componentes": 1,
+        "tamanho_maior_componente": 9,
+        "fragmentacao_percentual": 0.0,
+        "arestas_antes": 90,
+        "arestas_depois": 72,
+        "arestas_perdidas": 18,
+        "perda_arestas_percentual": 20.0
+      },
+      {
+        "no_removido": 3,
+        "load_no_removido": 272.16,
+        "in_degree_antes": 9,
+        "out_degree_antes": 9,
+        "carga_total_antes": 2723.72,
+        "carga_total_depois": 2451.56,
+        "perda_carga_MW": 272.16,
+        "perda_carga_percentual": 9.99,
+        "num_componentes": 1,
+        "tamanho_maior_componente": 9,
+        "fragmentacao_percentual": 0.0,
+        "arestas_antes": 90,
+        "arestas_depois": 72,
+        "arestas_perdidas": 18,
+        "perda_arestas_percentual": 20.0
+      },
+      {
+        "no_removido": 4,
+        "load_no_removido": 273.61,
+        "in_degree_antes": 9,
+        "out_degree_antes": 9,
+        "carga_total_antes": 2723.72,
+        "carga_total_depois": 2450.11,
+        "perda_carga_MW": 273.61,
+        "perda_carga_percentual": 10.05,
+        "num_componentes": 1,
+        "tamanho_maior_componente": 9,
+        "fragmentacao_percentual": 0.0,
+        "arestas_antes": 90,
+        "arestas_depois": 72,
+        "arestas_perdidas": 18,
+        "perda_arestas_percentual": 20.0
+      },
+      {
+        "no_removido": 5,
+        "load_no_removido": 271.87,
+        "in_degree_antes": 9,
+        "out_degree_antes": 9,
+        "carga_total_antes": 2723.72,
+        "carga_total_depois": 2451.85,
+        "perda_carga_MW": 271.87,
+        "perda_carga_percentual": 9.98,
+        "num_componentes": 1,
+        "tamanho_maior_componente": 9,
+        "fragmentacao_percentual": 0.0,
+        "arestas_antes": 90,
+        "arestas_depois": 72,
+        "arestas_perdidas": 18,
+        "perda_arestas_percentual": 20.0
+      },
+      {
+        "no_removido": 6,
+        "load_no_removido": 276.49,
+        "in_degree_antes": 9,
+        "out_degree_antes": 9,
+        "carga_total_antes": 2723.72,
+        "carga_total_depois": 2447.23,
+        "perda_carga_MW": 276.49,
+        "perda_carga_percentual": 10.15,
+        "num_componentes": 1,
+        "tamanho_maior_componente": 9,
+        "fragmentacao_percentual": 0.0,
+        "arestas_antes": 90,
+        "arestas_depois": 72,
+        "arestas_perdidas": 18,
+        "perda_arestas_percentual": 20.0
+      },
+      {
+        "no_removido": 7,
+        "load_no_removido": 273.18,
+        "in_degree_antes": 9,
+        "out_degree_antes": 9,
+        "carga_total_antes": 2723.72,
+        "carga_total_depois": 2450.53,
+        "perda_carga_MW": 273.18,
+        "perda_carga_percentual": 10.03,
+        "num_componentes": 1,
+        "tamanho_maior_componente": 9,
+        "fragmentacao_percentual": 0.0,
+        "arestas_antes": 90,
+        "arestas_depois": 72,
+        "arestas_perdidas": 18,
+        "perda_arestas_percentual": 20.0
+      },
+      {
+        "no_removido": 8,
+        "load_no_removido": 270.33,
+        "in_degree_antes": 9,
+        "out_degree_antes": 9,
+        "carga_total_antes": 2723.72,
+        "carga_total_depois": 2453.39,
+        "perda_carga_MW": 270.33,
+        "perda_carga_percentual": 9.92,
+        "num_componentes": 1,
+        "tamanho_maior_componente": 9,
+        "fragmentacao_percentual": 0.0,
+        "arestas_antes": 90,
+        "arestas_depois": 72,
+        "arestas_perdidas": 18,
+        "perda_arestas_percentual": 20.0
+      },
+      {
+        "no_removido": 9,
+        "load_no_removido": 276.96,
+        "in_degree_antes": 9,
+        "out_degree_antes": 9,
+        "carga_total_antes": 2723.72,
+        "carga_total_depois": 2446.76,
+        "perda_carga_MW": 276.96,
+        "perda_carga_percentual": 10.17,
+        "num_componentes": 1,
+        "tamanho_maior_componente": 9,
+        "fragmentacao_percentual": 0.0,
+        "arestas_antes": 90,
+        "arestas_depois": 72,
+        "arestas_perdidas": 18,
+        "perda_arestas_percentual": 20.0
+      },
+      {
+        "no_removido": 10,
+        "load_no_removido": 270.26,
+        "in_degree_antes": 9,
+        "out_degree_antes": 9,
+        "carga_total_antes": 2723.72,
+        "carga_total_depois": 2453.46,
+        "perda_carga_MW": 270.26,
+        "perda_carga_percentual": 9.92,
+        "num_componentes": 1,
+        "tamanho_maior_componente": 9,
+        "fragmentacao_percentual": 0.0,
+        "arestas_antes": 90,
+        "arestas_depois": 72,
+        "arestas_perdidas": 18,
+        "perda_arestas_percentual": 20.0
+      }
+    ],
+    "estatisticas": {
+      "fragmentacao_media": 0.0,
+      "fragmentacao_maxima": 0.0,
+      "perda_carga_media": 10.0,
+      "no_mais_critico": 1
+    }
+  },
+  "simulacoes_sobrecarga": {
+    "total_simulacoes": 4,
+    "resultados": [
+      {
+        "percentual_aumento": 25,
+        "carga_total_original": 2723.72,
+        "carga_total_apos_aumento": 3404.65,
+        "aumento_absoluto": 680.93,
+        "threshold_sobrecarga": 500,
+        "nos_em_sobrecarga": [],
+        "quantidade_sobrecarga": 0,
+        "detalhes_redistribuicao": {}
+      },
+      {
+        "percentual_aumento": 50,
+        "carga_total_original": 2723.72,
+        "carga_total_apos_aumento": 4085.58,
+        "aumento_absoluto": 1361.86,
+        "threshold_sobrecarga": 500,
+        "nos_em_sobrecarga": [],
+        "quantidade_sobrecarga": 0,
+        "detalhes_redistribuicao": {}
+      },
+      {
+        "percentual_aumento": 75,
+        "carga_total_original": 2723.72,
+        "carga_total_apos_aumento": 4766.51,
+        "aumento_absoluto": 2042.79,
+        "threshold_sobrecarga": 500,
+        "nos_em_sobrecarga": [],
+        "quantidade_sobrecarga": 0,
+        "detalhes_redistribuicao": {}
+      },
+      {
+        "percentual_aumento": 100,
+        "carga_total_original": 2723.72,
+        "carga_total_apos_aumento": 5447.44,
+        "aumento_absoluto": 2723.72,
+        "threshold_sobrecarga": 500,
+        "nos_em_sobrecarga": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "quantidade_sobrecarga": 10,
+        "detalhes_redistribuicao": {
+          "1": {
+            "carga_original": 265.16,
+            "carga_apos_aumento": 530.32,
+            "excesso": 30.32,
+            "vizinhos_afetados": 9,
+            "excesso_por_vizinho": 3.37
+          },
+          "2": {
+            "carga_original": 273.69,
+            "carga_apos_aumento": 547.39,
+            "excesso": 47.39,
+            "vizinhos_afetados": 9,
+            "excesso_por_vizinho": 5.27
+          },
+          "3": {
+            "carga_original": 272.16,
+            "carga_apos_aumento": 544.32,
+            "excesso": 44.32,
+            "vizinhos_afetados": 9,
+            "excesso_por_vizinho": 4.92
+          },
+          "4": {
+            "carga_original": 273.61,
+            "carga_apos_aumento": 547.22,
+            "excesso": 47.22,
+            "vizinhos_afetados": 9,
+            "excesso_por_vizinho": 5.25
+          },
+          "5": {
+            "carga_original": 271.87,
+            "carga_apos_aumento": 543.74,
+            "excesso": 43.74,
+            "vizinhos_afetados": 9,
+            "excesso_por_vizinho": 4.86
+          },
+          "6": {
+            "carga_original": 276.49,
+            "carga_apos_aumento": 552.98,
+            "excesso": 52.98,
+            "vizinhos_afetados": 9,
+            "excesso_por_vizinho": 5.89
+          },
+          "7": {
+            "carga_original": 273.18,
+            "carga_apos_aumento": 546.37,
+            "excesso": 46.37,
+            "vizinhos_afetados": 9,
+            "excesso_por_vizinho": 5.15
+          },
+          "8": {
+            "carga_original": 270.33,
+            "carga_apos_aumento": 540.65,
+            "excesso": 40.65,
+            "vizinhos_afetados": 9,
+            "excesso_por_vizinho": 4.52
+          },
+          "9": {
+            "carga_original": 276.96,
+            "carga_apos_aumento": 553.92,
+            "excesso": 53.92,
+            "vizinhos_afetados": 9,
+            "excesso_por_vizinho": 5.99
+          },
+          "10": {
+            "carga_original": 270.26,
+            "carga_apos_aumento": 540.52,
+            "excesso": 40.52,
+            "vizinhos_afetados": 9,
+            "excesso_por_vizinho": 4.5
+          }
+        }
+      }
+    ],
+    "threshold_usado": 500
+  },
+  "comparacao_dataset_original": {
+    "dataset_original": {
+      "total_nos": 4941,
+      "impacto_medio_remocao_no": "Varia de 0% a 15% de fragmentação",
+      "robustez_relativa": "Alta (rede densa, muitas rotas alternativas)"
+    },
+    "dataset_novo": {
+      "total_nos": 10,
+      "impacto_medio_remocao_no": "A ser calculado",
+      "robustez_relativa": "Menor (rede pequena, poucas rotas alternativas)"
+    },
+    "observacoes": [
+      "Dataset original: Rede topológica grande com alta redundância",
+      "Dataset novo: Rede operacional pequena, cada nó crítico",
+      "Comparação direta não é válida devido a diferenças de escala e natureza",
+      "Métricas normalizadas por nó permitem comparação relativa"
+    ]
+  }
+}

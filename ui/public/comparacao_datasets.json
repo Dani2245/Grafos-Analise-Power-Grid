@@ -1,0 +1,137 @@
+{
+  "AVISO_METODOLOGICO": "Comparação entre datasets de naturezas diferentes. Métricas normalizadas permitem comparação relativa, mas escalas e objetivos são distintos.",
+  "LIMITACOES": [
+    "Dataset original: rede topológica estática de 4.941 nós",
+    "Dataset novo: rede operacional temporal de 10 nós",
+    "Comparação direta de valores absolutos não é válida",
+    "Métricas normalizadas por tamanho permitem comparação estrutural relativa"
+  ],
+  "metricas_dataset_original": {
+    "total_nos": 4941,
+    "total_arestas": 6594,
+    "densidade": 0.00054,
+    "grau_medio": 2.6691,
+    "grau_medio_normalizado": 0.00054,
+    "grau_maximo": 19,
+    "grau_minimo": 1,
+    "clustering_medio": 0.080104,
+    "betweenness_media": 0.003642,
+    "betweenness_maxima": 0.288416,
+    "taxa_pontos_articulacao": 24.87,
+    "total_pontos_articulacao": 1229,
+    "num_componentes": 1,
+    "taxa_maior_componente": 100.0,
+    "diametro": 46,
+    "caminho_medio": 18.9892
+  },
+  "metricas_dataset_novo": {
+    "total_nos": 10,
+    "total_arestas": 90,
+    "densidade": 1.0,
+    "grau_medio": 9.0,
+    "grau_medio_normalizado": 0.9,
+    "grau_medio_in": 9.0,
+    "grau_medio_out": 9.0,
+    "clustering_medio": 1.0,
+    "betweenness_media": 0.0,
+    "betweenness_maxima": 0.0,
+    "num_componentes": 1,
+    "taxa_maior_componente": 100.0,
+    "diametro": 1,
+    "caminho_medio": 1.0,
+    "num_fontes": 0,
+    "num_sumidouros": 0
+  },
+  "tabela_comparativa": {
+    "caracteristicas_gerais": {
+      "dataset_original": {
+        "tipo": "Topológico",
+        "direcionamento": "Não-direcionado",
+        "ponderacao": "Não-ponderado",
+        "temporalidade": "Estático (snapshot único)",
+        "total_nos": 4941,
+        "total_arestas": 6594,
+        "escala": "Grande (milhares de nós)"
+      },
+      "dataset_novo": {
+        "tipo": "Operacional",
+        "direcionamento": "Direcionado",
+        "ponderacao": "Ponderado (fluxo de potência)",
+        "temporalidade": "Temporal (1.000 timestamps)",
+        "total_nos": 10,
+        "total_arestas": 90,
+        "escala": "Pequena (10 nós)"
+      }
+    },
+    "metricas_estruturais": {
+      "densidade": {
+        "dataset_original": 0.00054,
+        "dataset_novo": 1.0,
+        "interpretacao": "Original mais esparso, Novo mais denso (proporcionalmente)"
+      },
+      "grau_medio_normalizado": {
+        "dataset_original": 0.00054,
+        "dataset_novo": 0.9,
+        "interpretacao": "Grau médio relativo ao tamanho da rede"
+      },
+      "clustering_medio": {
+        "dataset_original": 0.080104,
+        "dataset_novo": 1.0,
+        "interpretacao": "Coeficiente de agrupamento (coesão local)"
+      },
+      "diametro": {
+        "dataset_original": 46,
+        "dataset_novo": 1,
+        "interpretacao": "Distância máxima entre nós"
+      },
+      "caminho_medio": {
+        "dataset_original": 18.9892,
+        "dataset_novo": 1.0,
+        "interpretacao": "Distância média entre pares de nós"
+      }
+    },
+    "metricas_centralidade": {
+      "betweenness_media": {
+        "dataset_original": 0.003642,
+        "dataset_novo": 0.0,
+        "interpretacao": "Centralidade de intermediação média"
+      },
+      "betweenness_maxima": {
+        "dataset_original": 0.288416,
+        "dataset_novo": 0.0,
+        "interpretacao": "Nó com maior centralidade"
+      }
+    },
+    "robustez": {
+      "taxa_pontos_articulacao": {
+        "dataset_original": 24.87,
+        "dataset_novo": "N/A (grafo direcionado)",
+        "interpretacao": "Pontos de articulação só se aplicam a grafos não-direcionados"
+      },
+      "taxa_maior_componente": {
+        "dataset_original": 100.0,
+        "dataset_novo": 100.0,
+        "interpretacao": "Percentual de nós no maior componente conectado"
+      },
+      "num_componentes": {
+        "dataset_original": 1,
+        "dataset_novo": 1,
+        "interpretacao": "Número de componentes desconectados"
+      }
+    }
+  },
+  "indices_normalizados": {
+    "dataset_original": {
+      "densidade_indice": 0.05,
+      "clustering_indice": 8.01,
+      "conectividade_indice": 100.0,
+      "centralizacao_indice": 28.84
+    },
+    "dataset_novo": {
+      "densidade_indice": 100.0,
+      "clustering_indice": 100.0,
+      "conectividade_indice": 100.0,
+      "centralizacao_indice": 0.0
+    }
+  }
+}
