@@ -1,4 +1,6 @@
 import { ScatterChart, Scatter, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
+import TooltipTermoTecnico from '../TooltipTermoTecnico';
+import { GLOSSARIO } from '../../utils/glossario';
 
 interface AbaBetweenessProps {
   analiseCriticidade: any;
@@ -8,12 +10,18 @@ const AbaBetweeness = ({ analiseCriticidade }: AbaBetweenessProps) => {
   return (
     <div className="space-y-6">
       <div className="bg-slate-800 rounded-lg p-6">
-        <h2 className="text-2xl font-bold mb-4">📊 Centralidade de Intermediação (Betweenness Centrality)</h2>
+        <h2 className="text-2xl font-bold mb-4">
+          📊 <TooltipTermoTecnico
+            termo={GLOSSARIO.BETWEENNESS.termo}
+            definicao={GLOSSARIO.BETWEENNESS.definicao}
+            exemplo={GLOSSARIO.BETWEENNESS.exemplo}
+          />
+        </h2>
         <p className="text-slate-400 mb-4">
-          Mede a importância de um nó como intermediário nos caminhos mais curtos da rede. 
+          Mede a importância de um nó como intermediário nos caminhos mais curtos da rede.
           Valores altos indicam nós críticos para o fluxo de energia.
         </p>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
           <div className="bg-slate-700/30 p-4 rounded">
             <div className="text-slate-400 text-sm">Média</div>

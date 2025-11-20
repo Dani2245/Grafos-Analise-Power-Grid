@@ -11,12 +11,14 @@ const AbaCategorias = ({ analiseBasica }: AbaCategoriasProps) => {
       <div className="bg-yellow-900/20 border border-yellow-700/50 rounded-lg p-6">
         <h2 className="text-2xl font-bold mb-4 text-yellow-400">⚠️ Nota Importante sobre Categorização</h2>
         <p className="text-slate-300 mb-4">
-          As categorias apresentadas abaixo são <strong>interpretações hipotéticas</strong> baseadas exclusivamente no grau de cada nó. 
-          Esta é uma abordagem simplificada que <strong>não reflete necessariamente a função real</strong> de cada elemento na rede elétrica.
+          As categorias apresentadas abaixo são <strong>interpretações puramente hipotéticas e ilustrativas</strong> baseadas exclusivamente no grau de cada nó (número de conexões).
+          Esta é uma abordagem <strong>simplificada e especulativa</strong> que <strong>NÃO reflete a função real</strong> de cada elemento na rede elétrica.
+        </p>
+        <p className="text-slate-400 text-sm mb-3">
+          <strong>Importante:</strong> O dataset original (Western States Power Grid) contém apenas informações topológicas (quem está conectado a quem), sem dados sobre a função operacional de cada nó. As associações "grau 1 = consumidor" ou "grau 8+ = gerador" são <strong>suposições didáticas</strong> sem validação técnica.
         </p>
         <p className="text-slate-400 text-sm">
-          Nesta análise, tratamos os nós como <strong>elementos abstratos da rede</strong>, e a categorização serve apenas para fins educacionais 
-          e de visualização da distribuição de graus. Para análise de criticidade real, consulte as abas de Betweenness, Pontos de Articulação e Criticidade.
+          <strong>Para análise técnica real de criticidade:</strong> Consulte as abas de <em>Betweenness</em> (identificação de gargalos), <em>Pontos de Articulação</em> (pontos únicos de falha), e <em>Criticidade</em> (classificação baseada em múltiplos fatores).
         </p>
       </div>
 
@@ -25,7 +27,7 @@ const AbaCategorias = ({ analiseBasica }: AbaCategoriasProps) => {
         <p className="text-slate-400 mb-6">
           Distribuição dos nós segundo seu grau de conexão (meramente ilustrativo):
         </p>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Grau 1 */}
           <div className="bg-slate-700 rounded-lg p-5 border-l-4 border-green-400">
@@ -40,7 +42,7 @@ const AbaCategorias = ({ analiseBasica }: AbaCategoriasProps) => {
                 const pct = analiseBasica.distribuicao_graus.find((d: any) => d.grau === 1)?.percentual || 0;
                 return `${qtd.toLocaleString()} ${qtd === 1 ? 'nó' : 'nós'} (${pct.toFixed(1)}%)`;
               })()}</p>
-              <p className="text-sm text-slate-400">Nós terminais conectados a apenas um ponto. Hipoteticamente poderiam representar pontos finais de consumo.</p>
+              <p className="text-sm text-slate-400"><strong>Interpretação didática:</strong> Nós terminais conectados a apenas um ponto da rede. Em uma rede elétrica real, poderiam ser consumidores finais, mas esta é apenas uma <em>hipótese ilustrativa</em>.</p>
             </div>
           </div>
 
@@ -53,11 +55,11 @@ const AbaCategorias = ({ analiseBasica }: AbaCategoriasProps) => {
             <div className="space-y-2 text-slate-300">
               <p><strong>Grau:</strong> 2-3</p>
               <p><strong>Quantidade:</strong> {(() => {
-                const qtd = (analiseBasica.distribuicao_graus.find((d: any) => d.grau === 2)?.quantidade || 0) + 
-                            (analiseBasica.distribuicao_graus.find((d: any) => d.grau === 3)?.quantidade || 0);
+                const qtd = (analiseBasica.distribuicao_graus.find((d: any) => d.grau === 2)?.quantidade || 0) +
+                  (analiseBasica.distribuicao_graus.find((d: any) => d.grau === 3)?.quantidade || 0);
                 return `${qtd} ${qtd === 1 ? 'nó' : 'nós'}`;
               })()}</p>
-              <p className="text-sm text-slate-400">Nós intermediários que formam caminhos na rede, hipoteticamente linhas de transmissão.</p>
+              <p className="text-sm text-slate-400"><strong>Interpretação didática:</strong> Nós intermediários que formam caminhos na rede. Poderiam hipoteticamente representar linhas de transmissão ou subestações pequenas (especulação sem dados reais).</p>
             </div>
           </div>
 
@@ -75,7 +77,7 @@ const AbaCategorias = ({ analiseBasica }: AbaCategoriasProps) => {
                   .reduce((sum: number, d: any) => sum + d.quantidade, 0);
                 return `${qtd} ${qtd === 1 ? 'nó' : 'nós'}`;
               })()}</p>
-              <p className="text-sm text-slate-400">Nós com grau moderado que redistribuem fluxo, hipoteticamente subestações.</p>
+              <p className="text-sm text-slate-400"><strong>Interpretação didática:</strong> Nós com grau moderado (4-7 conexões). Em redes elétricas reais, poderiam ser subestações ou transformadores, mas esta é uma <em>suposição educacional</em> sem validação.</p>
             </div>
           </div>
 
@@ -93,7 +95,7 @@ const AbaCategorias = ({ analiseBasica }: AbaCategoriasProps) => {
                   .reduce((sum: number, d: any) => sum + d.quantidade, 0);
                 return `${qtd} ${qtd === 1 ? 'nó' : 'nós'}`;
               })()}</p>
-              <p className="text-sm text-slate-400">Nós com alto grau de conexão, hubs da rede que hipoteticamente poderiam ser geradores.</p>
+              <p className="text-sm text-slate-400"><strong>Interpretação didática:</strong> Nós com alto grau de conexão (8+ ligações), chamados "hubs" na teoria dos grafos. Poderiam hipoteticamente ser usinas geradoras ou grandes subestações de distribuição (especulação ilustrativa).</p>
             </div>
           </div>
         </div>

@@ -1,6 +1,8 @@
 import React from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import { AlertTriangle } from 'lucide-react';
+import TooltipTermoTecnico from '../TooltipTermoTecnico';
+import { GLOSSARIO } from '../../utils/glossario';
 
 interface AbaSimulacaoAtaquesProps {
   analiseAtaques: any;
@@ -16,7 +18,11 @@ const AbaSimulacaoAtaques: React.FC<AbaSimulacaoAtaquesProps> = ({ analiseAtaque
         </h2>
         <p className="text-slate-300 mb-4">
           Comparação entre ataques aleatórios e direcionados (targeted). Ataques direcionados focam nos nós
-          mais importantes (grau alto, betweenness alto, pontos de articulação).
+          mais importantes (alto{' '}
+          <TooltipTermoTecnico termo={GLOSSARIO.GRAU.termo} definicao={GLOSSARIO.GRAU.definicao} exemplo={GLOSSARIO.GRAU.exemplo} />,
+          alta{' '}
+          <TooltipTermoTecnico termo={GLOSSARIO.BETWEENNESS.termo} definicao={GLOSSARIO.BETWEENNESS.definicao} exemplo={GLOSSARIO.BETWEENNESS.exemplo} />,{' '}
+          <TooltipTermoTecnico termo={GLOSSARIO.PONTO_ARTICULACAO.termo} definicao={GLOSSARIO.PONTO_ARTICULACAO.definicao} exemplo={GLOSSARIO.PONTO_ARTICULACAO.exemplo} />).
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
@@ -158,87 +164,6 @@ const AbaSimulacaoAtaques: React.FC<AbaSimulacaoAtaquesProps> = ({ analiseAtaque
             connectNulls
           />
         </LineChart>
-      </div>
-
-      <div className="bg-slate-800 rounded-lg p-6">
-        <h2 className="text-2xl font-bold mb-4">Vulnerabilidades Críticas</h2>
-        <p className="text-slate-400 mb-4">
-          Impacto da remoção simultânea de grupos de nós estratégicos.
-        </p>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-slate-700/30 rounded-lg p-4 border border-blue-700/50">
-            <h3 className="font-semibold text-blue-400 mb-3">Top 10 Hubs</h3>
-            <div className="space-y-2 text-sm">
-              <div className="flex justify-between">
-                <span className="text-slate-400">Componentes criados:</span>
-                <span className="font-mono text-blue-300">
-                  {analiseAtaques.vulnerabilidades_criticas.remocao_top_10_hubs.impacto.num_componentes}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-slate-400">Fragmentação:</span>
-                <span className="font-mono text-blue-300">
-                  {(analiseAtaques.vulnerabilidades_criticas.remocao_top_10_hubs.impacto.fragmentacao * 100).toFixed(1)}%
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-slate-400">Maior componente:</span>
-                <span className="font-mono text-blue-300">
-                  {analiseAtaques.vulnerabilidades_criticas.remocao_top_10_hubs.impacto.percentual_maior_componente.toFixed(1)}%
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-slate-700/30 rounded-lg p-4 border border-orange-700/50">
-            <h3 className="font-semibold text-orange-400 mb-3">Top 10 Pontos de Articulação</h3>
-            <div className="space-y-2 text-sm">
-              <div className="flex justify-between">
-                <span className="text-slate-400">Componentes criados:</span>
-                <span className="font-mono text-orange-300">
-                  {analiseAtaques.vulnerabilidades_criticas.remocao_top_10_articulacao.impacto.num_componentes}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-slate-400">Fragmentação:</span>
-                <span className="font-mono text-orange-300">
-                  {(analiseAtaques.vulnerabilidades_criticas.remocao_top_10_articulacao.impacto.fragmentacao * 100).toFixed(1)}%
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-slate-400">Maior componente:</span>
-                <span className="font-mono text-orange-300">
-                  {analiseAtaques.vulnerabilidades_criticas.remocao_top_10_articulacao.impacto.percentual_maior_componente.toFixed(1)}%
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-slate-700/30 rounded-lg p-4 border border-red-700/50">
-            <h3 className="font-semibold text-red-400 mb-3">Combinação (Hubs + Articulação)</h3>
-            <div className="space-y-2 text-sm">
-              <div className="flex justify-between">
-                <span className="text-slate-400">Componentes criados:</span>
-                <span className="font-mono text-red-300">
-                  {analiseAtaques.vulnerabilidades_criticas.remocao_combinada.impacto.num_componentes}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-slate-400">Fragmentação:</span>
-                <span className="font-mono text-red-300">
-                  {(analiseAtaques.vulnerabilidades_criticas.remocao_combinada.impacto.fragmentacao * 100).toFixed(1)}%
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-slate-400">Maior componente:</span>
-                <span className="font-mono text-red-300">
-                  {analiseAtaques.vulnerabilidades_criticas.remocao_combinada.impacto.percentual_maior_componente.toFixed(1)}%
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );
