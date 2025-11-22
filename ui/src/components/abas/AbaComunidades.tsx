@@ -1,12 +1,20 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
-import { Network, Activity, GitBranch, Home } from 'lucide-react';
+import { Network, Activity, GitBranch, Home, Eye } from 'lucide-react';
+import { useState } from 'react';
 import CartaoMetrica from '../CartaoMetrica';
+import ModalGrafo from '../ModalGrafo';
 
 interface AbaComunidadesProps {
   analiseComunidades: any;
 }
 
 const AbaComunidades = ({ analiseComunidades }: AbaComunidadesProps) => {
+  const [modalGrafo, setModalGrafo] = useState<{ aberto: boolean; arquivo: string; titulo: string }>({
+    aberto: false,
+    arquivo: '',
+    titulo: ''
+  });
+
   return (
     <div className="space-y-6">
       <div className="bg-gradient-to-r from-green-900/30 to-slate-800 rounded-lg p-6 border-l-4 border-green-500">
@@ -68,6 +76,7 @@ const AbaComunidades = ({ analiseComunidades }: AbaComunidadesProps) => {
                 <th className="text-left p-3">% da Rede</th>
                 <th className="text-left p-3">Densidade</th>
                 <th className="text-left p-3">Grau Médio</th>
+                <th className="text-left p-3">Visualizar</th>
               </tr>
             </thead>
             <tbody>
@@ -79,6 +88,19 @@ const AbaComunidades = ({ analiseComunidades }: AbaComunidadesProps) => {
                   <td className="p-3">{item.percentual_rede.toFixed(2)}%</td>
                   <td className="p-3 text-slate-300">{item.densidade.toFixed(4)}</td>
                   <td className="p-3 text-slate-300">{item.grau_medio.toFixed(2)}</td>
+                  <td className="p-3">
+                    <button
+                      onClick={() => setModalGrafo({
+                        aberto: true,
+                        arquivo: `grafos/comunidades/rede_comunidade_${item.id}_tamanho_${item.tamanho}_densidade_${item.densidade.toFixed(4)}.html`,
+                        titulo: `Comunidade ${item.id} (${item.tamanho} nós)`
+                      })}
+                      className="px-3 py-1 bg-green-600 hover:bg-green-500 rounded flex items-center gap-2 text-sm transition-colors"
+                    >
+                      <Eye className="w-4 h-4" />
+                      Ver Grafo
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -163,6 +185,13 @@ const AbaComunidades = ({ analiseComunidades }: AbaComunidadesProps) => {
           </div>
         </div>
       </div>
+
+      <ModalGrafo
+        aberto={modalGrafo.aberto}
+        arquivo={modalGrafo.arquivo}
+        titulo={modalGrafo.titulo}
+        onFechar={() => setModalGrafo({ aberto: false, arquivo: '', titulo: '' })}
+      />
     </div>
   );
 };

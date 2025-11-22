@@ -1,5 +1,8 @@
+import { useState } from 'react';
 import { BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
+import { Eye } from 'lucide-react';
 import TooltipTermoTecnico from '../TooltipTermoTecnico';
+import ModalGrafo from '../ModalGrafo';
 import { GLOSSARIO } from '../../utils/glossario';
 
 interface AbaAnalisePorGrauProps {
@@ -8,6 +11,12 @@ interface AbaAnalisePorGrauProps {
 }
 
 const AbaAnalisePorGrau = ({ analiseBasica, analiseCriticidade }: AbaAnalisePorGrauProps) => {
+  const [modalGrafo, setModalGrafo] = useState<{ aberto: boolean; arquivo: string; titulo: string }>({
+    aberto: false,
+    arquivo: '',
+    titulo: ''
+  });
+
   return (
     <div className="space-y-6">
       <div className="bg-slate-800 rounded-lg p-6">
@@ -26,6 +35,7 @@ const AbaAnalisePorGrau = ({ analiseBasica, analiseCriticidade }: AbaAnalisePorG
                 <th className="p-3">Grau</th>
                 <th className="p-3">Betweenness</th>
                 <th className="p-3">Ponto de Articulação</th>
+                <th className="p-3">Ações</th>
               </tr>
             </thead>
             <tbody>
@@ -47,6 +57,20 @@ const AbaAnalisePorGrau = ({ analiseBasica, analiseCriticidade }: AbaAnalisePorG
                       ) : (
                         <span className="px-2 py-1 bg-slate-700 rounded text-slate-400">NÃO</span>
                       )}
+                    </td>
+                    <td className="p-3">
+                      <button
+                        onClick={() => setModalGrafo({
+                          aberto: true,
+                          arquivo: `grafos/hubs/rede_hub_${hub.no}_grau_${hub.grau}.html`,
+                          titulo: `Grafo Hub - Nó ${hub.no} (Grau: ${hub.grau})`
+                        })}
+                        className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-sm flex items-center gap-2 transition-colors"
+                        title="Ver grafo interativo"
+                      >
+                        <Eye size={16} />
+                        Ver Grafo
+                      </button>
                     </td>
                   </tr>
                 );
@@ -80,6 +104,13 @@ const AbaAnalisePorGrau = ({ analiseBasica, analiseCriticidade }: AbaAnalisePorG
           ))}
         </div>
       </div>
+
+      <ModalGrafo
+        aberto={modalGrafo.aberto}
+        arquivo={modalGrafo.arquivo}
+        titulo={modalGrafo.titulo}
+        onFechar={() => setModalGrafo({ aberto: false, arquivo: '', titulo: '' })}
+      />
     </div>
   );
 };

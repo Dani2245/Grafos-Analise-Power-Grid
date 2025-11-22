@@ -29,8 +29,8 @@ const CATEGORIAS = [
       { id: 'papeis', label: 'Papéis dos Nós' },
       { id: 'scale-free', label: 'Scale-Free' },
       { id: 'comunidades', label: 'Comunidades' },
-      { id: 'glossario', label: 'Glossário' },
-      { id: 'visualizacoes', label: 'Visualizações' }
+      { id: 'glossario', label: 'Glossário' }
+      // { id: 'visualizacoes', label: 'Visualizações' }
     ]
   },
   {

@@ -63,8 +63,7 @@ const AbaNovoDataset: React.FC<AbaNovoDatasetProps> = ({ dados, comparacao }) =>
                                 id: `e${origem + 1}-${destino + 1}`,
                                 source: `${origem + 1}`,
                                 target: `${destino + 1}`,
-                                weight: peso,
-                                label: `${peso.toFixed(1)} MW`
+                                weight: peso
                             }
                         });
                     }
@@ -92,38 +91,74 @@ const AbaNovoDataset: React.FC<AbaNovoDatasetProps> = ({ dados, comparacao }) =>
                         'color': '#ffffff',
                         'text-valign': 'center',
                         'text-halign': 'center',
-                        'font-size': '12px',
-                        'width': 40,
-                        'height': 40,
-                        'border-width': 2,
-                        'border-color': '#fbbf24'
+                        'font-size': '14px',
+                        'font-weight': 'bold',
+                        'width': 50,
+                        'height': 50,
+                        'border-width': 3,
+                        'border-color': '#fbbf24',
+                        'text-outline-color': '#1e293b',
+                        'text-outline-width': 2
                     }
                 },
                 {
                     selector: 'edge',
                     style: {
-                        'width': (ele: any) => Math.max(1, ele.data('weight') / 10),
-                        'line-color': '#64748b',
-                        'target-arrow-color': '#fbbf24',
+                        'width': (ele: any) => Math.max(1.5, Math.min(4, ele.data('weight') / 15)),
+                        'line-color': '#475569',
+                        'target-arrow-color': '#64748b',
                         'target-arrow-shape': 'triangle',
                         'curve-style': 'bezier',
-                        'arrow-scale': 1.5,
-                        'label': 'data(label)',
-                        'font-size': '9px',
-                        'color': '#94a3b8',
-                        'text-rotation': 'autorotate',
-                        'text-margin-y': -10
+                        'arrow-scale': 1.2,
+                        'opacity': 0.4,
+                        'line-style': 'solid',
+                        'line-dash-pattern': [6, 3],
+                        'line-dash-offset': 24
+                    }
+                },
+                {
+                    selector: 'edge:selected',
+                    style: {
+                        'line-color': '#fbbf24',
+                        'target-arrow-color': '#fbbf24',
+                        'width': 4,
+                        'opacity': 1
+                    }
+                },
+                {
+                    selector: 'node:selected',
+                    style: {
+                        'border-width': 5,
+                        'border-color': '#fbbf24'
                     }
                 }
             ],
             layout: {
-                name: 'dagre',
-                nodeSep: 50,
-                rankSep: 80
+                name: 'circle',
+                animate: false,
+                radius: 200,
+                startAngle: 0,
+                sweep: 2 * Math.PI,
+                clockwise: true,
+                spacingFactor: 1.5
             } as any
         });
 
         cyInstance.current = cy;
+
+        // Animar fluxo das arestas
+        let offset = 24;
+        const animateEdges = () => {
+            offset -= 0.5;
+            if (offset <= 0) offset = 24;
+
+            cy.edges().forEach((edge: any) => {
+                edge.style('line-dash-offset', offset);
+            });
+
+            requestAnimationFrame(animateEdges);
+        };
+        animateEdges();
 
         return () => {
             if (cyInstance.current) {
@@ -133,7 +168,7 @@ const AbaNovoDataset: React.FC<AbaNovoDatasetProps> = ({ dados, comparacao }) =>
         };
     }, [dados]);
 
-    // Atualizar tamanhos dos nós baseado na carga do timestamp atual
+    // Atualizar tamanhos dos nós E ARESTAS baseado na carga do timestamp atual
     useEffect(() => {
         if (!cyInstance.current || !dados?.series_temporais?.load_por_no) return;
 
@@ -152,12 +187,49 @@ const AbaNovoDataset: React.FC<AbaNovoDatasetProps> = ({ dados, comparacao }) =>
                     node.style({
                         'width': tamanho,
                         'height': tamanho,
-                        'border-width': carga > 400 ? 4 : 2,
+                        'border-width': carga > 400 ? 5 : 3,
                         'border-color': carga > 400 ? '#ef4444' : '#fbbf24'
                     });
+
+                    // Armazenar carga no data do nó para uso nas arestas
+                    node.data('currentLoad', carga);
                 }
             }
         }
+
+        // Atualizar arestas baseado na carga dos nós conectados
+        cyInstance.current.edges().forEach((edge: any) => {
+            const sourceNode = edge.source();
+            const targetNode = edge.target();
+            const sourceLoad = sourceNode.data('currentLoad') || 0;
+            const targetLoad = targetNode.data('currentLoad') || 0;
+
+            // Fluxo estimado como média das cargas dos nós conectados
+            const fluxoEstimado = (sourceLoad + targetLoad) / 2;
+
+            // Mapear fluxo (50-500) para espessura (1-5px) e opacidade (0.3-0.8)
+            const espessura = 1 + ((fluxoEstimado - 50) / 450) * 4;
+            const opacidade = 0.3 + ((fluxoEstimado - 50) / 450) * 0.5;
+
+            // Cor baseada na intensidade do fluxo
+            let corLinha = '#475569'; // cinza padrão
+            if (fluxoEstimado > 400) {
+                corLinha = '#ef4444'; // vermelho (alta carga)
+            } else if (fluxoEstimado > 350) {
+                corLinha = '#f97316'; // laranja
+            } else if (fluxoEstimado > 300) {
+                corLinha = '#eab308'; // amarelo
+            } else if (fluxoEstimado > 250) {
+                corLinha = '#3b82f6'; // azul
+            }
+
+            edge.style({
+                'width': espessura,
+                'opacity': opacidade,
+                'line-color': corLinha,
+                'target-arrow-color': corLinha
+            });
+        });
     }, [timestampAtual, dados]);
 
     if (!dados) {
@@ -225,6 +297,19 @@ const AbaNovoDataset: React.FC<AbaNovoDatasetProps> = ({ dados, comparacao }) =>
                     <div>
                         <h3 className="text-lg font-semibold text-blue-300 mb-2">Dataset Operacional Temporal</h3>
                         <p className="text-slate-300 mb-2">{dados.AVISO_METODOLOGICO}</p>
+                        <div className="bg-blue-900/20 border border-blue-800 rounded p-3 mt-3 mb-3">
+                            <p className="text-sm text-slate-300 mb-2">
+                                <span className="font-semibold text-blue-400">Diferença Fundamental:</span> Enquanto o dataset original (4.941 nós) é uma
+                                <span className="font-semibold"> fotografia estática</span> da topologia da rede, este dataset de <span className="font-mono text-yellow-400">10 nós</span> é
+                                um <span className="font-semibold">filme temporal</span> com {dados.info_dataset.total_timestamps} quadros (timestamps),
+                                mostrando como <span className="font-semibold text-yellow-400">carga, tensão, frequência e falhas</span> variam ao longo do tempo.
+                            </p>
+                            <p className="text-sm text-slate-300">
+                                <span className="font-semibold text-blue-400">Objetivo:</span> Analisar <span className="font-semibold">comportamento operacional dinâmico</span>,
+                                não apenas estrutura estática. Permite identificar padrões temporais, correlações entre variáveis,
+                                e simular cenários de falha com dados realistas.
+                            </p>
+                        </div>
                         <div className="grid grid-cols-2 gap-4 mt-3 text-sm">
                             <div>
                                 <span className="text-slate-400">Tipo:</span>
@@ -250,79 +335,94 @@ const AbaNovoDataset: React.FC<AbaNovoDatasetProps> = ({ dados, comparacao }) =>
             </div>
 
             {/* Métricas temporais agregadas */}
-            <div className="grid grid-cols-4 gap-4">
-                <div className="bg-slate-800 rounded-lg p-6 border-l-4 border-yellow-400">
-                    <div className="flex items-center justify-between mb-2">
-                        <Zap className="w-6 h-6 text-yellow-400" />
-                    </div>
-                    <div className="text-3xl font-bold text-white mb-1">
-                        {cargaTotalValida ? cargaTotalMedia.toFixed(1) : 'N/A'} MW
-                    </div>
-                    <div className="text-sm text-slate-400">
-                        <TooltipTermoTecnico
-                            termo={GLOSSARIO.CARGA.termo}
-                            definicao={GLOSSARIO.CARGA.definicao}
-                            exemplo={GLOSSARIO.CARGA.exemplo}
-                        />{' '}
-                        Total Média
-                    </div>
-                    <div className="text-xs text-slate-500 mt-1">
-                        {cargaTotalValida
-                            ? `Soma das cargas médias dos ${nosValidos} nós`
-                            : 'Dados incompletos'}
-                    </div>
+            <div className="bg-slate-800 rounded-lg p-6">
+                <h3 className="text-xl font-bold mb-4 text-white">Métricas Operacionais (Agregadas de {dados.info_dataset?.total_timestamps || 1000} Timestamps)</h3>
+                <div className="bg-slate-900/50 border border-slate-700 rounded-lg p-4 mb-4">
+                    <p className="text-sm text-slate-300 mb-2">
+                        <span className="font-semibold text-yellow-400">Interpretação das Médias:</span> Estes valores representam o <span className="font-semibold">comportamento típico</span> da rede
+                        ao longo do período analisado. Uma <span className="font-semibold text-red-400">taxa de falhas de {dados.metricas_temporais?.estatisticas_globais?.taxa_falhas?.toFixed(1)}%</span> indica
+                        que em aproximadamente {Math.round((dados.metricas_temporais?.estatisticas_globais?.taxa_falhas || 0) / 100 * (dados.info_dataset?.total_timestamps || 1000))} timestamps
+                        o sistema detectou falhas ou instabilidade.
+                    </p>
+                    <p className="text-sm text-slate-300">
+                        <span className="font-semibold text-yellow-400">Faixas Operacionais:</span> Tensão normal: 0.95-1.05 pu • Frequência normal: 49.5-50.5 Hz.
+                        Valores próximos à média indicam <span className="font-semibold text-green-400">operação estável</span> dentro dos limites aceitáveis.
+                    </p>
                 </div>
+                <div className="grid grid-cols-4 gap-4">
+                    <div className="bg-slate-800 rounded-lg p-6 border-l-4 border-yellow-400">
+                        <div className="flex items-center justify-between mb-2">
+                            <Zap className="w-6 h-6 text-yellow-400" />
+                        </div>
+                        <div className="text-3xl font-bold text-white mb-1">
+                            {cargaTotalValida ? cargaTotalMedia.toFixed(1) : 'N/A'} MW
+                        </div>
+                        <div className="text-sm text-slate-400">
+                            <TooltipTermoTecnico
+                                termo={GLOSSARIO.CARGA.termo}
+                                definicao={GLOSSARIO.CARGA.definicao}
+                                exemplo={GLOSSARIO.CARGA.exemplo}
+                            />{' '}
+                            Total Média
+                        </div>
+                        <div className="text-xs text-slate-500 mt-1">
+                            {cargaTotalValida
+                                ? `Soma das cargas médias dos ${nosValidos} nós`
+                                : 'Dados incompletos'}
+                        </div>
+                    </div>
 
-                <div className="bg-slate-800 rounded-lg p-6 border-l-4 border-blue-400">
-                    <div className="flex items-center justify-between mb-2">
-                        <TrendingUp className="w-6 h-6 text-blue-400" />
+                    <div className="bg-slate-800 rounded-lg p-6 border-l-4 border-blue-400">
+                        <div className="flex items-center justify-between mb-2">
+                            <TrendingUp className="w-6 h-6 text-blue-400" />
+                        </div>
+                        <div className="text-3xl font-bold text-white mb-1">
+                            {dados.metricas_temporais?.estatisticas_globais?.voltage_media?.toFixed(3) || '1.000'} pu
+                        </div>
+                        <div className="text-sm text-slate-400">
+                            <TooltipTermoTecnico
+                                termo={GLOSSARIO.TENSAO.termo}
+                                definicao={GLOSSARIO.TENSAO.definicao}
+                                exemplo={GLOSSARIO.TENSAO.exemplo}
+                            />{' '}
+                            Média
+                        </div>
+                        <div className="text-xs text-slate-500 mt-1">
+                            {dados.metricas_temporais?.estatisticas_globais?.voltage_min?.toFixed(3)} - {dados.metricas_temporais?.estatisticas_globais?.voltage_max?.toFixed(3)} pu
+                        </div>
                     </div>
-                    <div className="text-3xl font-bold text-white mb-1">
-                        {dados.metricas_temporais?.estatisticas_globais?.voltage_media?.toFixed(3) || '1.000'} pu
-                    </div>
-                    <div className="text-sm text-slate-400">
-                        <TooltipTermoTecnico
-                            termo={GLOSSARIO.TENSAO.termo}
-                            definicao={GLOSSARIO.TENSAO.definicao}
-                            exemplo={GLOSSARIO.TENSAO.exemplo}
-                        />{' '}
-                        Média
-                    </div>
-                    <div className="text-xs text-slate-500 mt-1">
-                        {dados.metricas_temporais?.estatisticas_globais?.voltage_min?.toFixed(3)} - {dados.metricas_temporais?.estatisticas_globais?.voltage_max?.toFixed(3)} pu
-                    </div>
-                </div>
 
-                <div className="bg-slate-800 rounded-lg p-6 border-l-4 border-green-400">
-                    <div className="flex items-center justify-between mb-2">
-                        <Activity className="w-6 h-6 text-green-400" />
+                    <div className="bg-slate-800 rounded-lg p-6 border-l-4 border-green-400">
+                        <div className="flex items-center justify-between mb-2">
+                            <Activity className="w-6 h-6 text-green-400" />
+                        </div>
+                        <div className="text-3xl font-bold text-white mb-1">
+                            {dados.metricas_temporais?.estatisticas_globais?.frequency_media?.toFixed(2) || '50.00'} Hz
+                        </div>
+                        <div className="text-sm text-slate-400">
+                            <TooltipTermoTecnico
+                                termo={GLOSSARIO.FREQUENCIA.termo}
+                                definicao={GLOSSARIO.FREQUENCIA.definicao}
+                                exemplo={GLOSSARIO.FREQUENCIA.exemplo}
+                            />{' '}
+                            Média
+                        </div>
+                        <div className="text-xs text-slate-500 mt-1">
+                            {dados.metricas_temporais?.estatisticas_globais?.frequency_min?.toFixed(2)} - {dados.metricas_temporais?.estatisticas_globais?.frequency_max?.toFixed(2)} Hz
+                        </div>
                     </div>
-                    <div className="text-3xl font-bold text-white mb-1">
-                        {dados.metricas_temporais?.estatisticas_globais?.frequency_media?.toFixed(2) || '50.00'} Hz
-                    </div>
-                    <div className="text-sm text-slate-400">
-                        <TooltipTermoTecnico
-                            termo={GLOSSARIO.FREQUENCIA.termo}
-                            definicao={GLOSSARIO.FREQUENCIA.definicao}
-                            exemplo={GLOSSARIO.FREQUENCIA.exemplo}
-                        />{' '}
-                        Média
-                    </div>
-                    <div className="text-xs text-slate-500 mt-1">
-                        {dados.metricas_temporais?.estatisticas_globais?.frequency_min?.toFixed(2)} - {dados.metricas_temporais?.estatisticas_globais?.frequency_max?.toFixed(2)} Hz
-                    </div>
-                </div>
 
-                <div className="bg-slate-800 rounded-lg p-6 border-l-4 border-red-400">
-                    <div className="flex items-center justify-between mb-2">
-                        <Clock className="w-6 h-6 text-red-400" />
-                    </div>
-                    <div className="text-3xl font-bold text-white mb-1">
-                        {dados.metricas_temporais?.estatisticas_globais?.taxa_falhas?.toFixed(1) || '0.0'}%
-                    </div>
-                    <div className="text-sm text-slate-400">Taxa de Falhas</div>
-                    <div className="text-xs text-slate-500 mt-1">
-                        {dados.metricas_temporais?.estatisticas_globais?.total_timestamps} timestamps
+                    <div className="bg-slate-800 rounded-lg p-6 border-l-4 border-red-400">
+                        <div className="flex items-center justify-between mb-2">
+                            <Clock className="w-6 h-6 text-red-400" />
+                        </div>
+                        <div className="text-3xl font-bold text-white mb-1">
+                            {dados.metricas_temporais?.estatisticas_globais?.taxa_falhas?.toFixed(1) || '0.0'}%
+                        </div>
+                        <div className="text-sm text-slate-400">Taxa de Falhas</div>
+                        <div className="text-xs text-slate-500 mt-1">
+                            {dados.metricas_temporais?.estatisticas_globais?.total_timestamps} timestamps
+                        </div>
                     </div>
                 </div>
             </div>
@@ -331,7 +431,22 @@ const AbaNovoDataset: React.FC<AbaNovoDatasetProps> = ({ dados, comparacao }) =>
             <div className="bg-slate-800 rounded-lg p-6">
                 <h3 className="text-xl font-bold mb-4 text-white">Grafo Direcionado e Ponderado (Temporal)</h3>
 
-                {/* Controles de animação */}
+                <div className="bg-slate-900/50 border border-slate-700 rounded-lg p-4 mb-4">
+                    <p className="text-sm text-slate-300 mb-2">
+                        <span className="font-semibold text-yellow-400">Visualização Simplificada:</span> Os 10 nós estão dispostos em <span className="font-semibold">círculo</span>.
+                        O <span className="font-semibold text-orange-400">tamanho varia com a carga</span> no timestamp selecionado.
+                        Cores refletem <span className="font-semibold text-blue-400">PageRank</span>:
+                        <span className="text-red-400"> Vermelho</span> = alta importância,
+                        <span className="text-green-400"> Verde</span> = baixa importância.
+                    </p>
+                    <p className="text-sm text-slate-300">
+                        <span className="font-semibold text-yellow-400">Arestas Animadas:</span> A <span className="font-semibold text-orange-400">espessura, cor e opacidade</span> das arestas
+                        variam em tempo real baseado na <span className="font-semibold">carga dos nós conectados</span> no timestamp atual.
+                        <span className="text-red-400"> Vermelho</span> = fluxo intenso (&gt;400 MW),
+                        <span className="text-yellow-400"> Amarelo</span> = fluxo moderado (~300 MW),
+                        <span className="text-blue-400"> Azul</span> = fluxo baixo (&lt;250 MW).
+                    </p>
+                </div>                {/* Controles de animação */}
                 <div className="bg-slate-900/50 rounded-lg p-4 mb-4">
                     <div className="flex items-center gap-4 mb-3">
                         <button
@@ -405,7 +520,7 @@ const AbaNovoDataset: React.FC<AbaNovoDatasetProps> = ({ dados, comparacao }) =>
                 <div
                     ref={cyRef}
                     className="w-full bg-slate-900 rounded-lg border border-slate-700"
-                    style={{ height: '500px' }}
+                    style={{ height: '600px' }}
                 />
 
                 <div className="mt-3 grid grid-cols-5 gap-2 text-xs">
@@ -573,12 +688,137 @@ const AbaNovoDataset: React.FC<AbaNovoDatasetProps> = ({ dados, comparacao }) =>
                 </div>
             </div>
 
+            {/* Análise de Falhas e Correlações */}
+            {dados.analise_falhas && (
+                <div className="bg-slate-800 rounded-lg p-6">
+                    <h3 className="text-xl font-bold mb-4 text-white">Análise de Falhas e Estabilidade da Rede</h3>
+
+                    <div className="bg-red-900/20 border border-red-800 rounded-lg p-4 mb-4">
+                        <p className="text-sm text-slate-300 mb-2">
+                            <span className="font-semibold text-red-400">🔴 Alta Instabilidade Detectada:</span> A rede opera em condição
+                            <span className="font-semibold text-red-400"> instável em {dados.analise_falhas.comparacao_por_estabilidade.instavel.percentual}%</span> dos timestamps
+                            ({dados.analise_falhas.comparacao_por_estabilidade.instavel.quantidade} de {dados.info_dataset.total_timestamps} timestamps).
+                            Apenas <span className="font-semibold text-green-400">{dados.analise_falhas.comparacao_por_estabilidade.estavel.percentual}%</span> do tempo
+                            a rede está em condição estável (grid_status=0).
+                        </p>
+                        <p className="text-sm text-slate-300">
+                            <span className="font-semibold text-red-400">Correlação Falha-Instabilidade:</span> {(dados.analise_falhas.correlacao_falha_instabilidade * 100).toFixed(1)}%
+                            de correlação entre <span className="font-semibold">fault_detected</span> e <span className="font-semibold">grid_status</span>.
+                            Isso indica que <span className="font-semibold text-yellow-400">falhas detectadas não são o único fator de instabilidade</span> —
+                            sobrecarga e desequilíbrios também contribuem.
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                        {/* Comparação por Falha */}
+                        <div className="bg-slate-900/50 rounded-lg p-4">
+                            <h4 className="text-md font-semibold text-orange-400 mb-3">Comparação: Com vs Sem Falha Detectada</h4>
+                            <div className="space-y-3">
+                                <div className="flex justify-between text-sm">
+                                    <span className="text-slate-400">Com Falha:</span>
+                                    <span className="text-red-400 font-semibold">
+                                        {dados.analise_falhas.comparacao_por_falha.com_falha.quantidade} timestamps
+                                        ({dados.analise_falhas.comparacao_por_falha.com_falha.percentual}%)
+                                    </span>
+                                </div>
+                                <div className="flex justify-between text-sm">
+                                    <span className="text-slate-400 ml-4">→ Taxa Instabilidade:</span>
+                                    <span className="text-white font-mono">{dados.analise_falhas.comparacao_por_falha.com_falha.taxa_instabilidade}%</span>
+                                </div>
+                                <div className="flex justify-between text-sm">
+                                    <span className="text-slate-400 ml-4">→ Tensão Média:</span>
+                                    <span className="text-white font-mono">{dados.analise_falhas.comparacao_por_falha.com_falha.voltage_media.toFixed(4)} pu</span>
+                                </div>
+
+                                <div className="border-t border-slate-700 my-2"></div>
+
+                                <div className="flex justify-between text-sm">
+                                    <span className="text-slate-400">Sem Falha:</span>
+                                    <span className="text-green-400 font-semibold">
+                                        {dados.analise_falhas.comparacao_por_falha.sem_falha.quantidade} timestamps
+                                        ({dados.analise_falhas.comparacao_por_falha.sem_falha.percentual}%)
+                                    </span>
+                                </div>
+                                <div className="flex justify-between text-sm">
+                                    <span className="text-slate-400 ml-4">→ Taxa Instabilidade:</span>
+                                    <span className="text-white font-mono">{dados.analise_falhas.comparacao_por_falha.sem_falha.taxa_instabilidade}%</span>
+                                </div>
+                                <div className="flex justify-between text-sm">
+                                    <span className="text-slate-400 ml-4">→ Tensão Média:</span>
+                                    <span className="text-white font-mono">{dados.analise_falhas.comparacao_por_falha.sem_falha.voltage_media.toFixed(4)} pu</span>
+                                </div>
+                            </div>
+                            <p className="text-xs text-slate-500 mt-3 italic">
+                                ⚠ Mesmo sem falhas detectadas, {dados.analise_falhas.comparacao_por_falha.sem_falha.taxa_instabilidade}% dos timestamps
+                                apresentam instabilidade, indicando problemas estruturais de capacidade.
+                            </p>
+                        </div>
+
+                        {/* Comparação por Estabilidade */}
+                        <div className="bg-slate-900/50 rounded-lg p-4">
+                            <h4 className="text-md font-semibold text-blue-400 mb-3">Comparação: Estável vs Instável</h4>
+                            <div className="space-y-3">
+                                <div className="flex justify-between text-sm">
+                                    <span className="text-slate-400">Estável (grid_status=0):</span>
+                                    <span className="text-green-400 font-semibold">
+                                        {dados.analise_falhas.comparacao_por_estabilidade.estavel.quantidade} timestamps
+                                        ({dados.analise_falhas.comparacao_por_estabilidade.estavel.percentual}%)
+                                    </span>
+                                </div>
+                                <div className="flex justify-between text-sm">
+                                    <span className="text-slate-400 ml-4">→ Taxa Falhas:</span>
+                                    <span className="text-white font-mono">{dados.analise_falhas.comparacao_por_estabilidade.estavel.taxa_falhas}%</span>
+                                </div>
+                                <div className="flex justify-between text-sm">
+                                    <span className="text-slate-400 ml-4">→ Tensão Média:</span>
+                                    <span className="text-white font-mono">{dados.analise_falhas.comparacao_por_estabilidade.estavel.voltage_media.toFixed(4)} pu</span>
+                                </div>
+
+                                <div className="border-t border-slate-700 my-2"></div>
+
+                                <div className="flex justify-between text-sm">
+                                    <span className="text-slate-400">Instável (grid_status=1):</span>
+                                    <span className="text-red-400 font-semibold">
+                                        {dados.analise_falhas.comparacao_por_estabilidade.instavel.quantidade} timestamps
+                                        ({dados.analise_falhas.comparacao_por_estabilidade.instavel.percentual}%)
+                                    </span>
+                                </div>
+                                <div className="flex justify-between text-sm">
+                                    <span className="text-slate-400 ml-4">→ Taxa Falhas:</span>
+                                    <span className="text-white font-mono">{dados.analise_falhas.comparacao_por_estabilidade.instavel.taxa_falhas}%</span>
+                                </div>
+                                <div className="flex justify-between text-sm">
+                                    <span className="text-slate-400 ml-4">→ Tensão Média:</span>
+                                    <span className="text-white font-mono">{dados.analise_falhas.comparacao_por_estabilidade.instavel.voltage_media.toFixed(4)} pu</span>
+                                </div>
+                            </div>
+                            <p className="text-xs text-slate-500 mt-3 italic">
+                                🔍 Quando instável, {dados.analise_falhas.comparacao_por_estabilidade.instavel.taxa_falhas}% dos casos apresentam
+                                falhas detectadas, confirmando relação causal.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             {/* Comparação com dataset original */}
             {comparacao && (
                 <div className="bg-slate-800 rounded-lg p-6">
                     <h3 className="text-xl font-bold mb-4 text-white">Comparação com Dataset Original</h3>
 
-                    <div className="grid grid-cols-2 gap-6 mb-6">
+                    <div className="bg-orange-900/20 border border-orange-800 rounded-lg p-4 mb-4">
+                        <p className="text-sm text-slate-300 mb-2">
+                            <span className="font-semibold text-orange-400">⚠ Comparação Não Direta:</span> Estes dois datasets têm <span className="font-semibold">escalas e propósitos diferentes</span>.
+                            O original (4.941 nós) analisa <span className="font-semibold text-yellow-400">topologia de grande escala</span> (Western States Power Grid),
+                            enquanto este (10 nós) analisa <span className="font-semibold text-blue-400">operação temporal detalhada</span> de um subsistema menor.
+                        </p>
+                        <p className="text-sm text-slate-300">
+                            <span className="font-semibold text-orange-400">Interpretação dos Índices Normalizados:</span> Valores mais altos (próximos de 100) indicam maior
+                            <span className="font-semibold"> densidade/conectividade/centralização</span>. O dataset novo tem índices muito maiores porque é
+                            <span className="font-semibold text-yellow-400"> quase um grafo completo</span> (densidade ~1.0), enquanto o original é
+                            <span className="font-semibold text-blue-400"> esparso</span> (densidade ~0.0005).
+                        </p>
+                    </div>                        <div className="grid grid-cols-2 gap-6 mb-6">
                         <div>
                             <h4 className="text-lg font-semibold text-yellow-400 mb-3">Dataset Original (Topológico)</h4>
                             <div className="space-y-2 text-sm">
