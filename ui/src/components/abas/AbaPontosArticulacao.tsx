@@ -17,12 +17,6 @@ const AbaPontosArticulacao = ({ analiseCriticidade, analiseBasica }: AbaPontosAr
     titulo: ''
   });
 
-  // Calcular risco baseado no grau
-  const calcularRisco = (grau: number): string => {
-    if (grau <= 3) return 'CRITICO';
-    if (grau <= 7) return 'ALTO';
-    return 'MEDIO';
-  };
   return (
     <div className="space-y-6">
       <div className="bg-slate-800 rounded-lg p-6 border border-red-700">

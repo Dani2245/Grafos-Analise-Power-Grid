@@ -267,34 +267,28 @@ def inferir_localizacao_espacial(grafo, comunidades):
 
     # Calcular layout spring (força-direcionado) para posicionar nós
     # Nós conectados ficam próximos, comunidades separadas ficam distantes
-    print("      Calculando spring layout...")
+    print("      Calculando spring layout (GRAFO COMPLETO - precisão total)...")
+    print("      ⚠️  AVISO: Processamento pode levar 5-10 minutos para 4.941 nós")
     from tqdm import tqdm
 
-    # Usar amostragem se grafo for muito grande (>1000 nós)
-    if len(grafo.nodes()) > 1000:
-        # Amostrar 500 nós representativos (hubs + amostra aleatória)
-        graus = dict(grafo.degree())
-        top_hubs = sorted(graus.items(), key=lambda x: x[1], reverse=True)[:200]
-        hub_nodes = [n for n, _ in top_hubs]
-
-        outros_nos = list(set(grafo.nodes()) - set(hub_nodes))
-        amostra_outros = list(
-            np.random.choice(outros_nos, min(300, len(outros_nos)), replace=False)
-        )
-
-        nos_amostrados = hub_nodes + amostra_outros
-        subgrafo = grafo.subgraph(nos_amostrados)
-
-        pos = nx.spring_layout(subgrafo, k=0.5, iterations=50, seed=42)
-        print(f"      ✓ Layout calculado para {len(nos_amostrados)} nós (amostra)")
-    else:
-        pos = nx.spring_layout(grafo, k=0.5, iterations=50, seed=42)
-        print(f"      ✓ Layout calculado para {len(grafo.nodes())} nós")
+    # Calcular layout para TODOS os nós (sem amostragem)
+    # Fixar seed para reprodutibilidade
+    pos = nx.spring_layout(grafo, k=0.5, iterations=50, seed=42)
+    print(f"      ✓ Layout calculado para {len(grafo.nodes())} nós (100% dos dados)")
 
     # Calcular centroide de cada comunidade (posição média dos nós)
     centroides_comunidades = []
 
-    for idx, comunidade in enumerate(comunidades):
+    for idx, comunidade in enumerate(
+        tqdm(
+            comunidades,
+            desc="      Comunidades",
+            unit="com",
+            ncols=80,
+            ascii=True,
+            leave=False,
+        )
+    ):
         # Filtrar apenas nós que têm posição (podem estar na amostra)
         nos_com_pos = [n for n in comunidade if n in pos]
 
