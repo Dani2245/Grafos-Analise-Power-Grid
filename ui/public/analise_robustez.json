@@ -88,24 +88,335 @@
       "perda_eficiencia": 0.17039900069414174
     }
   },
+  "threshold_percolacao": {
+    "threshold_50_pct": 24,
+    "curva_fragmentacao": [
+      {
+        "percentual_removido": 0,
+        "nos_removidos": 0,
+        "fragmentacao": 0.0,
+        "tamanho_maior_componente": 4941
+      },
+      {
+        "percentual_removido": 1,
+        "nos_removidos": 49,
+        "fragmentacao": 1.5,
+        "tamanho_maior_componente": 4867
+      },
+      {
+        "percentual_removido": 2,
+        "nos_removidos": 98,
+        "fragmentacao": 3.18,
+        "tamanho_maior_componente": 4784
+      },
+      {
+        "percentual_removido": 3,
+        "nos_removidos": 148,
+        "fragmentacao": 4.86,
+        "tamanho_maior_componente": 4701
+      },
+      {
+        "percentual_removido": 4,
+        "nos_removidos": 197,
+        "fragmentacao": 6.29,
+        "tamanho_maior_componente": 4630
+      },
+      {
+        "percentual_removido": 5,
+        "nos_removidos": 247,
+        "fragmentacao": 8.12,
+        "tamanho_maior_componente": 4540
+      },
+      {
+        "percentual_removido": 6,
+        "nos_removidos": 296,
+        "fragmentacao": 10.12,
+        "tamanho_maior_componente": 4441
+      },
+      {
+        "percentual_removido": 7,
+        "nos_removidos": 345,
+        "fragmentacao": 12.41,
+        "tamanho_maior_componente": 4328
+      },
+      {
+        "percentual_removido": 8,
+        "nos_removidos": 395,
+        "fragmentacao": 13.72,
+        "tamanho_maior_componente": 4263
+      },
+      {
+        "percentual_removido": 9,
+        "nos_removidos": 444,
+        "fragmentacao": 19.19,
+        "tamanho_maior_componente": 3993
+      },
+      {
+        "percentual_removido": 10,
+        "nos_removidos": 494,
+        "fragmentacao": 20.81,
+        "tamanho_maior_componente": 3913
+      },
+      {
+        "percentual_removido": 11,
+        "nos_removidos": 543,
+        "fragmentacao": 22.18,
+        "tamanho_maior_componente": 3845
+      },
+      {
+        "percentual_removido": 12,
+        "nos_removidos": 592,
+        "fragmentacao": 23.64,
+        "tamanho_maior_componente": 3773
+      },
+      {
+        "percentual_removido": 13,
+        "nos_removidos": 642,
+        "fragmentacao": 26.35,
+        "tamanho_maior_componente": 3639
+      },
+      {
+        "percentual_removido": 14,
+        "nos_removidos": 691,
+        "fragmentacao": 29.0,
+        "tamanho_maior_componente": 3508
+      },
+      {
+        "percentual_removido": 15,
+        "nos_removidos": 741,
+        "fragmentacao": 30.6,
+        "tamanho_maior_componente": 3429
+      },
+      {
+        "percentual_removido": 16,
+        "nos_removidos": 790,
+        "fragmentacao": 32.0,
+        "tamanho_maior_componente": 3360
+      },
+      {
+        "percentual_removido": 17,
+        "nos_removidos": 839,
+        "fragmentacao": 34.89,
+        "tamanho_maior_componente": 3217
+      },
+      {
+        "percentual_removido": 18,
+        "nos_removidos": 889,
+        "fragmentacao": 37.5,
+        "tamanho_maior_componente": 3088
+      },
+      {
+        "percentual_removido": 19,
+        "nos_removidos": 938,
+        "fragmentacao": 39.59,
+        "tamanho_maior_componente": 2985
+      },
+      {
+        "percentual_removido": 20,
+        "nos_removidos": 988,
+        "fragmentacao": 42.1,
+        "tamanho_maior_componente": 2861
+      },
+      {
+        "percentual_removido": 21,
+        "nos_removidos": 1037,
+        "fragmentacao": 44.24,
+        "tamanho_maior_componente": 2755
+      },
+      {
+        "percentual_removido": 22,
+        "nos_removidos": 1087,
+        "fragmentacao": 47.93,
+        "tamanho_maior_componente": 2573
+      },
+      {
+        "percentual_removido": 23,
+        "nos_removidos": 1136,
+        "fragmentacao": 49.77,
+        "tamanho_maior_componente": 2482
+      },
+      {
+        "percentual_removido": 24,
+        "nos_removidos": 1185,
+        "fragmentacao": 53.21,
+        "tamanho_maior_componente": 2312
+      },
+      {
+        "percentual_removido": 25,
+        "nos_removidos": 1235,
+        "fragmentacao": 56.69,
+        "tamanho_maior_componente": 2140
+      },
+      {
+        "percentual_removido": 26,
+        "nos_removidos": 1284,
+        "fragmentacao": 63.17,
+        "tamanho_maior_componente": 1820
+      },
+      {
+        "percentual_removido": 27,
+        "nos_removidos": 1334,
+        "fragmentacao": 66.65,
+        "tamanho_maior_componente": 1648
+      },
+      {
+        "percentual_removido": 28,
+        "nos_removidos": 1383,
+        "fragmentacao": 78.04,
+        "tamanho_maior_componente": 1085
+      },
+      {
+        "percentual_removido": 29,
+        "nos_removidos": 1432,
+        "fragmentacao": 80.29,
+        "tamanho_maior_componente": 974
+      },
+      {
+        "percentual_removido": 30,
+        "nos_removidos": 1482,
+        "fragmentacao": 80.65,
+        "tamanho_maior_componente": 956
+      },
+      {
+        "percentual_removido": 31,
+        "nos_removidos": 1531,
+        "fragmentacao": 82.94,
+        "tamanho_maior_componente": 843
+      },
+      {
+        "percentual_removido": 32,
+        "nos_removidos": 1581,
+        "fragmentacao": 83.61,
+        "tamanho_maior_componente": 810
+      },
+      {
+        "percentual_removido": 33,
+        "nos_removidos": 1630,
+        "fragmentacao": 84.11,
+        "tamanho_maior_componente": 785
+      },
+      {
+        "percentual_removido": 34,
+        "nos_removidos": 1679,
+        "fragmentacao": 84.23,
+        "tamanho_maior_componente": 779
+      },
+      {
+        "percentual_removido": 35,
+        "nos_removidos": 1729,
+        "fragmentacao": 86.89,
+        "tamanho_maior_componente": 648
+      },
+      {
+        "percentual_removido": 36,
+        "nos_removidos": 1778,
+        "fragmentacao": 89.25,
+        "tamanho_maior_componente": 531
+      },
+      {
+        "percentual_removido": 37,
+        "nos_removidos": 1828,
+        "fragmentacao": 93.99,
+        "tamanho_maior_componente": 297
+      },
+      {
+        "percentual_removido": 38,
+        "nos_removidos": 1877,
+        "fragmentacao": 94.92,
+        "tamanho_maior_componente": 251
+      },
+      {
+        "percentual_removido": 39,
+        "nos_removidos": 1926,
+        "fragmentacao": 95.75,
+        "tamanho_maior_componente": 210
+      },
+      {
+        "percentual_removido": 40,
+        "nos_removidos": 1976,
+        "fragmentacao": 95.83,
+        "tamanho_maior_componente": 206
+      },
+      {
+        "percentual_removido": 41,
+        "nos_removidos": 2025,
+        "fragmentacao": 95.93,
+        "tamanho_maior_componente": 201
+      },
+      {
+        "percentual_removido": 42,
+        "nos_removidos": 2075,
+        "fragmentacao": 96.98,
+        "tamanho_maior_componente": 149
+      },
+      {
+        "percentual_removido": 43,
+        "nos_removidos": 2124,
+        "fragmentacao": 97.05,
+        "tamanho_maior_componente": 146
+      },
+      {
+        "percentual_removido": 44,
+        "nos_removidos": 2174,
+        "fragmentacao": 97.23,
+        "tamanho_maior_componente": 137
+      },
+      {
+        "percentual_removido": 45,
+        "nos_removidos": 2223,
+        "fragmentacao": 97.33,
+        "tamanho_maior_componente": 132
+      },
+      {
+        "percentual_removido": 46,
+        "nos_removidos": 2272,
+        "fragmentacao": 97.59,
+        "tamanho_maior_componente": 119
+      },
+      {
+        "percentual_removido": 47,
+        "nos_removidos": 2322,
+        "fragmentacao": 97.73,
+        "tamanho_maior_componente": 112
+      },
+      {
+        "percentual_removido": 48,
+        "nos_removidos": 2371,
+        "fragmentacao": 97.9,
+        "tamanho_maior_componente": 104
+      },
+      {
+        "percentual_removido": 49,
+        "nos_removidos": 2421,
+        "fragmentacao": 97.9,
+        "tamanho_maior_componente": 104
+      },
+      {
+        "percentual_removido": 50,
+        "nos_removidos": 2470,
+        "fragmentacao": 98.02,
+        "tamanho_maior_componente": 98
+      }
+    ],
+    "interpretacao": "Rede colapsa (>50% fragmentação) ao remover 24% dos nós aleatoriamente"
+  },
   "comparacao_teorica": {
     "rede_real": {
-      "eficiencia_global": 0.0636291633307061,
-      "clustering": 0.08010361108159712,
+      "eficiencia_global": 0.06312983793256506,
       "assortativity": 0.0034569877442048825
     },
     "erdos_renyi": {
-      "eficiencia_global": 0.12079814224044876,
+      "eficiencia_global": 0.12077408338704061,
       "clustering": 0.0005021154383631616,
       "assortativity": 0.01675603159301199
     },
     "barabasi_albert": {
-      "eficiencia_global": 0.14037490856144288,
+      "eficiencia_global": 0.13699216977530632,
       "clustering": 0.0,
       "assortativity": -0.05520217310630439
     },
     "interpretacao": {
-      "similaridade_ER": "Alta",
+      "similaridade_ER": "Comparar com clustering em analise_criticidade.json",
       "similaridade_BA": "Alta"
     }
   },
@@ -114,5 +425,132 @@
     "✗ Eficiência global baixa (0.0624)",
     "✗ Node connectivity baixo (1) - pontos únicos de falha",
     "Rede neutra (assortativity=0.003)"
-  ]
+  ],
+  "resumo_percolacao_nos": {
+    "threshold_top_5_pct": 0.08,
+    "total_nos_alta_percolacao": 323,
+    "top_20_fragmentadores": [
+      {
+        "no": 726,
+        "fragmentacao_percentual": 2.15,
+        "componentes_criados": 2,
+        "nos_isolados": 0
+      },
+      {
+        "no": 692,
+        "fragmentacao_percentual": 1.13,
+        "componentes_criados": 2,
+        "nos_isolados": 0
+      },
+      {
+        "no": 2522,
+        "fragmentacao_percentual": 0.81,
+        "componentes_criados": 4,
+        "nos_isolados": 0
+      },
+      {
+        "no": 2604,
+        "fragmentacao_percentual": 0.59,
+        "componentes_criados": 3,
+        "nos_isolados": 0
+      },
+      {
+        "no": 362,
+        "fragmentacao_percentual": 0.51,
+        "componentes_criados": 3,
+        "nos_isolados": 0
+      },
+      {
+        "no": 4187,
+        "fragmentacao_percentual": 0.45,
+        "componentes_criados": 3,
+        "nos_isolados": 0
+      },
+      {
+        "no": 4166,
+        "fragmentacao_percentual": 0.4,
+        "componentes_criados": 3,
+        "nos_isolados": 0
+      },
+      {
+        "no": 657,
+        "fragmentacao_percentual": 0.38,
+        "componentes_criados": 3,
+        "nos_isolados": 0
+      },
+      {
+        "no": 3045,
+        "fragmentacao_percentual": 0.38,
+        "componentes_criados": 2,
+        "nos_isolados": 0
+      },
+      {
+        "no": 3047,
+        "fragmentacao_percentual": 0.36,
+        "componentes_criados": 3,
+        "nos_isolados": 1
+      },
+      {
+        "no": 3044,
+        "fragmentacao_percentual": 0.36,
+        "componentes_criados": 3,
+        "nos_isolados": 0
+      },
+      {
+        "no": 2282,
+        "fragmentacao_percentual": 0.34,
+        "componentes_criados": 2,
+        "nos_isolados": 0
+      },
+      {
+        "no": 846,
+        "fragmentacao_percentual": 0.34,
+        "componentes_criados": 4,
+        "nos_isolados": 1
+      },
+      {
+        "no": 2593,
+        "fragmentacao_percentual": 0.34,
+        "componentes_criados": 4,
+        "nos_isolados": 0
+      },
+      {
+        "no": 3046,
+        "fragmentacao_percentual": 0.32,
+        "componentes_criados": 3,
+        "nos_isolados": 0
+      },
+      {
+        "no": 3360,
+        "fragmentacao_percentual": 0.32,
+        "componentes_criados": 3,
+        "nos_isolados": 1
+      },
+      {
+        "no": 4152,
+        "fragmentacao_percentual": 0.32,
+        "componentes_criados": 4,
+        "nos_isolados": 0
+      },
+      {
+        "no": 4138,
+        "fragmentacao_percentual": 0.32,
+        "componentes_criados": 3,
+        "nos_isolados": 0
+      },
+      {
+        "no": 1140,
+        "fragmentacao_percentual": 0.3,
+        "componentes_criados": 3,
+        "nos_isolados": 0
+      },
+      {
+        "no": 3468,
+        "fragmentacao_percentual": 0.3,
+        "componentes_criados": 8,
+        "nos_isolados": 4
+      }
+    ],
+    "interpretacao": "323 nós apresentam alto impacto de fragmentação (≥0.08%). Estes nós, se removidos, causam particionamento significativo da rede."
+  }
 }

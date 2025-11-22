@@ -1,8 +1,22 @@
+# -*- coding: utf-8 -*-
+"""
+Análise Básica da Rede Elétrica
+Gera distribuição de graus e identifica hubs
+"""
+
 import csv
 import json
 from collections import defaultdict
 import numpy as np
 from scipy import stats
+import sys
+
+# Configurar encoding UTF-8 para output no Windows
+if sys.stdout.encoding != 'utf-8':
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+    except:
+        pass
 
 
 def analisar_scale_free(graus):

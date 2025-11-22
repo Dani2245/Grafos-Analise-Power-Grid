@@ -1,6 +1,20 @@
+# -*- coding: utf-8 -*-
+"""
+Análise Avançada de Criticidade com Percolação (4 Dimensões)
+Mede betweenness, pontos de articulação, clustering e simula percolação
+"""
+
 import networkx as nx
 import csv
 import json
+import sys
+
+# Configurar encoding UTF-8 para output no Windows
+if sys.stdout.encoding != 'utf-8':
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+    except:
+        pass  # Python < 3.7 ou ambiente que não suporta
 
 
 def carregar_rede():
@@ -75,9 +89,8 @@ def analisar_percolacao(grafo, pontos_articulacao):
     """
     print("   Simulando percolação (remoção de pontos de articulação)...")
 
-    # Limitar análise aos top 500 pontos de articulação mais críticos
-    # (ordenados por betweenness - será calculado antes)
-    pontos_analisar = list(pontos_articulacao)[:500]
+    # Analisar TODOS os pontos de articulação (não limitar a 500)
+    pontos_analisar = list(pontos_articulacao)
 
     resultados_percolacao = []
 
@@ -123,6 +136,72 @@ def analisar_percolacao(grafo, pontos_articulacao):
     return resultados_percolacao
 
 
+def analisar_percolacao_todos_nos(grafo):
+    """
+    Análise de Percolação Completa: simula remoção de TODOS os nós
+    para identificar impacto individual de cada nó na fragmentação.
+
+    Retorna dicionário: {no: fragmentacao_percentual}
+    """
+    print("   Simulando percolação para TODOS os nós (4941 simulações)...")
+    print("   ⏳ Tempo estimado: 2-3 minutos...")
+
+    import time
+    inicio = time.time()
+
+    percolacao_por_no = {}
+    total_nos = grafo.number_of_nodes()
+
+    for idx, no in enumerate(grafo.nodes()):
+        # Progresso a cada 500 nós com barra visual
+        if (idx + 1) % 500 == 0:
+            percentual = ((idx + 1) / total_nos) * 100
+            tempo_parcial = time.time() - inicio
+            tempo_estimado = (tempo_parcial / (idx + 1)) * total_nos
+            tempo_restante = tempo_estimado - tempo_parcial
+
+            # Barra de progresso simples
+            barra_tamanho = 30
+            progresso = int((idx + 1) / total_nos * barra_tamanho)
+            barra = '█' * progresso + '░' * (barra_tamanho - progresso)
+
+            print(
+                f"      [{barra}] {percentual:.1f}% ({idx + 1}/{total_nos}) - Resta: {tempo_restante:.0f}s")
+
+        # Criar cópia do grafo
+        G_simulado = grafo.copy()
+
+        # Remover o nó
+        G_simulado.remove_node(no)
+
+        # Analisar fragmentação
+        componentes = list(nx.connected_components(G_simulado))
+        num_componentes = len(componentes)
+
+        # Tamanho do maior componente
+        tamanho_maior_componente = len(
+            max(componentes, key=len)) if componentes else 0
+
+        # Percentual do maior componente em relação ao total original
+        percentual_maior = (tamanho_maior_componente / total_nos) * 100
+
+        # Número de nós isolados
+        nos_isolados = sum(1 for c in componentes if len(c) == 1)
+
+        percolacao_por_no[no] = {
+            'fragmentacao_percentual': round(100 - percentual_maior, 2),
+            'componentes_criados': num_componentes,
+            'tamanho_maior_componente': tamanho_maior_componente,
+            'nos_isolados': nos_isolados
+        }
+
+    tempo_total = time.time() - inicio
+    print(
+        f"   ✅ Percolação completa concluída em {tempo_total:.1f} segundos ({tempo_total/60:.1f} minutos)")
+
+    return percolacao_por_no
+
+
 def gerar_distribuicao_clustering(clustering_por_no):
     """Gera distribuição de clustering coefficient em bins"""
 
@@ -140,8 +219,8 @@ def gerar_distribuicao_clustering(clustering_por_no):
     return [{"range": k, "count": v} for k, v in distribuicao.items()]
 
 
-def gerar_analise_json(grafo, betweenness, pontos_articulacao):
-    """Gera arquivo JSON com todas as informações de criticidade"""
+def gerar_analise_json(grafo, betweenness, pontos_articulacao, percolacao_por_no):
+    """Gera arquivo JSON com todas as informações de criticidade (incluindo 4ª dimensão: percolação)"""
 
     # Top 50 nós por betweenness
     top_betweenness = sorted(
@@ -152,6 +231,12 @@ def gerar_analise_json(grafo, betweenness, pontos_articulacao):
     bc_media = sum(valores_bc) / len(valores_bc)
     bc_threshold = sorted(valores_bc, reverse=True)[
         int(len(valores_bc) * 0.05)]  # Top 5%
+
+    # Threshold de percolação (top 5% fragmentação)
+    valores_percolacao = [p['fragmentacao_percentual']
+                          for p in percolacao_por_no.values()]
+    perc_threshold = sorted(valores_percolacao, reverse=True)[
+        int(len(valores_percolacao) * 0.05)]  # Top 5%
 
     # Analisar pontos de articulação por grau
     pa_por_grau = {
@@ -172,55 +257,71 @@ def gerar_analise_json(grafo, betweenness, pontos_articulacao):
         else:
             pa_por_grau['grau_8_plus'].append(no)
 
-    # Classificação de criticidade em 5 níveis
-    critico_nivel_1 = []
-    critico_nivel_2 = []
-    critico_nivel_3 = []
-    atencao_nivel_1 = []
-    atencao_nivel_2 = []
+    # ==================================================================================
+    # CLASSIFICAÇÃO DE CRITICIDADE 4D: Articulação + Alto Grau + Alta Betweenness + Alta Percolação
+    # ==================================================================================
+
+    critico_4d_nivel_1 = []  # A ∧ G ∧ B ∧ P (4 dimensões)
+    critico_4d_nivel_2 = []  # A ∧ B ∧ (G ∨ P)
+    critico_4d_nivel_3 = []  # A ∧ G ∧ P (sem alta betweenness)
+    critico_4d_nivel_4 = []  # A ∧ P (sem alto grau nem alta betweenness)
+    critico_4d_nivel_5 = []  # A (apenas articulação)
+    atencao_4d_nivel_1 = []  # B ∧ P (gargalo com percolação)
+    atencao_4d_nivel_2 = []  # P (apenas percolação alta)
+    atencao_4d_nivel_3 = []  # B (apenas betweenness alta)
+    atencao_4d_nivel_4 = []  # G (apenas grau alto)
 
     for no in grafo.nodes():
         grau = grafo.degree(no)
         bc = betweenness[no]
-        eh_articulacao = no in pontos_articulacao
+        perc_frag = percolacao_por_no[no]['fragmentacao_percentual']
 
-        if eh_articulacao:
-            if grau >= 8 and bc >= bc_threshold:
-                critico_nivel_1.append({
-                    'no': no,
-                    'grau': grau,
-                    'betweenness': round(bc, 6),
-                    'motivo': 'Ponto de Articulação + Alto Grau + Alta Betweenness'
-                })
-            elif grau >= 8 or bc >= bc_threshold:
-                critico_nivel_2.append({
-                    'no': no,
-                    'grau': grau,
-                    'betweenness': round(bc, 6),
-                    'motivo': 'Ponto de Articulação + (Alto Grau OU Alta Betweenness)'
-                })
-            else:
-                critico_nivel_3.append({
-                    'no': no,
-                    'grau': grau,
-                    'betweenness': round(bc, 6),
-                    'motivo': 'Ponto de Articulação'
-                })
-        else:
-            if bc >= bc_threshold:
-                atencao_nivel_1.append({
-                    'no': no,
-                    'grau': grau,
-                    'betweenness': round(bc, 6),
-                    'motivo': 'Alta Betweenness (gargalo) mas não articulação'
-                })
-            elif grau >= 8:
-                atencao_nivel_2.append({
-                    'no': no,
-                    'grau': grau,
-                    'betweenness': round(bc, 6),
-                    'motivo': 'Alto Grau mas baixa betweenness e não articulação'
-                })
+        # Predicados booleanos
+        A = no in pontos_articulacao
+        G = grau >= 8
+        B = bc >= bc_threshold
+        P = perc_frag >= perc_threshold
+
+        dados_no = {
+            'no': no,
+            'grau': grau,
+            'betweenness': round(bc, 6),
+            'fragmentacao_percentual': round(perc_frag, 2),
+            'eh_articulacao': A,
+            'alto_grau': G,
+            'alta_betweenness': B,
+            'alta_percolacao': P
+        }
+
+        # Classificação hierárquica (do mais crítico ao menos crítico)
+        if A and G and B and P:
+            dados_no[
+                'motivo'] = 'Articulação + Alto Grau + Alta Betweenness + Alta Percolação (MÁXIMO RISCO)'
+            critico_4d_nivel_1.append(dados_no)
+        elif A and B and (G or P):
+            dados_no['motivo'] = 'Articulação + Alta Betweenness + (Alto Grau OU Alta Percolação)'
+            critico_4d_nivel_2.append(dados_no)
+        elif A and G and P:
+            dados_no['motivo'] = 'Articulação + Alto Grau + Alta Percolação (sem alta betweenness)'
+            critico_4d_nivel_3.append(dados_no)
+        elif A and P:
+            dados_no['motivo'] = 'Articulação + Alta Percolação (ponto crítico de fragmentação)'
+            critico_4d_nivel_4.append(dados_no)
+        elif A:
+            dados_no['motivo'] = 'Apenas Articulação (fragmentação localizada)'
+            critico_4d_nivel_5.append(dados_no)
+        elif B and P:
+            dados_no['motivo'] = 'Alta Betweenness + Alta Percolação (gargalo fragmentador)'
+            atencao_4d_nivel_1.append(dados_no)
+        elif P:
+            dados_no['motivo'] = 'Alta Percolação (impacto fragmentador sem articulação)'
+            atencao_4d_nivel_2.append(dados_no)
+        elif B:
+            dados_no['motivo'] = 'Alta Betweenness (gargalo de fluxo)'
+            atencao_4d_nivel_3.append(dados_no)
+        elif G:
+            dados_no['motivo'] = 'Alto Grau (hub com redundância)'
+            atencao_4d_nivel_4.append(dados_no)
 
     # Montar JSON completo
     dados = {
@@ -270,36 +371,106 @@ def gerar_analise_json(grafo, betweenness, pontos_articulacao):
                 }
             }
         },
+
+        'percolacao_por_no': {
+            'threshold_top_5_pct': round(perc_threshold, 2),
+            'media_fragmentacao': round(sum(valores_percolacao) / len(valores_percolacao), 2),
+            'maxima_fragmentacao': round(max(valores_percolacao), 2),
+            'interpretacao': (
+                f"Threshold de alta percolação: fragmentação ≥ {perc_threshold:.2f}% (top 5%). "
+                f"Identifica nós que ao serem removidos causam impacto fragmentador crítico na rede."
+            ),
+            'todos_nos': {
+                str(no): {
+                    'fragmentacao_percentual': p['fragmentacao_percentual'],
+                    'componentes_criados': p['componentes_criados'],
+                    'nos_isolados': p['nos_isolados']
+                }
+                for no, p in percolacao_por_no.items()
+            }
+        },
         'classificacao_criticidade': {
-            'nivel_1_critico_maximo': {
-                'total': len(critico_nivel_1),
-                'descricao': 'Ponto de Articulação + Alto Grau + Alta Betweenness',
-                'impacto': 'Falha causa FRAGMENTAÇÃO e afeta MUITOS pontos',
-                'nos': critico_nivel_1
+            'AVISO_METODOLOGICO': (
+                "Classificação com 4 dimensões de criticidade: A (Articulação), G (Alto Grau ≥8), "
+                "B (Alta Betweenness top 5%), P (Alta Percolação top 5%). Combinações hierárquicas "
+                "priorizadas por impacto estrutural e operacional na rede elétrica."
+            ),
+            'thresholds': {
+                'alto_grau': 8,
+                'alta_betweenness': round(bc_threshold, 6),
+                'alta_percolacao': round(perc_threshold, 2)
             },
-            'nivel_2_critico_alto': {
-                'total': len(critico_nivel_2),
-                'descricao': 'Ponto de Articulação + (Alto Grau OU Alta Betweenness)',
-                'impacto': 'Falha causa FRAGMENTAÇÃO',
-                'nos': critico_nivel_2
+            'nivel_1_critico_maximo_4d': {
+                'total': len(critico_4d_nivel_1),
+                'predicado': 'A ∧ G ∧ B ∧ P',
+                'descricao': 'Articulação + Alto Grau + Alta Betweenness + Alta Percolação',
+                'impacto': 'RISCO MÁXIMO: Fragmentação estrutural + Sobrecarga massiva + Gargalo crítico + Colapso em cascata',
+                'prioridade': 'CRÍTICA - Investimento imediato em redundância e proteção',
+                'nos': critico_4d_nivel_1
             },
-            'nivel_3_critico_medio': {
-                'total': len(critico_nivel_3),
-                'descricao': 'Ponto de Articulação (grau baixo/médio)',
-                'impacto': 'Falha causa fragmentação localizada',
-                'nos': critico_nivel_3
+            'nivel_2_critico_muito_alto': {
+                'total': len(critico_4d_nivel_2),
+                'predicado': 'A ∧ B ∧ (G ∨ P)',
+                'descricao': 'Articulação + Alta Betweenness + (Alto Grau OU Alta Percolação)',
+                'impacto': 'Fragmentação + Gargalo crítico + (Sobrecarga OU Colapso)',
+                'prioridade': 'MUITO ALTA - Redundância prioritária',
+                'nos': critico_4d_nivel_2
             },
-            'nivel_4_atencao_gargalo': {
-                'total': len(atencao_nivel_1),
-                'descricao': 'Alta Betweenness mas não articulação',
-                'impacto': 'Gargalo de fluxo, redundância existe',
-                'nos': atencao_nivel_1
+            'nivel_3_critico_alto': {
+                'total': len(critico_4d_nivel_3),
+                'predicado': 'A ∧ G ∧ P',
+                'descricao': 'Articulação + Alto Grau + Alta Percolação (sem alta betweenness)',
+                'impacto': 'Fragmentação + Sobrecarga + Colapso cascata (fluxo redistribuível)',
+                'prioridade': 'ALTA - Reforço estrutural necessário',
+                'nos': critico_4d_nivel_3
             },
-            'nivel_5_atencao_hub': {
-                'total': len(atencao_nivel_2),
-                'descricao': 'Alto Grau mas baixa betweenness e não articulação',
-                'impacto': 'Muitas conexões mas não crítico estruturalmente',
-                'nos': atencao_nivel_2
+            'nivel_4_critico_medio': {
+                'total': len(critico_4d_nivel_4),
+                'predicado': 'A ∧ P',
+                'descricao': 'Articulação + Alta Percolação (ponto crítico de fragmentação)',
+                'impacto': 'Fragmentação estrutural + Impacto cascata (grau e fluxo limitados)',
+                'prioridade': 'MÉDIA - Monitoramento intensivo',
+                'nos': critico_4d_nivel_4
+            },
+            'nivel_5_critico_basico': {
+                'total': len(critico_4d_nivel_5),
+                'predicado': 'A',
+                'descricao': 'Apenas Articulação (fragmentação localizada)',
+                'impacto': 'Fragmentação localizada sem cascata',
+                'prioridade': 'BAIXA-MÉDIA - Manutenção regular',
+                'nos': critico_4d_nivel_5
+            },
+            'nivel_atencao_1_gargalo_fragmentador': {
+                'total': len(atencao_4d_nivel_1),
+                'predicado': 'B ∧ P',
+                'descricao': 'Alta Betweenness + Alta Percolação (gargalo fragmentador sem articulação)',
+                'impacto': 'Gargalo de fluxo + Impacto fragmentador (redundância estrutural existe)',
+                'prioridade': 'ATENÇÃO - Balanceamento de carga',
+                'nos': atencao_4d_nivel_1
+            },
+            'nivel_atencao_2_fragmentador': {
+                'total': len(atencao_4d_nivel_2),
+                'predicado': 'P',
+                'descricao': 'Apenas Alta Percolação (impacto fragmentador)',
+                'impacto': 'Impacto fragmentador isolado (estrutura resiliente)',
+                'prioridade': 'ATENÇÃO - Avaliar contexto local',
+                'nos': atencao_4d_nivel_2
+            },
+            'nivel_atencao_3_gargalo': {
+                'total': len(atencao_4d_nivel_3),
+                'predicado': 'B',
+                'descricao': 'Apenas Alta Betweenness (gargalo de fluxo)',
+                'impacto': 'Gargalo de fluxo (redundância existe)',
+                'prioridade': 'NORMAL - Redistribuição de carga',
+                'nos': atencao_4d_nivel_3
+            },
+            'nivel_atencao_4_hub': {
+                'total': len(atencao_4d_nivel_4),
+                'predicado': 'G',
+                'descricao': 'Apenas Alto Grau (hub com redundância)',
+                'impacto': 'Sobrecarga localizada (estrutura robusta)',
+                'prioridade': 'NORMAL - Manutenção preventiva',
+                'nos': atencao_4d_nivel_4
             }
         }
     }
@@ -319,20 +490,29 @@ def main():
 
     print(
         "\n[2/6] Calculando Centralidade de Intermediação (Betweenness Centrality)...")
+    print("   ⏳ Isso pode levar 2-3 minutos para 4941 nós...")
+    import time
+    inicio = time.time()
     betweenness = calcular_betweenness_centrality(grafo)
+    tempo_decorrido = time.time() - inicio
+    print(f"   ✅ Concluído em {tempo_decorrido:.1f} segundos")
 
     print("\n[3/6] Identificando Pontos de Articulação (Articulation Points)...")
     pontos_articulacao = encontrar_pontos_articulacao(grafo)
 
-    print("\n[4/6] Calculando Coeficiente de Clustering...")
+    print("\n[4/7] Calculando Coeficiente de Clustering...")
     clustering_por_no, clustering_medio, transitividade = calcular_clustering(
         grafo)
 
-    print("\n[5/6] Analisando Percolação da Rede...")
+    print("\n[5/7] Analisando Percolação da Rede (pontos de articulação)...")
     percolacao = analisar_percolacao(grafo, pontos_articulacao)
 
-    print("\n[6/6] Gerando análise de criticidade e exportando para JSON...")
-    dados = gerar_analise_json(grafo, betweenness, pontos_articulacao)
+    print("\n[6/7] Analisando Percolação para TODOS os nós (4ª dimensão de criticidade)...")
+    percolacao_por_no = analisar_percolacao_todos_nos(grafo)
+
+    print("\n[7/7] Gerando análise de criticidade 4D e exportando para JSON...")
+    dados = gerar_analise_json(
+        grafo, betweenness, pontos_articulacao, percolacao_por_no)
 
     # Adicionar dados de clustering e percolação
     dados['analise_clustering'] = {
@@ -409,17 +589,33 @@ def main():
         print(
             f"   • Nó mais crítico: {top_impacto['no_removido']} (fragmenta {top_impacto['fragmentacao_percentual']:.1f}% da rede)")
 
-    print("\n🎯 Classificação de Criticidade:")
+    print("\n🎯 Classificação de Criticidade (4D: A+G+B+P):")
     print(
-        f"   🔴 Nível 1 (Crítico Máximo): {dados['classificacao_criticidade']['nivel_1_critico_maximo']['total']} nós")
+        f"   🔴🔴 Nível 1 (MÁXIMO RISCO): {dados['classificacao_criticidade']['nivel_1_critico_maximo_4d']['total']} nós")
     print(
-        f"   🟠 Nível 2 (Crítico Alto): {dados['classificacao_criticidade']['nivel_2_critico_alto']['total']} nós")
+        f"   🟠🟠 Nível 2 (Muito Alto): {dados['classificacao_criticidade']['nivel_2_critico_muito_alto']['total']} nós")
     print(
-        f"   🟡 Nível 3 (Crítico Médio): {dados['classificacao_criticidade']['nivel_3_critico_medio']['total']} nós")
+        f"   🟡🟡 Nível 3 (Alto): {dados['classificacao_criticidade']['nivel_3_critico_alto']['total']} nós")
     print(
-        f"   🔵 Nível 4 (Atenção - Gargalo): {dados['classificacao_criticidade']['nivel_4_atencao_gargalo']['total']} nós")
+        f"   🟢🟢 Nível 4 (Médio): {dados['classificacao_criticidade']['nivel_4_critico_medio']['total']} nós")
     print(
-        f"   🟢 Nível 5 (Atenção - Hub): {dados['classificacao_criticidade']['nivel_5_atencao_hub']['total']} nós")
+        f"   🔵🔵 Nível 5 (Básico): {dados['classificacao_criticidade']['nivel_5_critico_basico']['total']} nós")
+    print(
+        f"   🟠 Nível 6 (Atenção - Gargalo+Percolação): {dados['classificacao_criticidade']['nivel_atencao_1_gargalo_fragmentador']['total']} nós")
+    print(
+        f"   🟡 Nível 7 (Atenção - Percolação): {dados['classificacao_criticidade']['nivel_atencao_2_fragmentador']['total']} nós")
+    print(
+        f"   🟢 Nível 8 (Atenção - Gargalo): {dados['classificacao_criticidade']['nivel_atencao_3_gargalo']['total']} nós")
+    print(
+        f"   🔵 Nível 9 (Atenção - Hub): {dados['classificacao_criticidade']['nivel_atencao_4_hub']['total']} nós")
+
+    print("\n📊 Percolação (4ª Dimensão):")
+    print(
+        f"   • Threshold (top 5%): {dados['percolacao_por_no']['threshold_top_5_pct']:.2f}% fragmentação")
+    print(
+        f"   • Fragmentação média: {dados['percolacao_por_no']['media_fragmentacao']:.2f}%")
+    print(
+        f"   • Fragmentação máxima: {dados['percolacao_por_no']['maxima_fragmentacao']:.2f}%")
 
     print("\n" + "=" * 80)
     print("✅ ANÁLISE COMPLETA")

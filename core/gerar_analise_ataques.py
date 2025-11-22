@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Análise de Simulação de Ataques à Rede Elétrica
 Compara impacto de ataques aleatórios vs direcionados (targeted)
@@ -9,6 +10,14 @@ import csv
 import json
 import networkx as nx
 import random
+import sys
+
+# Configurar encoding UTF-8 para output no Windows
+if sys.stdout.encoding != 'utf-8':
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+    except:
+        pass
 
 
 def carregar_grafo(arquivo: str) -> nx.Graph:

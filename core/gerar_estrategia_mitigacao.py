@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Estratégia de Mitigação de Infraestrutura para Rede Elétrica
 
@@ -14,6 +15,10 @@ import json
 import sys
 import os
 import numpy as np
+
+# Configurar encoding UTF-8 para output no Windows
+if sys.stdout.encoding != 'utf-8':
+    sys.stdout.reconfigure(encoding='utf-8')
 
 
 def carregar_rede():
@@ -64,18 +69,47 @@ def carregar_analises_existentes():
     return analises
 
 
-def calcular_score_criticidade(grafo, betweenness, pontos_articulacao):
+def calcular_score_criticidade(grafo, betweenness, pontos_articulacao, percolacao_por_no=None):
     """
-    Calcula score multi-critério de criticidade para cada nó
+    Calcula score multi-critério de criticidade para cada nó (4 dimensões)
 
-    Score = 0.4 × Betweenness_norm + 0.3 × IsArticulation + 0.3 × Degree_norm
+    Score 4D = 0.30 × Percolação_norm + 0.30 × Articulation + 0.25 × Betweenness_norm + 0.15 × Degree_norm
 
-    Pesos baseados em impacto:
-    - Betweenness (40%): Fluxo crítico
-    - Articulation (30%): Fragmentação estrutural  
-    - Degree (30%): Conexões afetadas
+    FUNDAMENTAÇÃO TEÓRICA DOS PESOS (Teoria de Grafos + Redes Elétricas):
+
+    1. Percolação (30% - PESO MÁXIMO):
+       - Teoria: Mede impacto REAL de fragmentação ao remover o nó (percolation theory)
+       - Redes Elétricas: Particionamento = isolamento de consumidores + colapso cascata
+       - Justificativa: Métrica EMPÍRICA (não teórica) que capta efeito combinado de 
+         topologia + posicionamento estrutural. Prioritária para decisões de infraestrutura.
+
+    2. Articulação (30% - PESO MÁXIMO):
+       - Teoria: Cut vertex - ponto único de falha que desconecta o grafo (conectividade)
+       - Redes Elétricas: Falha causa FRAGMENTAÇÃO GARANTIDA (blackout regional)
+       - Justificativa: Predicado binário (sim/não) mas com impacto CRÍTICO - vulnerabilidade
+         estrutural inaceitável em sistema crítico. Iguala peso de percolação pois ambos
+         medem fragmentação (articulação: teórica; percolação: empírica).
+
+    3. Betweenness (25%):
+       - Teoria: Centralidade de intermediação - frequência em caminhos mais curtos (fluxo)
+       - Redes Elétricas: Gargalo de transmissão + sobrecarga em cascata (redistribuição)
+       - Justificativa: Peso MENOR que fragmentação porque rede elétrica tem redundância
+         (lei de Kirchhoff permite caminhos alternativos). Impacto: sobrecarga local, não
+         colapso total. Porém, alto o suficiente pois gargalos causam instabilidade.
+
+    4. Grau (15% - PESO MÍNIMO):
+       - Teoria: Número de arestas incidentes (conectividade local)
+       - Redes Elétricas: Número de conexões diretas afetadas (carga redistributiva)
+       - Justificativa: Peso REDUZIDO porque alto grau SEM articulação/betweenness/percolação
+         indica redundância (hub robusto). Impacto: sobrecarga localizada facilmente mitigável.
+         Mantém-se no modelo porque complementa análise de sobrecarga vs fragmentação.
+
+    VALIDAÇÃO CRUZADA:
+    - Fragmentação (P+A): 60% → Prioriza vulnerabilidade estrutural
+    - Fluxo (B+G): 40% → Complementa com análise operacional
+    - Balanceamento: Evita viés puramente topológico (teoria) ou puramente empírico (simulação)
     """
-    print("   Calculando scores multi-critério...")
+    print("   Calculando scores multi-critério (4D: Percolação + Articulação + Betweenness + Grau)...")
 
     graus = dict(grafo.degree())
 
@@ -88,30 +122,44 @@ def calcular_score_criticidade(grafo, betweenness, pontos_articulacao):
     grau_norm = {n: (g / max_grau if max_grau > 0 else 0)
                  for n, g in graus.items()}
 
-    # Calcular score combinado
+    # Normalizar percolação (se disponível)
+    if percolacao_por_no and 'todos_nos' in percolacao_por_no:
+        todos_nos_perc = percolacao_por_no['todos_nos']
+        max_percolacao = max(p['fragmentacao_percentual']
+                             for p in todos_nos_perc.values())
+        percolacao_norm = {int(n): (p['fragmentacao_percentual'] / max_percolacao if max_percolacao > 0 else 0)
+                           for n, p in todos_nos_perc.items()}
+    else:
+        percolacao_norm = {n: 0.0 for n in grafo.nodes()}
+
+    # Calcular score combinado 4D
     scores = {}
     for no in grafo.nodes():
         is_articulacao = 1.0 if no in pontos_articulacao else 0.0
 
-        score = (0.4 * betweenness_norm[no] +
-                 0.3 * is_articulacao +
-                 0.3 * grau_norm[no])
+        # Score 4D com pesos fundamentados
+        score_4d = (0.30 * percolacao_norm[no] +
+                    0.30 * is_articulacao +
+                    0.25 * betweenness_norm[no] +
+                    0.15 * grau_norm[no])
 
         scores[no] = {
             'no': no,
-            'score_total': round(score, 4),
+            'score_total': round(score_4d, 4),
             'betweenness': round(betweenness[no], 6),
             'betweenness_norm': round(betweenness_norm[no], 4),
             'grau': graus[no],
             'grau_norm': round(grau_norm[no], 4),
-            'eh_articulacao': is_articulacao == 1.0
+            'eh_articulacao': is_articulacao == 1.0,
+            'percolacao_fragmentacao': round(percolacao_por_no['todos_nos'][str(no)]['fragmentacao_percentual'], 2) if (percolacao_por_no and 'todos_nos' in percolacao_por_no and str(no) in percolacao_por_no['todos_nos']) else 0.0,
+            'percolacao_norm': round(percolacao_norm.get(no, 0.0), 4)
         }
 
     # Ordenar por score (mais crítico primeiro)
     ranking = sorted(
         scores.values(), key=lambda x: x['score_total'], reverse=True)
 
-    print(f"   ✓ Scores calculados para {len(ranking)} nós")
+    print(f"   ✓ Scores 4D calculados para {len(ranking)} nós")
 
     return ranking
 
@@ -280,11 +328,17 @@ def definir_stakeholders_mitigacao(analises):
     }
 
 
-def gerar_plano_acao(ranking_criticos, roi_analises, stakeholders):
+def gerar_plano_acao(ranking_criticos, roi_analises, stakeholders, classificacao_4d=None):
     """
-    Gera plano de ação priorizado para top 20 nós críticos
+    Gera plano de ação priorizado para top 20 nós críticos (com suporte a 4D)
     """
     plano = []
+
+    # Identificar nós 4D nível 1 se disponível
+    nos_4d_nivel_1 = set()
+    if classificacao_4d and 'nivel_1_critico_maximo_4d' in classificacao_4d:
+        nos_4d_nivel_1 = set(
+            n['no'] for n in classificacao_4d['nivel_1_critico_maximo_4d']['nos'])
 
     for idx, item in enumerate(ranking_criticos[:20], 1):
         no = item['no']
@@ -297,21 +351,40 @@ def gerar_plano_acao(ranking_criticos, roi_analises, stakeholders):
             no, 'DESCONHECIDO') if stakeholders['papel_por_no'] else 'DESCONHECIDO'
         stakeholder_info = stakeholders['matriz_stakeholders'][papel]
 
+        # Ações baseadas em criticidade 4D
+        is_4d_nivel_1 = no in nos_4d_nivel_1
+
+        if is_4d_nivel_1:
+            acoes = [
+                '🔴 AÇÃO CRÍTICA 4D: Implementar redundância tripla (mínimo 3 rotas alternativas)',
+                'Sistema de backup de energia com ativação automática (<100ms)',
+                'Monitoramento 24/7 com alertas em tempo real + inspeção diária presencial',
+                'Plano de contingência para falha total + equipe de resposta rápida dedicada',
+                'Proteção física reforçada (cercamento, câmeras, sensores)',
+                'Investimento prioritário em substituição de equipamentos críticos'
+            ]
+        elif item['eh_articulacao']:
+            acoes = [
+                'Adicionar 3 conexões redundantes a hubs próximos',
+                'Implementar sistema de backup de energia',
+                'Monitoramento 24/7 com alertas em tempo real',
+                'Plano de contingência para falha total'
+            ]
+        else:
+            acoes = [
+                'Adicionar 2 conexões redundantes',
+                'Monitoramento preventivo',
+                'Manutenção programada prioritária'
+            ]
+
         plano.append({
             'prioridade': idx,
             'no': no,
             'score_criticidade': item['score_total'],
             'papel': papel,
-            'acoes_recomendadas': [
-                'Adicionar 3 conexões redundantes a hubs próximos',
-                'Implementar sistema de backup de energia',
-                'Monitoramento 24/7 com alertas em tempo real',
-                'Plano de contingência para falha total'
-            ] if item['eh_articulacao'] else [
-                'Adicionar 2 conexões redundantes',
-                'Monitoramento preventivo',
-                'Manutenção programada prioritária'
-            ],
+            'criticidade_4d_nivel_1': is_4d_nivel_1,
+            'percolacao_fragmentacao': item.get('percolacao_fragmentacao', 0.0),
+            'acoes_recomendadas': acoes,
             'responsavel_primario': stakeholder_info['responsavel_primario'],
             'responsavel_secundario': stakeholder_info['responsavel_secundario'],
             'investidor': stakeholder_info['investidor'],
@@ -329,38 +402,72 @@ def main():
     print("ESTRATÉGIA DE MITIGAÇÃO DE INFRAESTRUTURA")
     print("=" * 80)
 
-    print("\n[1/7] Carregando rede elétrica...")
+    print("\n[1/8] Carregando rede elétrica...")
     grafo = carregar_rede()
 
-    print("\n[2/7] Carregando análises existentes...")
+    print("\n[2/8] Carregando análises existentes...")
     analises = carregar_analises_existentes()
 
-    print("\n[3/7] Calculando betweenness e pontos de articulação...")
+    print("\n[3/8] Carregando dados de percolação (4 dimensões)...")
+    percolacao_por_no = None
+    classificacao_criticidade = None
+    try:
+        caminho_percolacao = '../ui/public/analise_criticidade.json'
+        with open(caminho_percolacao, 'r', encoding='utf-8') as f:
+            dados_percolacao = json.load(f)
+            percolacao_por_no = dados_percolacao.get('percolacao_por_no', None)
+            classificacao_criticidade = dados_percolacao.get(
+                'classificacao_criticidade', None)
+        if percolacao_por_no:
+            total_nos_perc = len(percolacao_por_no.get('todos_nos', {}))
+            print(
+                f"   ✓ Dados de percolação carregados: {total_nos_perc} nós com métricas")
+            print(
+                f"   ✓ Threshold top 5%: {percolacao_por_no.get('threshold_top_5_pct', 0)}% fragmentação")
+        if classificacao_criticidade:
+            print(
+                f"   ✓ Classificação 4D carregada: {len(classificacao_criticidade)} níveis de criticidade")
+    except FileNotFoundError:
+        print("   ⚠ analise_criticidade.json não encontrado - análise 4D não disponível")
+    except Exception as e:
+        print(f"   ⚠ Erro ao carregar dados de percolação: {e}")
+
+    print("\n[4/8] Calculando betweenness e pontos de articulação...")
+    print("   ⏳ Betweenness pode levar 2-3 minutos...")
+    import time
+    inicio_bc = time.time()
     betweenness = nx.betweenness_centrality(grafo, normalized=True)
+    tempo_bc = time.time() - inicio_bc
+    print(f"   ✓ Betweenness concluído em {tempo_bc:.1f}s")
+
     pontos_articulacao = set(nx.articulation_points(grafo))
     print(f"   ✓ {len(pontos_articulacao)} pontos de articulação identificados")
 
-    print("\n[4/7] Calculando ranking de criticidade (score multi-critério)...")
+    print("\n[5/8] Calculando ranking de criticidade (score multi-critério 4D)...")
     ranking_criticos = calcular_score_criticidade(
-        grafo, betweenness, pontos_articulacao)
+        grafo, betweenness, pontos_articulacao, percolacao_por_no)
+    print(f"   ✓ {len(ranking_criticos)} nós ranqueados")
 
-    print("\n[5/7] Simulando adição de redundância nos top 10 nós...")
+    print("\n[6/8] Simulando adição de redundância nos top 10 nós...")
     simulacoes_redundancia = []
-    for item in ranking_criticos[:10]:
+    for idx, item in enumerate(ranking_criticos[:10], 1):
+        print(f"      [{idx}/10] Simulando nó {item['no']}...", end='\r')
         sim = simular_adicao_redundancia(grafo, item['no'], k_arestas=3)
         if sim:
             simulacoes_redundancia.append({
                 'no': item['no'],
                 **sim
             })
-    print(f"   ✓ {len(simulacoes_redundancia)} simulações concluídas")
+    print(
+        f"\n   ✓ {len(simulacoes_redundancia)} simulações concluídas" + " " * 30)
 
-    print("\n[6/7] Calculando ROI de mitigação...")
+    print("\n[7/8] Calculando ROI de mitigação...")
     roi_analises = calcular_roi_mitigacao(ranking_criticos)
 
-    print("\n[7/7] Definindo stakeholders e gerando plano de ação...")
+    print("\n[8/8] Definindo stakeholders e gerando plano de ação...")
     stakeholders = definir_stakeholders_mitigacao(analises)
-    plano_acao = gerar_plano_acao(ranking_criticos, roi_analises, stakeholders)
+    plano_acao = gerar_plano_acao(
+        ranking_criticos, roi_analises, stakeholders, classificacao_criticidade)
 
     # Compilar resultado
     resultado = {
@@ -368,7 +475,8 @@ def main():
             'total_nos_analisados': len(ranking_criticos),
             'nos_criticos_priorizados': 20,
             'investimento_total_estimado_mil': sum(p['custo_estimado_mil'] for p in plano_acao),
-            'roi_medio': round(np.mean([p['roi'] for p in plano_acao]), 2)
+            'roi_medio': round(np.mean([p['roi'] for p in plano_acao]), 2),
+            'analise_4d_disponivel': percolacao_por_no is not None
         },
         'ranking_criticidade': ranking_criticos[:50],
         'simulacoes_redundancia': simulacoes_redundancia,
@@ -376,12 +484,28 @@ def main():
         'matriz_stakeholders': stakeholders['matriz_stakeholders'],
         'plano_acao': plano_acao,
         'metodologia': {
-            'score_criticidade': '0.4×Betweenness + 0.3×Articulacao + 0.3×Grau',
+            'score_criticidade_4d': '0.30×Percolação + 0.30×Articulação + 0.25×Betweenness + 0.15×Grau',
+            'justificativa_teorica': {
+                'percolacao_30': 'Impacto empírico de fragmentação (teoria de percolação)',
+                'articulacao_30': 'Garantia de fragmentação (teoria de vértices de corte)',
+                'betweenness_25': 'Gargalo de fluxo com redundância (Lei de Kirchhoff)',
+                'grau_15': 'Sobrecarga local, facilmente mitigável'
+            },
             'custo_base': 'R$ 100 mil/nó + 10% por grau',
             'roi': '(Redução_Vulnerabilidade / Custo) × 100',
-            'redundancia': '3 conexões a hubs não-vizinhos'
+            'redundancia': '3 conexões a hubs não-vizinhos',
+            'referencia': 'Newman (2010), Watts & Strogatz (1998), Albert et al. (2000)'
         }
     }
+
+    # Adicionar ranking 4D se disponível
+    if classificacao_criticidade:
+        resultado['ranking_criticidade_4d'] = {
+            nivel: [item['no'] for item in ranking_criticos if item.get(
+                'criticidade_4d_nivel_1', False)][:30]
+            if 'critico_maximo_4d' in nivel else []
+            for nivel in classificacao_criticidade.keys()
+        }
 
     # Salvar JSON
     caminho_saida = '../ui/public/estrategia_mitigacao.json'

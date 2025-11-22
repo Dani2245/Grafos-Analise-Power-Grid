@@ -1,8 +1,22 @@
+# -*- coding: utf-8 -*-
+"""
+Geração de Visualizações 2D dos Hubs da Rede
+Cria grafos interativos com PyVis
+"""
+
 import json
 import csv
 import random
 from collections import defaultdict
 from pyvis.network import Network
+import sys
+
+# Configurar encoding UTF-8 para output no Windows
+if sys.stdout.encoding != 'utf-8':
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+    except:
+        pass
 
 
 def ajustar_cor_fundo_html(caminho_arquivo):

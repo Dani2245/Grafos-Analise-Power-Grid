@@ -3,6 +3,7 @@ Análise de Robustez e Resiliência da Rede Elétrica
 Calcula métricas estruturais de robustez e eficiência sob falhas
 """
 
+# -*- coding: utf-8 -*-
 import networkx as nx
 import csv
 import json
@@ -11,6 +12,13 @@ import os
 import numpy as np
 import random
 from typing import List, Dict
+
+# Configurar encoding UTF-8 para output no Windows
+if sys.stdout.encoding != 'utf-8':
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+    except:
+        pass
 
 
 def carregar_grafo(arquivo: str) -> nx.Graph:
@@ -444,6 +452,45 @@ def main():
     # Interpretação
     interpretacao = interpretar_robustez(metricas_robustez)
 
+    # Carregar dados de percolação por nó (se existir)
+    resumo_percolacao_nos = None
+    try:
+        import json
+        with open('../ui/public/analise_criticidade.json', 'r', encoding='utf-8') as f:
+            analise_crit = json.load(f)
+            if 'percolacao_por_no' in analise_crit:
+                perc_data = analise_crit['percolacao_por_no']
+                threshold = perc_data['threshold_top_5_pct']
+
+                # Identificar nós com alta percolação
+                nos_alta_perc = []
+                for no_str, info in perc_data['todos_nos'].items():
+                    if info['fragmentacao_percentual'] >= threshold:
+                        nos_alta_perc.append({
+                            'no': int(no_str),
+                            'fragmentacao_percentual': info['fragmentacao_percentual'],
+                            'componentes_criados': info['componentes_criados'],
+                            'nos_isolados': info['nos_isolados']
+                        })
+
+                # Ordenar por fragmentação
+                nos_alta_perc.sort(
+                    key=lambda x: x['fragmentacao_percentual'], reverse=True)
+
+                resumo_percolacao_nos = {
+                    'threshold_top_5_pct': threshold,
+                    'total_nos_alta_percolacao': len(nos_alta_perc),
+                    'top_20_fragmentadores': nos_alta_perc[:20],
+                    'interpretacao': (
+                        f"{len(nos_alta_perc)} nós apresentam alto impacto de fragmentação (≥{threshold:.2f}%). "
+                        f"Estes nós, se removidos, causam particionamento significativo da rede."
+                    )
+                }
+                print(
+                    f"\n✓ Dados de percolação por nó carregados de analise_criticidade.json")
+    except Exception as e:
+        print(f"\n⚠️  Não foi possível carregar percolação por nó: {e}")
+
     # Monta resultado
     resultado = {
         'metricas_robustez': metricas_robustez,
@@ -452,6 +499,9 @@ def main():
         'comparacao_teorica': comparacao_teorica,
         'interpretacao': interpretacao
     }
+
+    if resumo_percolacao_nos:
+        resultado['resumo_percolacao_nos'] = resumo_percolacao_nos
 
     # Salva resultado
     caminho_saida = '../ui/public/analise_robustez.json'

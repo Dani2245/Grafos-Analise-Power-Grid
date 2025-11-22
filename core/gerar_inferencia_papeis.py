@@ -4,9 +4,18 @@ Classifica nós como: Geradores, Transformadores, Linhas de Transmissão, Consum
 Baseado em métricas topológicas: grau, betweenness, clustering, posição na comunidade
 """
 
+# -*- coding: utf-8 -*-
 import networkx as nx
 import csv
 import json
+import sys
+
+# Configurar encoding UTF-8 para output no Windows
+if sys.stdout.encoding != 'utf-8':
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+    except:
+        pass
 from typing import Dict, List
 
 

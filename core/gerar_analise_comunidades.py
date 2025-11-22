@@ -1,6 +1,15 @@
+# -*- coding: utf-8 -*-
 import networkx as nx
 import csv
 import json
+import sys
+
+# Configurar encoding UTF-8 para output no Windows
+if sys.stdout.encoding != 'utf-8':
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+    except:
+        pass
 import sys
 import os
 import numpy as np
