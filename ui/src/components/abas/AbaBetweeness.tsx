@@ -1,5 +1,8 @@
+import { useState } from 'react';
 import { ScatterChart, Scatter, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
+import { Eye } from 'lucide-react';
 import TooltipTermoTecnico from '../TooltipTermoTecnico';
+import ModalGrafo from '../ModalGrafo';
 import { GLOSSARIO } from '../../utils/glossario';
 
 interface AbaBetweenessProps {
@@ -7,6 +10,11 @@ interface AbaBetweenessProps {
 }
 
 const AbaBetweeness = ({ analiseCriticidade }: AbaBetweenessProps) => {
+  const [modalGrafo, setModalGrafo] = useState<{ aberto: boolean; arquivo: string; titulo: string }>({
+    aberto: false,
+    arquivo: '',
+    titulo: ''
+  });
   return (
     <div className="space-y-6">
       <div className="bg-slate-800 rounded-lg p-6">
@@ -52,6 +60,7 @@ const AbaBetweeness = ({ analiseCriticidade }: AbaBetweenessProps) => {
                 <th className="p-3">Betweenness</th>
                 <th className="p-3">Grau</th>
                 <th className="p-3">Ponto de Articulação</th>
+                <th className="p-3">Ações</th>
               </tr>
             </thead>
             <tbody>
@@ -70,12 +79,32 @@ const AbaBetweeness = ({ analiseCriticidade }: AbaBetweenessProps) => {
                       <span className="px-2 py-1 bg-slate-700 rounded text-slate-400">NÃO</span>
                     )}
                   </td>
+                  <td className="p-3">
+                    <button
+                      onClick={() => setModalGrafo({
+                        aberto: true,
+                        arquivo: `grafos/betweenness/rede_betweenness_${item.no}_grau_${item.grau}_bc_${item.betweenness.toFixed(6)}.html`,
+                        titulo: `Grafo Betweenness - Nó ${item.no} (BC: ${item.betweenness.toFixed(6)})`
+                      })}
+                      className="px-3 py-1 bg-yellow-600 hover:bg-yellow-700 rounded text-white text-sm flex items-center gap-1 transition-colors"
+                    >
+                      <Eye size={14} />
+                      Ver Grafo
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
       </div>
+
+      <ModalGrafo
+        aberto={modalGrafo.aberto}
+        arquivo={modalGrafo.arquivo}
+        titulo={modalGrafo.titulo}
+        onFechar={() => setModalGrafo({ aberto: false, arquivo: '', titulo: '' })}
+      />
 
       <div className="bg-slate-800 rounded-lg p-6">
         <h2 className="text-2xl font-bold mb-4">Relação entre Grau e Betweenness (Top 50)</h2>

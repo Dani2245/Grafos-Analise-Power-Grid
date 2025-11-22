@@ -1,0 +1,1546 @@
+{
+  "resumo": {
+    "total_nos_analisados": 4941,
+    "nos_criticos_priorizados": 20,
+    "investimento_total_estimado_mil": 3950.0,
+    "roi_medio": 38.59,
+    "analise_4d_disponivel": true
+  },
+  "ranking_criticidade": [
+    {
+      "no": 726,
+      "score_total": 0.7031,
+      "betweenness": 0.055178,
+      "betweenness_norm": 0.1913,
+      "grau": 7,
+      "grau_norm": 0.3684,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 2.15,
+      "percolacao_norm": 1.0
+    },
+    {
+      "no": 1267,
+      "score_total": 0.5682,
+      "betweenness": 0.248271,
+      "betweenness_norm": 0.8608,
+      "grau": 6,
+      "grau_norm": 0.3158,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.04,
+      "percolacao_norm": 0.0186
+    },
+    {
+      "no": 692,
+      "score_total": 0.538,
+      "betweenness": 0.037966,
+      "betweenness_norm": 0.1316,
+      "grau": 6,
+      "grau_norm": 0.3158,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 1.13,
+      "percolacao_norm": 0.5256
+    },
+    {
+      "no": 69,
+      "score_total": 0.5204,
+      "betweenness": 0.184123,
+      "betweenness_norm": 0.6384,
+      "grau": 7,
+      "grau_norm": 0.3684,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.04,
+      "percolacao_norm": 0.0186
+    },
+    {
+      "no": 4458,
+      "score_total": 0.5153,
+      "betweenness": 0.045791,
+      "betweenness_norm": 0.1588,
+      "grau": 18,
+      "grau_norm": 0.9474,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.24,
+      "percolacao_norm": 0.1116
+    },
+    {
+      "no": 2522,
+      "score_total": 0.5003,
+      "betweenness": 0.027813,
+      "betweenness_norm": 0.0964,
+      "grau": 8,
+      "grau_norm": 0.4211,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.81,
+      "percolacao_norm": 0.3767
+    },
+    {
+      "no": 2604,
+      "score_total": 0.4863,
+      "betweenness": 0.047085,
+      "betweenness_norm": 0.1633,
+      "grau": 8,
+      "grau_norm": 0.4211,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.59,
+      "percolacao_norm": 0.2744
+    },
+    {
+      "no": 1166,
+      "score_total": 0.4771,
+      "betweenness": 0.106777,
+      "betweenness_norm": 0.3702,
+      "grau": 10,
+      "grau_norm": 0.5263,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.04,
+      "percolacao_norm": 0.0186
+    },
+    {
+      "no": 4199,
+      "score_total": 0.4731,
+      "betweenness": 0.108113,
+      "betweenness_norm": 0.3749,
+      "grau": 9,
+      "grau_norm": 0.4737,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.06,
+      "percolacao_norm": 0.0279
+    },
+    {
+      "no": 396,
+      "score_total": 0.4668,
+      "betweenness": 0.103433,
+      "betweenness_norm": 0.3586,
+      "grau": 8,
+      "grau_norm": 0.4211,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.1,
+      "percolacao_norm": 0.0465
+    },
+    {
+      "no": 3468,
+      "score_total": 0.46,
+      "betweenness": 0.00873,
+      "betweenness_norm": 0.0303,
+      "grau": 14,
+      "grau_norm": 0.7368,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.3,
+      "percolacao_norm": 0.1395
+    },
+    {
+      "no": 2553,
+      "score_total": 0.4595,
+      "betweenness": 0.004541,
+      "betweenness_norm": 0.0157,
+      "grau": 19,
+      "grau_norm": 1.0,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.04,
+      "percolacao_norm": 0.0186
+    },
+    {
+      "no": 490,
+      "score_total": 0.459,
+      "betweenness": 0.044654,
+      "betweenness_norm": 0.1548,
+      "grau": 11,
+      "grau_norm": 0.5789,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.24,
+      "percolacao_norm": 0.1116
+    },
+    {
+      "no": 70,
+      "score_total": 0.4574,
+      "betweenness": 0.147861,
+      "betweenness_norm": 0.5127,
+      "grau": 3,
+      "grau_norm": 0.1579,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.04,
+      "percolacao_norm": 0.0186
+    },
+    {
+      "no": 2249,
+      "score_total": 0.4552,
+      "betweenness": 0.087402,
+      "betweenness_norm": 0.303,
+      "grau": 9,
+      "grau_norm": 0.4737,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.06,
+      "percolacao_norm": 0.0279
+    },
+    {
+      "no": 2282,
+      "score_total": 0.4474,
+      "betweenness": 0.015109,
+      "betweenness_norm": 0.0524,
+      "grau": 11,
+      "grau_norm": 0.5789,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.34,
+      "percolacao_norm": 0.1581
+    },
+    {
+      "no": 2586,
+      "score_total": 0.4455,
+      "betweenness": 0.038091,
+      "betweenness_norm": 0.1321,
+      "grau": 10,
+      "grau_norm": 0.5263,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.24,
+      "percolacao_norm": 0.1116
+    },
+    {
+      "no": 831,
+      "score_total": 0.4439,
+      "betweenness": 0.006265,
+      "betweenness_norm": 0.0217,
+      "grau": 14,
+      "grau_norm": 0.7368,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.2,
+      "percolacao_norm": 0.093
+    },
+    {
+      "no": 1506,
+      "score_total": 0.4388,
+      "betweenness": 0.071725,
+      "betweenness_norm": 0.2487,
+      "grau": 9,
+      "grau_norm": 0.4737,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.04,
+      "percolacao_norm": 0.0186
+    },
+    {
+      "no": 4187,
+      "score_total": 0.4383,
+      "betweenness": 0.014244,
+      "betweenness_norm": 0.0494,
+      "grau": 8,
+      "grau_norm": 0.4211,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.45,
+      "percolacao_norm": 0.2093
+    },
+    {
+      "no": 3895,
+      "score_total": 0.4348,
+      "betweenness": 0.008107,
+      "betweenness_norm": 0.0281,
+      "grau": 13,
+      "grau_norm": 0.6842,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.18,
+      "percolacao_norm": 0.0837
+    },
+    {
+      "no": 1224,
+      "score_total": 0.4342,
+      "betweenness": 0.010148,
+      "betweenness_norm": 0.0352,
+      "grau": 12,
+      "grau_norm": 0.6316,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.22,
+      "percolacao_norm": 0.1023
+    },
+    {
+      "no": 2575,
+      "score_total": 0.4283,
+      "betweenness": 0.013523,
+      "betweenness_norm": 0.0469,
+      "grau": 13,
+      "grau_norm": 0.6842,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.1,
+      "percolacao_norm": 0.0465
+    },
+    {
+      "no": 2542,
+      "score_total": 0.4277,
+      "betweenness": 0.022471,
+      "betweenness_norm": 0.0779,
+      "grau": 13,
+      "grau_norm": 0.6842,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.04,
+      "percolacao_norm": 0.0186
+    },
+    {
+      "no": 1030,
+      "score_total": 0.4266,
+      "betweenness": 0.038828,
+      "betweenness_norm": 0.1346,
+      "grau": 10,
+      "grau_norm": 0.5263,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.1,
+      "percolacao_norm": 0.0465
+    },
+    {
+      "no": 2593,
+      "score_total": 0.4262,
+      "betweenness": 0.02706,
+      "betweenness_norm": 0.0938,
+      "grau": 7,
+      "grau_norm": 0.3684,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.34,
+      "percolacao_norm": 0.1581
+    },
+    {
+      "no": 846,
+      "score_total": 0.4254,
+      "betweenness": 0.00794,
+      "betweenness_norm": 0.0275,
+      "grau": 9,
+      "grau_norm": 0.4737,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.34,
+      "percolacao_norm": 0.1581
+    },
+    {
+      "no": 1148,
+      "score_total": 0.4253,
+      "betweenness": 0.092571,
+      "betweenness_norm": 0.321,
+      "grau": 5,
+      "grau_norm": 0.2632,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.04,
+      "percolacao_norm": 0.0186
+    },
+    {
+      "no": 2382,
+      "score_total": 0.4224,
+      "betweenness": 0.009969,
+      "betweenness_norm": 0.0346,
+      "grau": 13,
+      "grau_norm": 0.6842,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.08,
+      "percolacao_norm": 0.0372
+    },
+    {
+      "no": 1326,
+      "score_total": 0.4223,
+      "betweenness": 0.024306,
+      "betweenness_norm": 0.0843,
+      "grau": 10,
+      "grau_norm": 0.5263,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.16,
+      "percolacao_norm": 0.0744
+    },
+    {
+      "no": 2298,
+      "score_total": 0.4219,
+      "betweenness": 0.076311,
+      "betweenness_norm": 0.2646,
+      "grau": 6,
+      "grau_norm": 0.3158,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.06,
+      "percolacao_norm": 0.0279
+    },
+    {
+      "no": 2608,
+      "score_total": 0.4211,
+      "betweenness": 0.038995,
+      "betweenness_norm": 0.1352,
+      "grau": 10,
+      "grau_norm": 0.5263,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.06,
+      "percolacao_norm": 0.0279
+    },
+    {
+      "no": 362,
+      "score_total": 0.4199,
+      "betweenness": 0.010686,
+      "betweenness_norm": 0.0371,
+      "grau": 5,
+      "grau_norm": 0.2632,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.51,
+      "percolacao_norm": 0.2372
+    },
+    {
+      "no": 1334,
+      "score_total": 0.4185,
+      "betweenness": 0.026885,
+      "betweenness_norm": 0.0932,
+      "grau": 11,
+      "grau_norm": 0.5789,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.06,
+      "percolacao_norm": 0.0279
+    },
+    {
+      "no": 725,
+      "score_total": 0.418,
+      "betweenness": 0.009606,
+      "betweenness_norm": 0.0333,
+      "grau": 10,
+      "grau_norm": 0.5263,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.22,
+      "percolacao_norm": 0.1023
+    },
+    {
+      "no": 129,
+      "score_total": 0.4177,
+      "betweenness": 0.046878,
+      "betweenness_norm": 0.1625,
+      "grau": 8,
+      "grau_norm": 0.4211,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.1,
+      "percolacao_norm": 0.0465
+    },
+    {
+      "no": 402,
+      "score_total": 0.417,
+      "betweenness": 0.061523,
+      "betweenness_norm": 0.2133,
+      "grau": 7,
+      "grau_norm": 0.3684,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.06,
+      "percolacao_norm": 0.0279
+    },
+    {
+      "no": 2434,
+      "score_total": 0.417,
+      "betweenness": 0.01606,
+      "betweenness_norm": 0.0557,
+      "grau": 12,
+      "grau_norm": 0.6316,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.06,
+      "percolacao_norm": 0.0279
+    },
+    {
+      "no": 1554,
+      "score_total": 0.4165,
+      "betweenness": 0.016972,
+      "betweenness_norm": 0.0588,
+      "grau": 9,
+      "grau_norm": 0.4737,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.22,
+      "percolacao_norm": 0.1023
+    },
+    {
+      "no": 1140,
+      "score_total": 0.4147,
+      "betweenness": 0.011153,
+      "betweenness_norm": 0.0387,
+      "grau": 8,
+      "grau_norm": 0.4211,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.3,
+      "percolacao_norm": 0.1395
+    },
+    {
+      "no": 1106,
+      "score_total": 0.4137,
+      "betweenness": 0.033689,
+      "betweenness_norm": 0.1168,
+      "grau": 10,
+      "grau_norm": 0.5263,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.04,
+      "percolacao_norm": 0.0186
+    },
+    {
+      "no": 2439,
+      "score_total": 0.4121,
+      "betweenness": 0.003928,
+      "betweenness_norm": 0.0136,
+      "grau": 12,
+      "grau_norm": 0.6316,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.1,
+      "percolacao_norm": 0.0465
+    },
+    {
+      "no": 1309,
+      "score_total": 0.4105,
+      "betweenness": 0.017599,
+      "betweenness_norm": 0.061,
+      "grau": 11,
+      "grau_norm": 0.5789,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.06,
+      "percolacao_norm": 0.0279
+    },
+    {
+      "no": 68,
+      "score_total": 0.4104,
+      "betweenness": 0.059868,
+      "betweenness_norm": 0.2076,
+      "grau": 6,
+      "grau_norm": 0.3158,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.08,
+      "percolacao_norm": 0.0372
+    },
+    {
+      "no": 1005,
+      "score_total": 0.4099,
+      "betweenness": 0.013764,
+      "betweenness_norm": 0.0477,
+      "grau": 11,
+      "grau_norm": 0.5789,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.08,
+      "percolacao_norm": 0.0372
+    },
+    {
+      "no": 1353,
+      "score_total": 0.4092,
+      "betweenness": 0.055776,
+      "betweenness_norm": 0.1934,
+      "grau": 7,
+      "grau_norm": 0.3684,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.04,
+      "percolacao_norm": 0.0186
+    },
+    {
+      "no": 4218,
+      "score_total": 0.4089,
+      "betweenness": 0.045807,
+      "betweenness_norm": 0.1588,
+      "grau": 7,
+      "grau_norm": 0.3684,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.1,
+      "percolacao_norm": 0.0465
+    },
+    {
+      "no": 657,
+      "score_total": 0.4081,
+      "betweenness": 0.00888,
+      "betweenness_norm": 0.0308,
+      "grau": 6,
+      "grau_norm": 0.3158,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.38,
+      "percolacao_norm": 0.1767
+    },
+    {
+      "no": 4848,
+      "score_total": 0.4079,
+      "betweenness": 0.072507,
+      "betweenness_norm": 0.2514,
+      "grau": 5,
+      "grau_norm": 0.2632,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.04,
+      "percolacao_norm": 0.0186
+    },
+    {
+      "no": 2662,
+      "score_total": 0.4074,
+      "betweenness": 0.008126,
+      "betweenness_norm": 0.0282,
+      "grau": 12,
+      "grau_norm": 0.6316,
+      "eh_articulacao": true,
+      "percolacao_fragmentacao": 0.04,
+      "percolacao_norm": 0.0186
+    }
+  ],
+  "simulacoes_redundancia": [
+    {
+      "no": 726,
+      "arestas_adicionadas": 3,
+      "detalhes_arestas": [
+        [
+          726,
+          2553
+        ],
+        [
+          726,
+          4458
+        ],
+        [
+          726,
+          831
+        ]
+      ],
+      "betweenness_antes": 0.055178,
+      "betweenness_depois": 0.181192,
+      "reducao_betweenness": -228.38,
+      "era_articulacao": true,
+      "eh_articulacao_apos": true,
+      "eliminou_articulacao": false
+    },
+    {
+      "no": 1267,
+      "arestas_adicionadas": 3,
+      "detalhes_arestas": [
+        [
+          1267,
+          2553
+        ],
+        [
+          1267,
+          4458
+        ],
+        [
+          1267,
+          831
+        ]
+      ],
+      "betweenness_antes": 0.248271,
+      "betweenness_depois": 0.421439,
+      "reducao_betweenness": -69.75,
+      "era_articulacao": true,
+      "eh_articulacao_apos": true,
+      "eliminou_articulacao": false
+    },
+    {
+      "no": 692,
+      "arestas_adicionadas": 3,
+      "detalhes_arestas": [
+        [
+          692,
+          2553
+        ],
+        [
+          692,
+          4458
+        ],
+        [
+          692,
+          831
+        ]
+      ],
+      "betweenness_antes": 0.037966,
+      "betweenness_depois": 0.164858,
+      "reducao_betweenness": -334.23,
+      "era_articulacao": true,
+      "eh_articulacao_apos": true,
+      "eliminou_articulacao": false
+    },
+    {
+      "no": 69,
+      "arestas_adicionadas": 3,
+      "detalhes_arestas": [
+        [
+          69,
+          2553
+        ],
+        [
+          69,
+          4458
+        ],
+        [
+          69,
+          831
+        ]
+      ],
+      "betweenness_antes": 0.184123,
+      "betweenness_depois": 0.306663,
+      "reducao_betweenness": -66.55,
+      "era_articulacao": true,
+      "eh_articulacao_apos": true,
+      "eliminou_articulacao": false
+    },
+    {
+      "no": 4458,
+      "arestas_adicionadas": 3,
+      "detalhes_arestas": [
+        [
+          4458,
+          2553
+        ],
+        [
+          4458,
+          831
+        ],
+        [
+          4458,
+          3468
+        ]
+      ],
+      "betweenness_antes": 0.045791,
+      "betweenness_depois": 0.228662,
+      "reducao_betweenness": -399.36,
+      "era_articulacao": true,
+      "eh_articulacao_apos": true,
+      "eliminou_articulacao": false
+    },
+    {
+      "no": 2522,
+      "arestas_adicionadas": 3,
+      "detalhes_arestas": [
+        [
+          2522,
+          2553
+        ],
+        [
+          2522,
+          4458
+        ],
+        [
+          2522,
+          831
+        ]
+      ],
+      "betweenness_antes": 0.027813,
+      "betweenness_depois": 0.144592,
+      "reducao_betweenness": -419.87,
+      "era_articulacao": true,
+      "eh_articulacao_apos": true,
+      "eliminou_articulacao": false
+    },
+    {
+      "no": 2604,
+      "arestas_adicionadas": 3,
+      "detalhes_arestas": [
+        [
+          2604,
+          2553
+        ],
+        [
+          2604,
+          4458
+        ],
+        [
+          2604,
+          831
+        ]
+      ],
+      "betweenness_antes": 0.047085,
+      "betweenness_depois": 0.214287,
+      "reducao_betweenness": -355.11,
+      "era_articulacao": true,
+      "eh_articulacao_apos": true,
+      "eliminou_articulacao": false
+    },
+    {
+      "no": 1166,
+      "arestas_adicionadas": 3,
+      "detalhes_arestas": [
+        [
+          1166,
+          2553
+        ],
+        [
+          1166,
+          4458
+        ],
+        [
+          1166,
+          831
+        ]
+      ],
+      "betweenness_antes": 0.106777,
+      "betweenness_depois": 0.39898,
+      "reducao_betweenness": -273.66,
+      "era_articulacao": true,
+      "eh_articulacao_apos": true,
+      "eliminou_articulacao": false
+    },
+    {
+      "no": 4199,
+      "arestas_adicionadas": 3,
+      "detalhes_arestas": [
+        [
+          4199,
+          2553
+        ],
+        [
+          4199,
+          4458
+        ],
+        [
+          4199,
+          831
+        ]
+      ],
+      "betweenness_antes": 0.108113,
+      "betweenness_depois": 0.19428,
+      "reducao_betweenness": -79.7,
+      "era_articulacao": true,
+      "eh_articulacao_apos": true,
+      "eliminou_articulacao": false
+    },
+    {
+      "no": 396,
+      "arestas_adicionadas": 3,
+      "detalhes_arestas": [
+        [
+          396,
+          2553
+        ],
+        [
+          396,
+          4458
+        ],
+        [
+          396,
+          831
+        ]
+      ],
+      "betweenness_antes": 0.103433,
+      "betweenness_depois": 0.328518,
+      "reducao_betweenness": -217.61,
+      "era_articulacao": true,
+      "eh_articulacao_apos": true,
+      "eliminou_articulacao": false
+    }
+  ],
+  "analise_roi": [
+    {
+      "no": 726,
+      "score_criticidade": 0.7031,
+      "reducao_vulnerabilidade_pct": 70.31,
+      "custo_estimado_mil": 170.0,
+      "roi": 62.04,
+      "prioridade": "ALTA"
+    },
+    {
+      "no": 1267,
+      "score_criticidade": 0.5682,
+      "reducao_vulnerabilidade_pct": 56.82,
+      "custo_estimado_mil": 160.0,
+      "roi": 53.27,
+      "prioridade": "ALTA"
+    },
+    {
+      "no": 70,
+      "score_criticidade": 0.4574,
+      "reducao_vulnerabilidade_pct": 45.74,
+      "custo_estimado_mil": 130.0,
+      "roi": 52.78,
+      "prioridade": "ALTA"
+    },
+    {
+      "no": 692,
+      "score_criticidade": 0.538,
+      "reducao_vulnerabilidade_pct": 53.8,
+      "custo_estimado_mil": 160.0,
+      "roi": 50.44,
+      "prioridade": "ALTA"
+    },
+    {
+      "no": 69,
+      "score_criticidade": 0.5204,
+      "reducao_vulnerabilidade_pct": 52.04,
+      "custo_estimado_mil": 170.0,
+      "roi": 45.92,
+      "prioridade": "MÉDIA"
+    },
+    {
+      "no": 1148,
+      "score_criticidade": 0.4253,
+      "reducao_vulnerabilidade_pct": 42.53,
+      "custo_estimado_mil": 150.0,
+      "roi": 42.53,
+      "prioridade": "MÉDIA"
+    },
+    {
+      "no": 362,
+      "score_criticidade": 0.4199,
+      "reducao_vulnerabilidade_pct": 41.99,
+      "custo_estimado_mil": 150.0,
+      "roi": 41.99,
+      "prioridade": "MÉDIA"
+    },
+    {
+      "no": 2522,
+      "score_criticidade": 0.5003,
+      "reducao_vulnerabilidade_pct": 50.03,
+      "custo_estimado_mil": 180.0,
+      "roi": 41.69,
+      "prioridade": "MÉDIA"
+    },
+    {
+      "no": 4848,
+      "score_criticidade": 0.4079,
+      "reducao_vulnerabilidade_pct": 40.79,
+      "custo_estimado_mil": 150.0,
+      "roi": 40.79,
+      "prioridade": "MÉDIA"
+    },
+    {
+      "no": 2604,
+      "score_criticidade": 0.4863,
+      "reducao_vulnerabilidade_pct": 48.63,
+      "custo_estimado_mil": 180.0,
+      "roi": 40.52,
+      "prioridade": "MÉDIA"
+    },
+    {
+      "no": 2298,
+      "score_criticidade": 0.4219,
+      "reducao_vulnerabilidade_pct": 42.19,
+      "custo_estimado_mil": 160.0,
+      "roi": 39.55,
+      "prioridade": "MÉDIA"
+    },
+    {
+      "no": 396,
+      "score_criticidade": 0.4668,
+      "reducao_vulnerabilidade_pct": 46.68,
+      "custo_estimado_mil": 180.0,
+      "roi": 38.9,
+      "prioridade": "MÉDIA"
+    },
+    {
+      "no": 68,
+      "score_criticidade": 0.4104,
+      "reducao_vulnerabilidade_pct": 41.04,
+      "custo_estimado_mil": 160.0,
+      "roi": 38.48,
+      "prioridade": "MÉDIA"
+    },
+    {
+      "no": 657,
+      "score_criticidade": 0.4081,
+      "reducao_vulnerabilidade_pct": 40.81,
+      "custo_estimado_mil": 160.0,
+      "roi": 38.26,
+      "prioridade": "MÉDIA"
+    },
+    {
+      "no": 2593,
+      "score_criticidade": 0.4262,
+      "reducao_vulnerabilidade_pct": 42.62,
+      "custo_estimado_mil": 170.0,
+      "roi": 37.61,
+      "prioridade": "MÉDIA"
+    },
+    {
+      "no": 4199,
+      "score_criticidade": 0.4731,
+      "reducao_vulnerabilidade_pct": 47.31,
+      "custo_estimado_mil": 190.0,
+      "roi": 37.35,
+      "prioridade": "MÉDIA"
+    },
+    {
+      "no": 402,
+      "score_criticidade": 0.417,
+      "reducao_vulnerabilidade_pct": 41.7,
+      "custo_estimado_mil": 170.0,
+      "roi": 36.79,
+      "prioridade": "MÉDIA"
+    },
+    {
+      "no": 4187,
+      "score_criticidade": 0.4383,
+      "reducao_vulnerabilidade_pct": 43.83,
+      "custo_estimado_mil": 180.0,
+      "roi": 36.53,
+      "prioridade": "MÉDIA"
+    },
+    {
+      "no": 1353,
+      "score_criticidade": 0.4092,
+      "reducao_vulnerabilidade_pct": 40.92,
+      "custo_estimado_mil": 170.0,
+      "roi": 36.11,
+      "prioridade": "MÉDIA"
+    },
+    {
+      "no": 4218,
+      "score_criticidade": 0.4089,
+      "reducao_vulnerabilidade_pct": 40.89,
+      "custo_estimado_mil": 170.0,
+      "roi": 36.08,
+      "prioridade": "MÉDIA"
+    },
+    {
+      "no": 2249,
+      "score_criticidade": 0.4552,
+      "reducao_vulnerabilidade_pct": 45.52,
+      "custo_estimado_mil": 190.0,
+      "roi": 35.94,
+      "prioridade": "MÉDIA"
+    },
+    {
+      "no": 1166,
+      "score_criticidade": 0.4771,
+      "reducao_vulnerabilidade_pct": 47.71,
+      "custo_estimado_mil": 200.0,
+      "roi": 35.78,
+      "prioridade": "MÉDIA"
+    },
+    {
+      "no": 129,
+      "score_criticidade": 0.4177,
+      "reducao_vulnerabilidade_pct": 41.77,
+      "custo_estimado_mil": 180.0,
+      "roi": 34.81,
+      "prioridade": "MÉDIA"
+    },
+    {
+      "no": 1506,
+      "score_criticidade": 0.4388,
+      "reducao_vulnerabilidade_pct": 43.88,
+      "custo_estimado_mil": 190.0,
+      "roi": 34.64,
+      "prioridade": "MÉDIA"
+    },
+    {
+      "no": 1140,
+      "score_criticidade": 0.4147,
+      "reducao_vulnerabilidade_pct": 41.47,
+      "custo_estimado_mil": 180.0,
+      "roi": 34.56,
+      "prioridade": "MÉDIA"
+    },
+    {
+      "no": 846,
+      "score_criticidade": 0.4254,
+      "reducao_vulnerabilidade_pct": 42.54,
+      "custo_estimado_mil": 190.0,
+      "roi": 33.58,
+      "prioridade": "MÉDIA"
+    },
+    {
+      "no": 2586,
+      "score_criticidade": 0.4455,
+      "reducao_vulnerabilidade_pct": 44.55,
+      "custo_estimado_mil": 200.0,
+      "roi": 33.41,
+      "prioridade": "MÉDIA"
+    },
+    {
+      "no": 1554,
+      "score_criticidade": 0.4165,
+      "reducao_vulnerabilidade_pct": 41.65,
+      "custo_estimado_mil": 190.0,
+      "roi": 32.88,
+      "prioridade": "MÉDIA"
+    },
+    {
+      "no": 490,
+      "score_criticidade": 0.459,
+      "reducao_vulnerabilidade_pct": 45.9,
+      "custo_estimado_mil": 210.0,
+      "roi": 32.79,
+      "prioridade": "MÉDIA"
+    },
+    {
+      "no": 1030,
+      "score_criticidade": 0.4266,
+      "reducao_vulnerabilidade_pct": 42.66,
+      "custo_estimado_mil": 200.0,
+      "roi": 31.99,
+      "prioridade": "MÉDIA"
+    }
+  ],
+  "matriz_stakeholders": {
+    "GERADOR": {
+      "responsavel_primario": "Operador de Geração",
+      "responsavel_secundario": "ANEEL (Regulador)",
+      "investidor": "Concessionária de Geração",
+      "tempo_aprovacao": "6-12 meses",
+      "complexidade": "ALTA"
+    },
+    "TRANSFORMADOR": {
+      "responsavel_primario": "Operador de Transmissão",
+      "responsavel_secundario": "Distribuidora Local",
+      "investidor": "Concessionária de Transmissão",
+      "tempo_aprovacao": "3-6 meses",
+      "complexidade": "MÉDIA"
+    },
+    "CONSUMIDOR": {
+      "responsavel_primario": "Distribuidora Local",
+      "responsavel_secundario": "Município",
+      "investidor": "Distribuidora",
+      "tempo_aprovacao": "1-3 meses",
+      "complexidade": "BAIXA"
+    },
+    "LINHA_TRANSMISSAO": {
+      "responsavel_primario": "Operador de Transmissão",
+      "responsavel_secundario": "ONS (Operador Nacional do Sistema)",
+      "investidor": "Concessionária de Transmissão",
+      "tempo_aprovacao": "3-6 meses",
+      "complexidade": "MÉDIA"
+    },
+    "DESCONHECIDO": {
+      "responsavel_primario": "A Definir (análise de campo)",
+      "responsavel_secundario": "Operador Regional",
+      "investidor": "A Definir",
+      "tempo_aprovacao": "Indefinido",
+      "complexidade": "INDEFINIDA"
+    }
+  },
+  "plano_acao": [
+    {
+      "prioridade": 1,
+      "no": 726,
+      "score_criticidade": 0.7031,
+      "papel": "TRANSFORMADOR",
+      "criticidade_4d_nivel_1": false,
+      "percolacao_fragmentacao": 2.15,
+      "acoes_recomendadas": [
+        "Adicionar 3 conexões redundantes a hubs próximos",
+        "Implementar sistema de backup de energia",
+        "Monitoramento 24/7 com alertas em tempo real",
+        "Plano de contingência para falha total"
+      ],
+      "responsavel_primario": "Operador de Transmissão",
+      "responsavel_secundario": "Distribuidora Local",
+      "investidor": "Concessionária de Transmissão",
+      "tempo_estimado": "3-6 meses",
+      "complexidade": "MÉDIA",
+      "roi": 62.04,
+      "custo_estimado_mil": 170.0
+    },
+    {
+      "prioridade": 2,
+      "no": 1267,
+      "score_criticidade": 0.5682,
+      "papel": "TRANSFORMADOR",
+      "criticidade_4d_nivel_1": false,
+      "percolacao_fragmentacao": 0.04,
+      "acoes_recomendadas": [
+        "Adicionar 3 conexões redundantes a hubs próximos",
+        "Implementar sistema de backup de energia",
+        "Monitoramento 24/7 com alertas em tempo real",
+        "Plano de contingência para falha total"
+      ],
+      "responsavel_primario": "Operador de Transmissão",
+      "responsavel_secundario": "Distribuidora Local",
+      "investidor": "Concessionária de Transmissão",
+      "tempo_estimado": "3-6 meses",
+      "complexidade": "MÉDIA",
+      "roi": 53.27,
+      "custo_estimado_mil": 160.0
+    },
+    {
+      "prioridade": 3,
+      "no": 692,
+      "score_criticidade": 0.538,
+      "papel": "TRANSFORMADOR",
+      "criticidade_4d_nivel_1": false,
+      "percolacao_fragmentacao": 1.13,
+      "acoes_recomendadas": [
+        "Adicionar 3 conexões redundantes a hubs próximos",
+        "Implementar sistema de backup de energia",
+        "Monitoramento 24/7 com alertas em tempo real",
+        "Plano de contingência para falha total"
+      ],
+      "responsavel_primario": "Operador de Transmissão",
+      "responsavel_secundario": "Distribuidora Local",
+      "investidor": "Concessionária de Transmissão",
+      "tempo_estimado": "3-6 meses",
+      "complexidade": "MÉDIA",
+      "roi": 50.44,
+      "custo_estimado_mil": 160.0
+    },
+    {
+      "prioridade": 4,
+      "no": 69,
+      "score_criticidade": 0.5204,
+      "papel": "TRANSFORMADOR",
+      "criticidade_4d_nivel_1": false,
+      "percolacao_fragmentacao": 0.04,
+      "acoes_recomendadas": [
+        "Adicionar 3 conexões redundantes a hubs próximos",
+        "Implementar sistema de backup de energia",
+        "Monitoramento 24/7 com alertas em tempo real",
+        "Plano de contingência para falha total"
+      ],
+      "responsavel_primario": "Operador de Transmissão",
+      "responsavel_secundario": "Distribuidora Local",
+      "investidor": "Concessionária de Transmissão",
+      "tempo_estimado": "3-6 meses",
+      "complexidade": "MÉDIA",
+      "roi": 45.92,
+      "custo_estimado_mil": 170.0
+    },
+    {
+      "prioridade": 5,
+      "no": 4458,
+      "score_criticidade": 0.5153,
+      "papel": "GERADOR",
+      "criticidade_4d_nivel_1": true,
+      "percolacao_fragmentacao": 0.24,
+      "acoes_recomendadas": [
+        "🔴 AÇÃO CRÍTICA 4D: Implementar redundância tripla (mínimo 3 rotas alternativas)",
+        "Sistema de backup de energia com ativação automática (<100ms)",
+        "Monitoramento 24/7 com alertas em tempo real + inspeção diária presencial",
+        "Plano de contingência para falha total + equipe de resposta rápida dedicada",
+        "Proteção física reforçada (cercamento, câmeras, sensores)",
+        "Investimento prioritário em substituição de equipamentos críticos"
+      ],
+      "responsavel_primario": "Operador de Geração",
+      "responsavel_secundario": "ANEEL (Regulador)",
+      "investidor": "Concessionária de Geração",
+      "tempo_estimado": "6-12 meses",
+      "complexidade": "ALTA",
+      "roi": 27.61,
+      "custo_estimado_mil": 280.0
+    },
+    {
+      "prioridade": 6,
+      "no": 2522,
+      "score_criticidade": 0.5003,
+      "papel": "GERADOR",
+      "criticidade_4d_nivel_1": true,
+      "percolacao_fragmentacao": 0.81,
+      "acoes_recomendadas": [
+        "🔴 AÇÃO CRÍTICA 4D: Implementar redundância tripla (mínimo 3 rotas alternativas)",
+        "Sistema de backup de energia com ativação automática (<100ms)",
+        "Monitoramento 24/7 com alertas em tempo real + inspeção diária presencial",
+        "Plano de contingência para falha total + equipe de resposta rápida dedicada",
+        "Proteção física reforçada (cercamento, câmeras, sensores)",
+        "Investimento prioritário em substituição de equipamentos críticos"
+      ],
+      "responsavel_primario": "Operador de Geração",
+      "responsavel_secundario": "ANEEL (Regulador)",
+      "investidor": "Concessionária de Geração",
+      "tempo_estimado": "6-12 meses",
+      "complexidade": "ALTA",
+      "roi": 41.69,
+      "custo_estimado_mil": 180.0
+    },
+    {
+      "prioridade": 7,
+      "no": 2604,
+      "score_criticidade": 0.4863,
+      "papel": "GERADOR",
+      "criticidade_4d_nivel_1": true,
+      "percolacao_fragmentacao": 0.59,
+      "acoes_recomendadas": [
+        "🔴 AÇÃO CRÍTICA 4D: Implementar redundância tripla (mínimo 3 rotas alternativas)",
+        "Sistema de backup de energia com ativação automática (<100ms)",
+        "Monitoramento 24/7 com alertas em tempo real + inspeção diária presencial",
+        "Plano de contingência para falha total + equipe de resposta rápida dedicada",
+        "Proteção física reforçada (cercamento, câmeras, sensores)",
+        "Investimento prioritário em substituição de equipamentos críticos"
+      ],
+      "responsavel_primario": "Operador de Geração",
+      "responsavel_secundario": "ANEEL (Regulador)",
+      "investidor": "Concessionária de Geração",
+      "tempo_estimado": "6-12 meses",
+      "complexidade": "ALTA",
+      "roi": 40.52,
+      "custo_estimado_mil": 180.0
+    },
+    {
+      "prioridade": 8,
+      "no": 1166,
+      "score_criticidade": 0.4771,
+      "papel": "GERADOR",
+      "criticidade_4d_nivel_1": false,
+      "percolacao_fragmentacao": 0.04,
+      "acoes_recomendadas": [
+        "Adicionar 3 conexões redundantes a hubs próximos",
+        "Implementar sistema de backup de energia",
+        "Monitoramento 24/7 com alertas em tempo real",
+        "Plano de contingência para falha total"
+      ],
+      "responsavel_primario": "Operador de Geração",
+      "responsavel_secundario": "ANEEL (Regulador)",
+      "investidor": "Concessionária de Geração",
+      "tempo_estimado": "6-12 meses",
+      "complexidade": "ALTA",
+      "roi": 35.78,
+      "custo_estimado_mil": 200.0
+    },
+    {
+      "prioridade": 9,
+      "no": 4199,
+      "score_criticidade": 0.4731,
+      "papel": "GERADOR",
+      "criticidade_4d_nivel_1": false,
+      "percolacao_fragmentacao": 0.06,
+      "acoes_recomendadas": [
+        "Adicionar 3 conexões redundantes a hubs próximos",
+        "Implementar sistema de backup de energia",
+        "Monitoramento 24/7 com alertas em tempo real",
+        "Plano de contingência para falha total"
+      ],
+      "responsavel_primario": "Operador de Geração",
+      "responsavel_secundario": "ANEEL (Regulador)",
+      "investidor": "Concessionária de Geração",
+      "tempo_estimado": "6-12 meses",
+      "complexidade": "ALTA",
+      "roi": 37.35,
+      "custo_estimado_mil": 190.0
+    },
+    {
+      "prioridade": 10,
+      "no": 396,
+      "score_criticidade": 0.4668,
+      "papel": "GERADOR",
+      "criticidade_4d_nivel_1": true,
+      "percolacao_fragmentacao": 0.1,
+      "acoes_recomendadas": [
+        "🔴 AÇÃO CRÍTICA 4D: Implementar redundância tripla (mínimo 3 rotas alternativas)",
+        "Sistema de backup de energia com ativação automática (<100ms)",
+        "Monitoramento 24/7 com alertas em tempo real + inspeção diária presencial",
+        "Plano de contingência para falha total + equipe de resposta rápida dedicada",
+        "Proteção física reforçada (cercamento, câmeras, sensores)",
+        "Investimento prioritário em substituição de equipamentos críticos"
+      ],
+      "responsavel_primario": "Operador de Geração",
+      "responsavel_secundario": "ANEEL (Regulador)",
+      "investidor": "Concessionária de Geração",
+      "tempo_estimado": "6-12 meses",
+      "complexidade": "ALTA",
+      "roi": 38.9,
+      "custo_estimado_mil": 180.0
+    },
+    {
+      "prioridade": 11,
+      "no": 3468,
+      "score_criticidade": 0.46,
+      "papel": "GERADOR",
+      "criticidade_4d_nivel_1": false,
+      "percolacao_fragmentacao": 0.3,
+      "acoes_recomendadas": [
+        "Adicionar 3 conexões redundantes a hubs próximos",
+        "Implementar sistema de backup de energia",
+        "Monitoramento 24/7 com alertas em tempo real",
+        "Plano de contingência para falha total"
+      ],
+      "responsavel_primario": "Operador de Geração",
+      "responsavel_secundario": "ANEEL (Regulador)",
+      "investidor": "Concessionária de Geração",
+      "tempo_estimado": "6-12 meses",
+      "complexidade": "ALTA",
+      "roi": 28.75,
+      "custo_estimado_mil": 240.0
+    },
+    {
+      "prioridade": 12,
+      "no": 2553,
+      "score_criticidade": 0.4595,
+      "papel": "GERADOR",
+      "criticidade_4d_nivel_1": false,
+      "percolacao_fragmentacao": 0.04,
+      "acoes_recomendadas": [
+        "Adicionar 3 conexões redundantes a hubs próximos",
+        "Implementar sistema de backup de energia",
+        "Monitoramento 24/7 com alertas em tempo real",
+        "Plano de contingência para falha total"
+      ],
+      "responsavel_primario": "Operador de Geração",
+      "responsavel_secundario": "ANEEL (Regulador)",
+      "investidor": "Concessionária de Geração",
+      "tempo_estimado": "6-12 meses",
+      "complexidade": "ALTA",
+      "roi": 23.77,
+      "custo_estimado_mil": 290.0
+    },
+    {
+      "prioridade": 13,
+      "no": 490,
+      "score_criticidade": 0.459,
+      "papel": "GERADOR",
+      "criticidade_4d_nivel_1": true,
+      "percolacao_fragmentacao": 0.24,
+      "acoes_recomendadas": [
+        "🔴 AÇÃO CRÍTICA 4D: Implementar redundância tripla (mínimo 3 rotas alternativas)",
+        "Sistema de backup de energia com ativação automática (<100ms)",
+        "Monitoramento 24/7 com alertas em tempo real + inspeção diária presencial",
+        "Plano de contingência para falha total + equipe de resposta rápida dedicada",
+        "Proteção física reforçada (cercamento, câmeras, sensores)",
+        "Investimento prioritário em substituição de equipamentos críticos"
+      ],
+      "responsavel_primario": "Operador de Geração",
+      "responsavel_secundario": "ANEEL (Regulador)",
+      "investidor": "Concessionária de Geração",
+      "tempo_estimado": "6-12 meses",
+      "complexidade": "ALTA",
+      "roi": 32.79,
+      "custo_estimado_mil": 210.0
+    },
+    {
+      "prioridade": 14,
+      "no": 70,
+      "score_criticidade": 0.4574,
+      "papel": "LINHA_TRANSMISSAO",
+      "criticidade_4d_nivel_1": false,
+      "percolacao_fragmentacao": 0.04,
+      "acoes_recomendadas": [
+        "Adicionar 3 conexões redundantes a hubs próximos",
+        "Implementar sistema de backup de energia",
+        "Monitoramento 24/7 com alertas em tempo real",
+        "Plano de contingência para falha total"
+      ],
+      "responsavel_primario": "Operador de Transmissão",
+      "responsavel_secundario": "ONS (Operador Nacional do Sistema)",
+      "investidor": "Concessionária de Transmissão",
+      "tempo_estimado": "3-6 meses",
+      "complexidade": "MÉDIA",
+      "roi": 52.78,
+      "custo_estimado_mil": 130.0
+    },
+    {
+      "prioridade": 15,
+      "no": 2249,
+      "score_criticidade": 0.4552,
+      "papel": "GERADOR",
+      "criticidade_4d_nivel_1": false,
+      "percolacao_fragmentacao": 0.06,
+      "acoes_recomendadas": [
+        "Adicionar 3 conexões redundantes a hubs próximos",
+        "Implementar sistema de backup de energia",
+        "Monitoramento 24/7 com alertas em tempo real",
+        "Plano de contingência para falha total"
+      ],
+      "responsavel_primario": "Operador de Geração",
+      "responsavel_secundario": "ANEEL (Regulador)",
+      "investidor": "Concessionária de Geração",
+      "tempo_estimado": "6-12 meses",
+      "complexidade": "ALTA",
+      "roi": 35.94,
+      "custo_estimado_mil": 190.0
+    },
+    {
+      "prioridade": 16,
+      "no": 2282,
+      "score_criticidade": 0.4474,
+      "papel": "GERADOR",
+      "criticidade_4d_nivel_1": true,
+      "percolacao_fragmentacao": 0.34,
+      "acoes_recomendadas": [
+        "🔴 AÇÃO CRÍTICA 4D: Implementar redundância tripla (mínimo 3 rotas alternativas)",
+        "Sistema de backup de energia com ativação automática (<100ms)",
+        "Monitoramento 24/7 com alertas em tempo real + inspeção diária presencial",
+        "Plano de contingência para falha total + equipe de resposta rápida dedicada",
+        "Proteção física reforçada (cercamento, câmeras, sensores)",
+        "Investimento prioritário em substituição de equipamentos críticos"
+      ],
+      "responsavel_primario": "Operador de Geração",
+      "responsavel_secundario": "ANEEL (Regulador)",
+      "investidor": "Concessionária de Geração",
+      "tempo_estimado": "6-12 meses",
+      "complexidade": "ALTA",
+      "roi": 31.96,
+      "custo_estimado_mil": 210.0
+    },
+    {
+      "prioridade": 17,
+      "no": 2586,
+      "score_criticidade": 0.4455,
+      "papel": "GERADOR",
+      "criticidade_4d_nivel_1": true,
+      "percolacao_fragmentacao": 0.24,
+      "acoes_recomendadas": [
+        "🔴 AÇÃO CRÍTICA 4D: Implementar redundância tripla (mínimo 3 rotas alternativas)",
+        "Sistema de backup de energia com ativação automática (<100ms)",
+        "Monitoramento 24/7 com alertas em tempo real + inspeção diária presencial",
+        "Plano de contingência para falha total + equipe de resposta rápida dedicada",
+        "Proteção física reforçada (cercamento, câmeras, sensores)",
+        "Investimento prioritário em substituição de equipamentos críticos"
+      ],
+      "responsavel_primario": "Operador de Geração",
+      "responsavel_secundario": "ANEEL (Regulador)",
+      "investidor": "Concessionária de Geração",
+      "tempo_estimado": "6-12 meses",
+      "complexidade": "ALTA",
+      "roi": 33.41,
+      "custo_estimado_mil": 200.0
+    },
+    {
+      "prioridade": 18,
+      "no": 831,
+      "score_criticidade": 0.4439,
+      "papel": "GERADOR",
+      "criticidade_4d_nivel_1": false,
+      "percolacao_fragmentacao": 0.2,
+      "acoes_recomendadas": [
+        "Adicionar 3 conexões redundantes a hubs próximos",
+        "Implementar sistema de backup de energia",
+        "Monitoramento 24/7 com alertas em tempo real",
+        "Plano de contingência para falha total"
+      ],
+      "responsavel_primario": "Operador de Geração",
+      "responsavel_secundario": "ANEEL (Regulador)",
+      "investidor": "Concessionária de Geração",
+      "tempo_estimado": "6-12 meses",
+      "complexidade": "ALTA",
+      "roi": 27.74,
+      "custo_estimado_mil": 240.0
+    },
+    {
+      "prioridade": 19,
+      "no": 1506,
+      "score_criticidade": 0.4388,
+      "papel": "GERADOR",
+      "criticidade_4d_nivel_1": false,
+      "percolacao_fragmentacao": 0.04,
+      "acoes_recomendadas": [
+        "Adicionar 3 conexões redundantes a hubs próximos",
+        "Implementar sistema de backup de energia",
+        "Monitoramento 24/7 com alertas em tempo real",
+        "Plano de contingência para falha total"
+      ],
+      "responsavel_primario": "Operador de Geração",
+      "responsavel_secundario": "ANEEL (Regulador)",
+      "investidor": "Concessionária de Geração",
+      "tempo_estimado": "6-12 meses",
+      "complexidade": "ALTA",
+      "roi": 34.64,
+      "custo_estimado_mil": 190.0
+    },
+    {
+      "prioridade": 20,
+      "no": 4187,
+      "score_criticidade": 0.4383,
+      "papel": "GERADOR",
+      "criticidade_4d_nivel_1": true,
+      "percolacao_fragmentacao": 0.45,
+      "acoes_recomendadas": [
+        "🔴 AÇÃO CRÍTICA 4D: Implementar redundância tripla (mínimo 3 rotas alternativas)",
+        "Sistema de backup de energia com ativação automática (<100ms)",
+        "Monitoramento 24/7 com alertas em tempo real + inspeção diária presencial",
+        "Plano de contingência para falha total + equipe de resposta rápida dedicada",
+        "Proteção física reforçada (cercamento, câmeras, sensores)",
+        "Investimento prioritário em substituição de equipamentos críticos"
+      ],
+      "responsavel_primario": "Operador de Geração",
+      "responsavel_secundario": "ANEEL (Regulador)",
+      "investidor": "Concessionária de Geração",
+      "tempo_estimado": "6-12 meses",
+      "complexidade": "ALTA",
+      "roi": 36.53,
+      "custo_estimado_mil": 180.0
+    }
+  ],
+  "metodologia": {
+    "score_criticidade_4d": "0.30×Percolação + 0.30×Articulação + 0.25×Betweenness + 0.15×Grau",
+    "justificativa_teorica": {
+      "percolacao_30": "Impacto empírico de fragmentação (teoria de percolação)",
+      "articulacao_30": "Garantia de fragmentação (teoria de vértices de corte)",
+      "betweenness_25": "Gargalo de fluxo com redundância (Lei de Kirchhoff)",
+      "grau_15": "Sobrecarga local, facilmente mitigável"
+    },
+    "custo_base": "R$ 100 mil/nó + 10% por grau",
+    "roi": "(Redução_Vulnerabilidade / Custo) × 100",
+    "redundancia": "3 conexões a hubs não-vizinhos",
+    "referencia": "Newman (2010), Watts & Strogatz (1998), Albert et al. (2000)"
+  },
+  "ranking_criticidade_4d": {
+    "AVISO_METODOLOGICO": [],
+    "thresholds": [],
+    "nivel_1_critico_maximo_4d": [],
+    "nivel_2_critico_muito_alto": [],
+    "nivel_3_critico_alto": [],
+    "nivel_4_critico_medio": [],
+    "nivel_5_critico_basico": [],
+    "nivel_atencao_1_gargalo_fragmentador": [],
+    "nivel_atencao_2_fragmentador": [],
+    "nivel_atencao_3_gargalo": [],
+    "nivel_atencao_4_hub": []
+  }
+}

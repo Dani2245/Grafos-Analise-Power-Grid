@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { PieChart, Pie, Cell, Tooltip } from 'recharts';
-import { AlertTriangle } from 'lucide-react';
+import { AlertTriangle, Eye } from 'lucide-react';
 import TooltipTermoTecnico from '../TooltipTermoTecnico';
+import ModalGrafo from '../ModalGrafo';
 import { GLOSSARIO } from '../../utils/glossario';
 
 interface AbaPontosArticulacaoProps {
@@ -9,6 +11,12 @@ interface AbaPontosArticulacaoProps {
 }
 
 const AbaPontosArticulacao = ({ analiseCriticidade, analiseBasica }: AbaPontosArticulacaoProps) => {
+  const [modalGrafo, setModalGrafo] = useState<{ aberto: boolean; arquivo: string; titulo: string }>({
+    aberto: false,
+    arquivo: '',
+    titulo: ''
+  });
+
   return (
     <div className="space-y-6">
       <div className="bg-slate-800 rounded-lg p-6 border border-red-700">
@@ -157,6 +165,7 @@ const AbaPontosArticulacao = ({ analiseCriticidade, analiseBasica }: AbaPontosAr
                 <th className="p-3">Grau</th>
                 <th className="p-3">Betweenness</th>
                 <th className="p-3">Categoria de Risco</th>
+                <th className="p-3">Ações</th>
               </tr>
             </thead>
             <tbody>
@@ -192,18 +201,23 @@ const AbaPontosArticulacao = ({ analiseCriticidade, analiseBasica }: AbaPontosAr
                   // Determinar categoria de risco (baseada em redundância)
                   // Quanto MENOR o grau, MAIOR o risco - pontos de articulação com poucas conexões têm zero redundância
                   let risco = '';
+                  let riscoSimples = '';
                   let corRisco = '';
                   if (ponto.grau === 1) {
                     risco = 'BAIXO - Terminal';
+                    riscoSimples = 'BAIXO';
                     corRisco = 'bg-blue-900/50 text-blue-300';
                   } else if (ponto.grau <= 3) {
                     risco = 'CRÍTICO - Ponte';
+                    riscoSimples = 'CRITICO';
                     corRisco = 'bg-red-900/50 text-red-300';
                   } else if (ponto.grau <= 7) {
                     risco = 'ALTO - Gargalo';
+                    riscoSimples = 'ALTO';
                     corRisco = 'bg-orange-900/50 text-orange-300';
                   } else {
                     risco = 'MÉDIO - Hub Redundante';
+                    riscoSimples = 'MEDIO';
                     corRisco = 'bg-yellow-900/50 text-yellow-300';
                   }
 
@@ -219,6 +233,19 @@ const AbaPontosArticulacao = ({ analiseCriticidade, analiseBasica }: AbaPontosAr
                         <span className={`px-2 py-1 rounded text-xs font-semibold ${corRisco}`}>
                           {risco}
                         </span>
+                      </td>
+                      <td className="p-3">
+                        <button
+                          onClick={() => setModalGrafo({
+                            aberto: true,
+                            arquivo: `grafos/articulacao/rede_articulacao_${ponto.no}_grau_${ponto.grau}_risco_${riscoSimples}.html`,
+                            titulo: `Grafo Articulação - Nó ${ponto.no} (Risco ${riscoSimples})`
+                          })}
+                          className="px-3 py-1 bg-red-600 hover:bg-red-700 rounded text-white text-sm flex items-center gap-1 transition-colors"
+                        >
+                          <Eye size={14} />
+                          Ver Grafo
+                        </button>
                       </td>
                     </tr>
                   );
@@ -253,6 +280,13 @@ const AbaPontosArticulacao = ({ analiseCriticidade, analiseBasica }: AbaPontosAr
           </p>
         </div>
       </div>
+
+      <ModalGrafo
+        aberto={modalGrafo.aberto}
+        arquivo={modalGrafo.arquivo}
+        titulo={modalGrafo.titulo}
+        onFechar={() => setModalGrafo({ aberto: false, arquivo: '', titulo: '' })}
+      />
     </div>
   );
 };

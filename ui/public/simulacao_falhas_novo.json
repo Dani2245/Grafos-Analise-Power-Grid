@@ -1,90 +1,29 @@
 {
-  "AVISO_METODOLOGICO": "Simulação de falhas em rede de 10 nós. Resultados baseados em médias temporais do dataset operacional.",
+  "AVISO_METODOLOGICO": "Simulação de falhas baseada em dados reais. Threshold calculado a partir de análise de grid_status. Cenários de sobrecarga localizada e cascata de falhas são mais realistas que aumento global.",
   "info_simulacao": {
     "total_nos": 10,
     "total_arestas": 90,
     "carga_total_media": 2723.72
   },
+  "analise_threshold": {
+    "threshold_percentil_75": 382.28,
+    "threshold_media_instavel": 272.24,
+    "carga_maxima_estavel": 499.8,
+    "carga_minima_instavel": 50.01,
+    "recomendacao": 272.24
+  },
   "simulacoes_remocao": {
     "total_simulacoes": 10,
     "resultados": [
       {
-        "no_removido": 1,
-        "load_no_removido": 265.16,
+        "no_removido": 9,
+        "load_no_removido": 276.96,
         "in_degree_antes": 9,
         "out_degree_antes": 9,
         "carga_total_antes": 2723.72,
-        "carga_total_depois": 2458.56,
-        "perda_carga_MW": 265.16,
-        "perda_carga_percentual": 9.74,
-        "num_componentes": 1,
-        "tamanho_maior_componente": 9,
-        "fragmentacao_percentual": 0.0,
-        "arestas_antes": 90,
-        "arestas_depois": 72,
-        "arestas_perdidas": 18,
-        "perda_arestas_percentual": 20.0
-      },
-      {
-        "no_removido": 2,
-        "load_no_removido": 273.69,
-        "in_degree_antes": 9,
-        "out_degree_antes": 9,
-        "carga_total_antes": 2723.72,
-        "carga_total_depois": 2450.02,
-        "perda_carga_MW": 273.69,
-        "perda_carga_percentual": 10.05,
-        "num_componentes": 1,
-        "tamanho_maior_componente": 9,
-        "fragmentacao_percentual": 0.0,
-        "arestas_antes": 90,
-        "arestas_depois": 72,
-        "arestas_perdidas": 18,
-        "perda_arestas_percentual": 20.0
-      },
-      {
-        "no_removido": 3,
-        "load_no_removido": 272.16,
-        "in_degree_antes": 9,
-        "out_degree_antes": 9,
-        "carga_total_antes": 2723.72,
-        "carga_total_depois": 2451.56,
-        "perda_carga_MW": 272.16,
-        "perda_carga_percentual": 9.99,
-        "num_componentes": 1,
-        "tamanho_maior_componente": 9,
-        "fragmentacao_percentual": 0.0,
-        "arestas_antes": 90,
-        "arestas_depois": 72,
-        "arestas_perdidas": 18,
-        "perda_arestas_percentual": 20.0
-      },
-      {
-        "no_removido": 4,
-        "load_no_removido": 273.61,
-        "in_degree_antes": 9,
-        "out_degree_antes": 9,
-        "carga_total_antes": 2723.72,
-        "carga_total_depois": 2450.11,
-        "perda_carga_MW": 273.61,
-        "perda_carga_percentual": 10.05,
-        "num_componentes": 1,
-        "tamanho_maior_componente": 9,
-        "fragmentacao_percentual": 0.0,
-        "arestas_antes": 90,
-        "arestas_depois": 72,
-        "arestas_perdidas": 18,
-        "perda_arestas_percentual": 20.0
-      },
-      {
-        "no_removido": 5,
-        "load_no_removido": 271.87,
-        "in_degree_antes": 9,
-        "out_degree_antes": 9,
-        "carga_total_antes": 2723.72,
-        "carga_total_depois": 2451.85,
-        "perda_carga_MW": 271.87,
-        "perda_carga_percentual": 9.98,
+        "carga_total_depois": 2446.76,
+        "perda_carga_MW": 276.96,
+        "perda_carga_percentual": 10.17,
         "num_componentes": 1,
         "tamanho_maior_componente": 9,
         "fragmentacao_percentual": 0.0,
@@ -111,6 +50,40 @@
         "perda_arestas_percentual": 20.0
       },
       {
+        "no_removido": 2,
+        "load_no_removido": 273.69,
+        "in_degree_antes": 9,
+        "out_degree_antes": 9,
+        "carga_total_antes": 2723.72,
+        "carga_total_depois": 2450.02,
+        "perda_carga_MW": 273.69,
+        "perda_carga_percentual": 10.05,
+        "num_componentes": 1,
+        "tamanho_maior_componente": 9,
+        "fragmentacao_percentual": 0.0,
+        "arestas_antes": 90,
+        "arestas_depois": 72,
+        "arestas_perdidas": 18,
+        "perda_arestas_percentual": 20.0
+      },
+      {
+        "no_removido": 4,
+        "load_no_removido": 273.61,
+        "in_degree_antes": 9,
+        "out_degree_antes": 9,
+        "carga_total_antes": 2723.72,
+        "carga_total_depois": 2450.11,
+        "perda_carga_MW": 273.61,
+        "perda_carga_percentual": 10.05,
+        "num_componentes": 1,
+        "tamanho_maior_componente": 9,
+        "fragmentacao_percentual": 0.0,
+        "arestas_antes": 90,
+        "arestas_depois": 72,
+        "arestas_perdidas": 18,
+        "perda_arestas_percentual": 20.0
+      },
+      {
         "no_removido": 7,
         "load_no_removido": 273.18,
         "in_degree_antes": 9,
@@ -119,6 +92,40 @@
         "carga_total_depois": 2450.53,
         "perda_carga_MW": 273.18,
         "perda_carga_percentual": 10.03,
+        "num_componentes": 1,
+        "tamanho_maior_componente": 9,
+        "fragmentacao_percentual": 0.0,
+        "arestas_antes": 90,
+        "arestas_depois": 72,
+        "arestas_perdidas": 18,
+        "perda_arestas_percentual": 20.0
+      },
+      {
+        "no_removido": 3,
+        "load_no_removido": 272.16,
+        "in_degree_antes": 9,
+        "out_degree_antes": 9,
+        "carga_total_antes": 2723.72,
+        "carga_total_depois": 2451.56,
+        "perda_carga_MW": 272.16,
+        "perda_carga_percentual": 9.99,
+        "num_componentes": 1,
+        "tamanho_maior_componente": 9,
+        "fragmentacao_percentual": 0.0,
+        "arestas_antes": 90,
+        "arestas_depois": 72,
+        "arestas_perdidas": 18,
+        "perda_arestas_percentual": 20.0
+      },
+      {
+        "no_removido": 5,
+        "load_no_removido": 271.87,
+        "in_degree_antes": 9,
+        "out_degree_antes": 9,
+        "carga_total_antes": 2723.72,
+        "carga_total_depois": 2451.85,
+        "perda_carga_MW": 271.87,
+        "perda_carga_percentual": 9.98,
         "num_componentes": 1,
         "tamanho_maior_componente": 9,
         "fragmentacao_percentual": 0.0,
@@ -145,23 +152,6 @@
         "perda_arestas_percentual": 20.0
       },
       {
-        "no_removido": 9,
-        "load_no_removido": 276.96,
-        "in_degree_antes": 9,
-        "out_degree_antes": 9,
-        "carga_total_antes": 2723.72,
-        "carga_total_depois": 2446.76,
-        "perda_carga_MW": 276.96,
-        "perda_carga_percentual": 10.17,
-        "num_componentes": 1,
-        "tamanho_maior_componente": 9,
-        "fragmentacao_percentual": 0.0,
-        "arestas_antes": 90,
-        "arestas_depois": 72,
-        "arestas_perdidas": 18,
-        "perda_arestas_percentual": 20.0
-      },
-      {
         "no_removido": 10,
         "load_no_removido": 270.26,
         "in_degree_antes": 9,
@@ -177,55 +167,196 @@
         "arestas_depois": 72,
         "arestas_perdidas": 18,
         "perda_arestas_percentual": 20.0
+      },
+      {
+        "no_removido": 1,
+        "load_no_removido": 265.16,
+        "in_degree_antes": 9,
+        "out_degree_antes": 9,
+        "carga_total_antes": 2723.72,
+        "carga_total_depois": 2458.56,
+        "perda_carga_MW": 265.16,
+        "perda_carga_percentual": 9.74,
+        "num_componentes": 1,
+        "tamanho_maior_componente": 9,
+        "fragmentacao_percentual": 0.0,
+        "arestas_antes": 90,
+        "arestas_depois": 72,
+        "arestas_perdidas": 18,
+        "perda_arestas_percentual": 20.0
       }
     ],
     "estatisticas": {
       "fragmentacao_media": 0.0,
       "fragmentacao_maxima": 0.0,
       "perda_carga_media": 10.0,
-      "no_mais_critico": 1
+      "no_mais_critico": 9
     }
   },
-  "simulacoes_sobrecarga": {
-    "total_simulacoes": 4,
+  "simulacoes_sobrecarga_localizada": {
+    "total_cenarios": 4,
     "resultados": [
       {
-        "percentual_aumento": 25,
-        "carga_total_original": 2723.72,
-        "carga_total_apos_aumento": 3404.65,
-        "aumento_absoluto": 680.93,
-        "threshold_sobrecarga": 500,
-        "nos_em_sobrecarga": [],
-        "quantidade_sobrecarga": 0,
-        "detalhes_redistribuicao": {}
-      },
-      {
-        "percentual_aumento": 50,
-        "carga_total_original": 2723.72,
-        "carga_total_apos_aumento": 4085.58,
-        "aumento_absoluto": 1361.86,
-        "threshold_sobrecarga": 500,
-        "nos_em_sobrecarga": [],
-        "quantidade_sobrecarga": 0,
-        "detalhes_redistribuicao": {}
-      },
-      {
-        "percentual_aumento": 75,
-        "carga_total_original": 2723.72,
-        "carga_total_apos_aumento": 4766.51,
-        "aumento_absoluto": 2042.79,
-        "threshold_sobrecarga": 500,
-        "nos_em_sobrecarga": [],
-        "quantidade_sobrecarga": 0,
-        "detalhes_redistribuicao": {}
-      },
-      {
-        "percentual_aumento": 100,
-        "carga_total_original": 2723.72,
-        "carga_total_apos_aumento": 5447.44,
-        "aumento_absoluto": 2723.72,
-        "threshold_sobrecarga": 500,
+        "cenario": "Sobrecarga localizada em nós [6, 9]",
+        "percentual_aumento": 30,
+        "nos_afetados_inicial": [
+          6,
+          9
+        ],
         "nos_em_sobrecarga": [
+          6,
+          9
+        ],
+        "quantidade_sobrecarga": 2,
+        "threshold_usado": 272.24,
+        "carga_total_antes": 2723.72,
+        "carga_total_depois": 2889.75,
+        "detalhes_nos": [
+          {
+            "no": 6,
+            "carga_original": 276.49,
+            "carga_nova": 359.44,
+            "aumento_MW": 82.95,
+            "em_sobrecarga": true,
+            "margem_seguranca": -87.2
+          },
+          {
+            "no": 9,
+            "carga_original": 276.96,
+            "carga_nova": 360.05,
+            "aumento_MW": 83.09,
+            "em_sobrecarga": true,
+            "margem_seguranca": -87.81
+          }
+        ],
+        "nome_cenario": "Pico em nós de alta carga"
+      },
+      {
+        "cenario": "Sobrecarga localizada em nós [2, 4]",
+        "percentual_aumento": 50,
+        "nos_afetados_inicial": [
+          2,
+          4
+        ],
+        "nos_em_sobrecarga": [
+          2,
+          4
+        ],
+        "quantidade_sobrecarga": 2,
+        "threshold_usado": 272.24,
+        "carga_total_antes": 2723.72,
+        "carga_total_depois": 2997.37,
+        "detalhes_nos": [
+          {
+            "no": 2,
+            "carga_original": 273.69,
+            "carga_nova": 410.54,
+            "aumento_MW": 136.85,
+            "em_sobrecarga": true,
+            "margem_seguranca": -138.3
+          },
+          {
+            "no": 4,
+            "carga_original": 273.61,
+            "carga_nova": 410.41,
+            "aumento_MW": 136.8,
+            "em_sobrecarga": true,
+            "margem_seguranca": -138.17
+          }
+        ],
+        "nome_cenario": "Sobrecarga dupla"
+      },
+      {
+        "cenario": "Sobrecarga localizada em nós [9]",
+        "percentual_aumento": 75,
+        "nos_afetados_inicial": [
+          9
+        ],
+        "nos_em_sobrecarga": [
+          9
+        ],
+        "quantidade_sobrecarga": 1,
+        "threshold_usado": 272.24,
+        "carga_total_antes": 2723.72,
+        "carga_total_depois": 2931.44,
+        "detalhes_nos": [
+          {
+            "no": 9,
+            "carga_original": 276.96,
+            "carga_nova": 484.68,
+            "aumento_MW": 207.72,
+            "em_sobrecarga": true,
+            "margem_seguranca": -212.44
+          }
+        ],
+        "nome_cenario": "Pico extremo único"
+      },
+      {
+        "cenario": "Sobrecarga localizada em nós [1, 3, 5, 7]",
+        "percentual_aumento": 40,
+        "nos_afetados_inicial": [
+          1,
+          3,
+          5,
+          7
+        ],
+        "nos_em_sobrecarga": [
+          1,
+          3,
+          5,
+          7
+        ],
+        "quantidade_sobrecarga": 4,
+        "threshold_usado": 272.24,
+        "carga_total_antes": 2723.72,
+        "carga_total_depois": 3156.67,
+        "detalhes_nos": [
+          {
+            "no": 1,
+            "carga_original": 265.16,
+            "carga_nova": 371.23,
+            "aumento_MW": 106.06,
+            "em_sobrecarga": true,
+            "margem_seguranca": -98.99
+          },
+          {
+            "no": 3,
+            "carga_original": 272.16,
+            "carga_nova": 381.03,
+            "aumento_MW": 108.86,
+            "em_sobrecarga": true,
+            "margem_seguranca": -108.79
+          },
+          {
+            "no": 5,
+            "carga_original": 271.87,
+            "carga_nova": 380.62,
+            "aumento_MW": 108.75,
+            "em_sobrecarga": true,
+            "margem_seguranca": -108.38
+          },
+          {
+            "no": 7,
+            "carga_original": 273.18,
+            "carga_nova": 382.46,
+            "aumento_MW": 109.27,
+            "em_sobrecarga": true,
+            "margem_seguranca": -110.22
+          }
+        ],
+        "nome_cenario": "Múltiplos nós moderado"
+      }
+    ],
+    "observacao": "Cenários de sobrecarga localizada são mais realistas que aumento global simultâneo"
+  },
+  "simulacoes_cascata": {
+    "total_simulacoes": 3,
+    "resultados": [
+      {
+        "no_inicial": 9,
+        "threshold_usado": 272.24,
+        "total_nos_falhos": 10,
+        "nos_falhos": [
           1,
           2,
           3,
@@ -237,82 +368,160 @@
           9,
           10
         ],
-        "quantidade_sobrecarga": 10,
-        "detalhes_redistribuicao": {
-          "1": {
-            "carga_original": 265.16,
-            "carga_apos_aumento": 530.32,
-            "excesso": 30.32,
-            "vizinhos_afetados": 9,
-            "excesso_por_vizinho": 3.37
+        "nos_por_sobrecarga": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10
+        ],
+        "fragmentacao_percentual": 100,
+        "num_componentes_final": 0,
+        "iteracoes_ate_estabilizar": 1,
+        "historico_cascata": [
+          {
+            "iteracao": 0,
+            "novos_falhos": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              10
+            ],
+            "total_falhos_acumulado": 10,
+            "nos_restantes": 0
           },
-          "2": {
-            "carga_original": 273.69,
-            "carga_apos_aumento": 547.39,
-            "excesso": 47.39,
-            "vizinhos_afetados": 9,
-            "excesso_por_vizinho": 5.27
-          },
-          "3": {
-            "carga_original": 272.16,
-            "carga_apos_aumento": 544.32,
-            "excesso": 44.32,
-            "vizinhos_afetados": 9,
-            "excesso_por_vizinho": 4.92
-          },
-          "4": {
-            "carga_original": 273.61,
-            "carga_apos_aumento": 547.22,
-            "excesso": 47.22,
-            "vizinhos_afetados": 9,
-            "excesso_por_vizinho": 5.25
-          },
-          "5": {
-            "carga_original": 271.87,
-            "carga_apos_aumento": 543.74,
-            "excesso": 43.74,
-            "vizinhos_afetados": 9,
-            "excesso_por_vizinho": 4.86
-          },
-          "6": {
-            "carga_original": 276.49,
-            "carga_apos_aumento": 552.98,
-            "excesso": 52.98,
-            "vizinhos_afetados": 9,
-            "excesso_por_vizinho": 5.89
-          },
-          "7": {
-            "carga_original": 273.18,
-            "carga_apos_aumento": 546.37,
-            "excesso": 46.37,
-            "vizinhos_afetados": 9,
-            "excesso_por_vizinho": 5.15
-          },
-          "8": {
-            "carga_original": 270.33,
-            "carga_apos_aumento": 540.65,
-            "excesso": 40.65,
-            "vizinhos_afetados": 9,
-            "excesso_por_vizinho": 4.52
-          },
-          "9": {
-            "carga_original": 276.96,
-            "carga_apos_aumento": 553.92,
-            "excesso": 53.92,
-            "vizinhos_afetados": 9,
-            "excesso_por_vizinho": 5.99
-          },
-          "10": {
-            "carga_original": 270.26,
-            "carga_apos_aumento": 540.52,
-            "excesso": 40.52,
-            "vizinhos_afetados": 9,
-            "excesso_por_vizinho": 4.5
+          {
+            "iteracao": 1,
+            "novos_falhos": [],
+            "total_falhos_acumulado": 10,
+            "nos_restantes": 0
           }
-        }
+        ],
+        "rede_colapsou": true
+      },
+      {
+        "no_inicial": 6,
+        "threshold_usado": 272.24,
+        "total_nos_falhos": 10,
+        "nos_falhos": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "nos_por_sobrecarga": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          7,
+          8,
+          9,
+          10
+        ],
+        "fragmentacao_percentual": 100,
+        "num_componentes_final": 0,
+        "iteracoes_ate_estabilizar": 1,
+        "historico_cascata": [
+          {
+            "iteracao": 0,
+            "novos_falhos": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              7,
+              8,
+              9,
+              10
+            ],
+            "total_falhos_acumulado": 10,
+            "nos_restantes": 0
+          },
+          {
+            "iteracao": 1,
+            "novos_falhos": [],
+            "total_falhos_acumulado": 10,
+            "nos_restantes": 0
+          }
+        ],
+        "rede_colapsou": true
+      },
+      {
+        "no_inicial": 2,
+        "threshold_usado": 272.24,
+        "total_nos_falhos": 10,
+        "nos_falhos": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "nos_por_sobrecarga": [
+          1,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "fragmentacao_percentual": 100,
+        "num_componentes_final": 0,
+        "iteracoes_ate_estabilizar": 1,
+        "historico_cascata": [
+          {
+            "iteracao": 0,
+            "novos_falhos": [
+              1,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "total_falhos_acumulado": 10,
+            "nos_restantes": 0
+          },
+          {
+            "iteracao": 1,
+            "novos_falhos": [],
+            "total_falhos_acumulado": 10,
+            "nos_restantes": 0
+          }
+        ],
+        "rede_colapsou": true
       }
     ],
-    "threshold_usado": 500
+    "observacao": "Simula efeito dominó: falha inicial propaga sobrecarga para vizinhos"
   },
   "comparacao_dataset_original": {
     "dataset_original": {

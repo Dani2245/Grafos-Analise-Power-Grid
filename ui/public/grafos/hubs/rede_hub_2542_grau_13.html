@@ -1,0 +1,127 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 600px;
+                 background-color: #222222;
+                 border: 1px solid #222222;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body style="background-color: #222222; margin: 0; padding: 0;">
+        <div class="card" style="width: 100%; border: 0px;">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#FFA500", "font": {"color": "white"}, "id": 2820, "label": "N\u00f3 2820\n(Grau: 5)", "shape": "dot", "size": 15, "title": "N\u00f3 2820 - Grau: 5"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 2821, "label": "N\u00f3 2821\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 2821 - Grau: 3"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 2949, "label": "N\u00f3 2949\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 2949 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 3207, "label": "N\u00f3 3207\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 3207 - Grau: 2"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 2952, "label": "N\u00f3 2952\n(Grau: 7)", "shape": "dot", "size": 15, "title": "N\u00f3 2952 - Grau: 7"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 2823, "label": "N\u00f3 2823\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 2823 - Grau: 3"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 2825, "label": "N\u00f3 2825\n(Grau: 6)", "shape": "dot", "size": 15, "title": "N\u00f3 2825 - Grau: 6"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 2951, "label": "N\u00f3 2951\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 2951 - Grau: 1"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 3211, "label": "N\u00f3 3211\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 3211 - Grau: 3"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 2829, "label": "N\u00f3 2829\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 2829 - Grau: 1"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 2830, "label": "N\u00f3 2830\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 2830 - Grau: 1"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 2831, "label": "N\u00f3 2831\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 2831 - Grau: 1"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 2832, "label": "N\u00f3 2832\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 2832 - Grau: 3"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 2834, "label": "N\u00f3 2834\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 2834 - Grau: 3"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 2835, "label": "N\u00f3 2835\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 2835 - Grau: 3"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 2836, "label": "N\u00f3 2836\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 2836 - Grau: 3"}, {"color": "#FF0000", "font": {"color": "white"}, "id": 2595, "label": "N\u00f3 2595\n(Grau: 9)", "shape": "dot", "size": 25, "title": "N\u00f3 2595 - Grau: 9"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 2728, "label": "N\u00f3 2728\n(Grau: 5)", "shape": "dot", "size": 15, "title": "N\u00f3 2728 - Grau: 5"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 3112, "label": "N\u00f3 3112\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 3112 - Grau: 3"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 2426, "label": "N\u00f3 2426\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 2426 - Grau: 3"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 2865, "label": "N\u00f3 2865\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 2865 - Grau: 3"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 2997, "label": "N\u00f3 2997\n(Grau: 5)", "shape": "dot", "size": 15, "title": "N\u00f3 2997 - Grau: 5"}, {"color": "#FF0000", "font": {"color": "white"}, "id": 3005, "label": "N\u00f3 3005\n(Grau: 8)", "shape": "dot", "size": 25, "title": "N\u00f3 3005 - Grau: 8"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 3265, "label": "N\u00f3 3265\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 3265 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 3020, "label": "N\u00f3 3020\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 3020 - Grau: 2"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 2765, "label": "N\u00f3 2765\n(Grau: 4)", "shape": "dot", "size": 15, "title": "N\u00f3 2765 - Grau: 4"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 2764, "label": "N\u00f3 2764\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 2764 - Grau: 3"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 2520, "label": "N\u00f3 2520\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 2520 - Grau: 3"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 3160, "label": "N\u00f3 3160\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 3160 - Grau: 1"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 3035, "label": "N\u00f3 3035\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 3035 - Grau: 1"}, {"color": "#FF0000", "font": {"color": "white"}, "id": 2533, "label": "N\u00f3 2533\n(Grau: 10)", "shape": "dot", "size": 25, "title": "N\u00f3 2533 - Grau: 10"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 3174, "label": "N\u00f3 3174\n(Grau: 5)", "shape": "dot", "size": 15, "title": "N\u00f3 3174 - Grau: 5"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 2534, "label": "N\u00f3 2534\n(Grau: 6)", "shape": "dot", "size": 15, "title": "N\u00f3 2534 - Grau: 6"}, {"color": "#FF0000", "font": {"color": "white"}, "id": 490, "label": "N\u00f3 490\n(Grau: 11)", "shape": "dot", "size": 25, "title": "N\u00f3 490 - Grau: 11"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 3179, "label": "N\u00f3 3179\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 3179 - Grau: 2"}, {"color": "#FF0000", "font": {"color": "white"}, "id": 2542, "label": "\u26a1 HUB 2542\n(Grau: 13)", "shape": "dot", "size": 30, "title": "HUB - Grau: 13"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 2543, "label": "N\u00f3 2543\n(Grau: 6)", "shape": "dot", "size": 15, "title": "N\u00f3 2543 - Grau: 6"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 2799, "label": "N\u00f3 2799\n(Grau: 6)", "shape": "dot", "size": 15, "title": "N\u00f3 2799 - Grau: 6"}, {"color": "#FF0000", "font": {"color": "white"}, "id": 2798, "label": "N\u00f3 2798\n(Grau: 8)", "shape": "dot", "size": 25, "title": "N\u00f3 2798 - Grau: 8"}, {"color": "#FF0000", "font": {"color": "white"}, "id": 2800, "label": "N\u00f3 2800\n(Grau: 10)", "shape": "dot", "size": 25, "title": "N\u00f3 2800 - Grau: 10"}, {"color": "#FF0000", "font": {"color": "white"}, "id": 2932, "label": "N\u00f3 2932\n(Grau: 8)", "shape": "dot", "size": 25, "title": "N\u00f3 2932 - Grau: 8"}, {"color": "#FF0000", "font": {"color": "white"}, "id": 2548, "label": "N\u00f3 2548\n(Grau: 9)", "shape": "dot", "size": 25, "title": "N\u00f3 2548 - Grau: 9"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 3062, "label": "N\u00f3 3062\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 3062 - Grau: 1"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 2680, "label": "N\u00f3 2680\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 2680 - Grau: 3"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 3194, "label": "N\u00f3 3194\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 3194 - Grau: 1"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 3068, "label": "N\u00f3 3068\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 3068 - Grau: 1"}]);
+                  edges = new vis.DataSet([{"from": 490, "to": 2426}, {"from": 490, "to": 2542}, {"from": 490, "to": 2543}, {"from": 490, "to": 2548}, {"from": 490, "to": 2680}, {"from": 490, "to": 2799}, {"from": 490, "to": 2832}, {"from": 490, "to": 2834}, {"from": 490, "to": 2835}, {"from": 490, "to": 2836}, {"from": 490, "to": 2949}, {"from": 2520, "to": 2533}, {"from": 2520, "to": 2595}, {"from": 2520, "to": 3005}, {"from": 2533, "to": 2534}, {"from": 2533, "to": 2542}, {"from": 2533, "to": 2595}, {"from": 2533, "to": 2765}, {"from": 2533, "to": 2821}, {"from": 2533, "to": 2823}, {"from": 2533, "to": 3005}, {"from": 2533, "to": 3112}, {"from": 2533, "to": 3179}, {"from": 2534, "to": 2821}, {"from": 2534, "to": 2823}, {"from": 2542, "to": 2728}, {"from": 2542, "to": 2765}, {"from": 2542, "to": 2834}, {"from": 2542, "to": 2835}, {"from": 2542, "to": 2836}, {"from": 2542, "to": 2952}, {"from": 2542, "to": 2997}, {"from": 2542, "to": 3068}, {"from": 2542, "to": 3112}, {"from": 2542, "to": 3174}, {"from": 2542, "to": 3207}, {"from": 2543, "to": 2832}, {"from": 2595, "to": 3005}, {"from": 2595, "to": 3179}, {"from": 2728, "to": 2952}, {"from": 2728, "to": 3062}, {"from": 2728, "to": 3207}, {"from": 2728, "to": 3265}, {"from": 2764, "to": 2765}, {"from": 2765, "to": 3112}, {"from": 2798, "to": 2800}, {"from": 2798, "to": 2820}, {"from": 2798, "to": 2997}, {"from": 2798, "to": 3211}, {"from": 2799, "to": 2800}, {"from": 2800, "to": 2820}, {"from": 2800, "to": 2997}, {"from": 2800, "to": 3211}, {"from": 2820, "to": 2825}, {"from": 2820, "to": 2865}, {"from": 2820, "to": 2952}, {"from": 2825, "to": 2865}, {"from": 2825, "to": 2952}, {"from": 2829, "to": 2834}, {"from": 2830, "to": 2835}, {"from": 2831, "to": 2836}, {"from": 2865, "to": 2952}, {"from": 2932, "to": 3020}, {"from": 2932, "to": 3174}, {"from": 2951, "to": 2997}, {"from": 2952, "to": 3035}, {"from": 2952, "to": 3265}, {"from": 2997, "to": 3211}, {"from": 3020, "to": 3174}, {"from": 3160, "to": 3174}, {"from": 3174, "to": 3194}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {"physics": {"enabled": true, "stabilization": {"iterations": 100}}};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>

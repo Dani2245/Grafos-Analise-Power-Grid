@@ -1,5 +1,7 @@
-import { Network, GitBranch, Activity, Zap } from 'lucide-react';
+import { Network, GitBranch, Activity, Zap, Eye } from 'lucide-react';
+import { useState } from 'react';
 import CartaoMetrica from '../CartaoMetrica';
+import ModalGrafo from '../ModalGrafo';
 
 interface AbaVisaoGeralProps {
   analiseBasica: any;
@@ -7,6 +9,21 @@ interface AbaVisaoGeralProps {
 }
 
 const AbaVisaoGeral = ({ analiseBasica, analiseCriticidade }: AbaVisaoGeralProps) => {
+  const [modalGrafo, setModalGrafo] = useState<{ aberto: boolean; arquivo: string; titulo: string }>({
+    aberto: false,
+    arquivo: '',
+    titulo: ''
+  });
+
+  // Verificações de segurança
+  if (!analiseBasica || !analiseCriticidade) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <p className="text-slate-400">Carregando dados da análise...</p>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -50,12 +67,12 @@ const AbaVisaoGeral = ({ analiseBasica, analiseCriticidade }: AbaVisaoGeralProps
             </ul>
           </div>
           <div>
-            <h3 className="text-lg font-semibold mb-3 text-yellow-400">Criticidade</h3>
+            <h3 className="text-lg font-semibold mb-3 text-yellow-400">Criticidade (4 Dimensões)</h3>
             <ul className="space-y-2 text-slate-300">
-              <li>• <span className="text-red-400">🔴 Pontos de Articulação:</span> {analiseCriticidade.pontos_articulacao.total} ({analiseCriticidade.pontos_articulacao.percentual_rede}%)</li>
-              <li>• <span className="text-orange-400">🟠 Nós Críticos (Nível 1-2):</span> {analiseCriticidade.classificacao_criticidade.nivel_1_critico_maximo.total + analiseCriticidade.classificacao_criticidade.nivel_2_critico_alto.total}</li>
-              <li>• <span className="text-yellow-400">🟡 Betweenness Média:</span> {analiseCriticidade.centralidade_intermediacao.media.toFixed(6)}</li>
-              <li>• <span className="text-green-400">🟢 Top 5% Threshold:</span> {analiseCriticidade.centralidade_intermediacao.threshold_top_5_pct.toFixed(6)}</li>
+              <li>• <span className="text-red-400">🔴 Pontos de Articulação:</span> {analiseCriticidade.pontos_articulacao?.total || 0} ({analiseCriticidade.pontos_articulacao?.percentual_rede || 0}%)</li>
+              <li>• <span className="text-orange-400">🟠 Crítico Máximo (4D):</span> {analiseCriticidade.classificacao_criticidade?.nivel_1_critico_maximo_4d?.total || 0} nós</li>
+              <li>• <span className="text-yellow-400">🟡 Betweenness Média:</span> {analiseCriticidade.centralidade_intermediacao?.media?.toFixed(6) || '0.000000'}</li>
+              <li>• <span className="text-purple-400">🟣 Percolação Máxima:</span> {analiseCriticidade.analise_percolacao?.impacto_maximo_fragmentacao || 'N/A'}%</li>
             </ul>
           </div>
         </div>
@@ -72,10 +89,11 @@ const AbaVisaoGeral = ({ analiseBasica, analiseCriticidade }: AbaVisaoGeralProps
                 <th className="text-left p-3">Grau</th>
                 <th className="text-left p-3">Betweenness</th>
                 <th className="text-left p-3">Ponto de Articulação</th>
+                <th className="text-left p-3">Visualizar</th>
               </tr>
             </thead>
             <tbody>
-              {analiseBasica.top_hubs.slice(0, 10).map((hub: any, idx: number) => (
+              {analiseBasica.top_hubs?.slice(0, 10).map((hub: any, idx: number) => (
                 <tr key={hub.no} className="border-b border-slate-700/50 hover:bg-slate-700/30">
                   <td className="p-3 text-slate-400">#{idx + 1}</td>
                   <td className="p-3 font-mono text-yellow-400">{hub.no}</td>
@@ -83,21 +101,41 @@ const AbaVisaoGeral = ({ analiseBasica, analiseCriticidade }: AbaVisaoGeralProps
                     <span className="px-2 py-1 bg-blue-900/50 rounded text-blue-300">{hub.grau}</span>
                   </td>
                   <td className="p-3 font-mono text-sm">
-                    {analiseCriticidade.centralidade_intermediacao.todos_nos[hub.no]?.toFixed(6) || '0.000000'}
+                    {analiseCriticidade.centralidade_intermediacao?.todos_nos?.[hub.no]?.toFixed(6) || '0.000000'}
                   </td>
                   <td className="p-3">
-                    {analiseCriticidade.pontos_articulacao.lista_completa.includes(hub.no) ? (
+                    {analiseCriticidade.pontos_articulacao?.lista_completa?.includes(hub.no) ? (
                       <span className="px-2 py-1 bg-red-900/50 rounded text-red-300">✓ SIM</span>
                     ) : (
                       <span className="px-2 py-1 bg-slate-700 rounded text-slate-400">NÃO</span>
                     )}
                   </td>
+                  <td className="p-3">
+                    <button
+                      onClick={() => setModalGrafo({
+                        aberto: true,
+                        arquivo: `grafos/hubs/rede_hub_${hub.no}_grau_${hub.grau}.html`,
+                        titulo: `Hub ${hub.no} (Grau ${hub.grau})`
+                      })}
+                      className="px-3 py-1 bg-blue-600 hover:bg-blue-500 rounded flex items-center gap-2 text-sm transition-colors"
+                    >
+                      <Eye className="w-4 h-4" />
+                      Ver Grafo
+                    </button>
+                  </td>
                 </tr>
-              ))}
+              )) || []}
             </tbody>
           </table>
         </div>
       </div>
+
+      <ModalGrafo
+        aberto={modalGrafo.aberto}
+        arquivo={modalGrafo.arquivo}
+        titulo={modalGrafo.titulo}
+        onFechar={() => setModalGrafo({ aberto: false, arquivo: '', titulo: '' })}
+      />
     </div>
   );
 };

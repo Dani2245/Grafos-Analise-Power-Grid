@@ -1,0 +1,222 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 600px;
+                 background-color: #222222;
+                 border: 1px solid #222222;
+                 position: relative;
+                 float: left;
+             }
+
+             
+             #loadingBar {
+                 position:absolute;
+                 top:0px;
+                 left:0px;
+                 width: 100%;
+                 height: 600px;
+                 background-color:rgba(200,200,200,0.8);
+                 -webkit-transition: all 0.5s ease;
+                 -moz-transition: all 0.5s ease;
+                 -ms-transition: all 0.5s ease;
+                 -o-transition: all 0.5s ease;
+                 transition: all 0.5s ease;
+                 opacity:1;
+             }
+
+             #bar {
+                 position:absolute;
+                 top:0px;
+                 left:0px;
+                 width:20px;
+                 height:20px;
+                 margin:auto auto auto auto;
+                 border-radius:11px;
+                 border:2px solid rgba(30,30,30,0.05);
+                 background: rgb(0, 173, 246); /* Old browsers */
+                 box-shadow: 2px 0px 4px rgba(0,0,0,0.4);
+             }
+
+             #border {
+                 position:absolute;
+                 top:10px;
+                 left:10px;
+                 width:500px;
+                 height:23px;
+                 margin:auto auto auto auto;
+                 box-shadow: 0px 0px 4px rgba(0,0,0,0.2);
+                 border-radius:10px;
+             }
+
+             #text {
+                 position:absolute;
+                 top:8px;
+                 left:530px;
+                 width:30px;
+                 height:50px;
+                 margin:auto auto auto auto;
+                 font-size:22px;
+                 color: #000000;
+             }
+
+             div.outerBorder {
+                 position:relative;
+                 top:400px;
+                 width:600px;
+                 height:44px;
+                 margin:auto auto auto auto;
+                 border:8px solid rgba(0,0,0,0.1);
+                 background: rgb(252,252,252); /* Old browsers */
+                 background: -moz-linear-gradient(top,  rgba(252,252,252,1) 0%, rgba(237,237,237,1) 100%); /* FF3.6+ */
+                 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(252,252,252,1)), color-stop(100%,rgba(237,237,237,1))); /* Chrome,Safari4+ */
+                 background: -webkit-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Chrome10+,Safari5.1+ */
+                 background: -o-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Opera 11.10+ */
+                 background: -ms-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* IE10+ */
+                 background: linear-gradient(to bottom,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* W3C */
+                 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+                 border-radius:72px;
+                 box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+             }
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body style="background-color: #222222; margin: 0; padding: 0;">
+        <div class="card" style="width: 100%; border: 0px;">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+            <div id="loadingBar">
+              <div class="outerBorder">
+                <div id="text">0%</div>
+                <div id="border">
+                  <div id="bar"></div>
+                </div>
+              </div>
+            </div>
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#00FF00", "font": {"color": "white"}, "id": 4, "label": "N\u00f3 4\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 4 - Grau: 1"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 5, "label": "N\u00f3 5\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 5 - Grau: 2"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 6, "label": "N\u00f3 6\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 6 - Grau: 1"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 7, "label": "N\u00f3 7\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 7 - Grau: 1"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 8, "label": "N\u00f3 8\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 8 - Grau: 3"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 9, "label": "N\u00f3 9\n(Grau: 6)", "shape": "dot", "size": 15, "title": "N\u00f3 9 - Grau: 6"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 10, "label": "N\u00f3 10\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 10 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 11, "label": "N\u00f3 11\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 11 - Grau: 2"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 12, "label": "N\u00f3 12\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 12 - Grau: 1"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 13, "label": "N\u00f3 13\n(Grau: 5)", "shape": "dot", "size": 15, "title": "N\u00f3 13 - Grau: 5"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 14, "label": "N\u00f3 14\n(Grau: 5)", "shape": "dot", "size": 15, "title": "N\u00f3 14 - Grau: 5"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 15, "label": "N\u00f3 15\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 15 - Grau: 1"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 16, "label": "N\u00f3 16\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 16 - Grau: 1"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 17, "label": "N\u00f3 17\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 17 - Grau: 1"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 18, "label": "N\u00f3 18\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 18 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 19, "label": "N\u00f3 19\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 19 - Grau: 3"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 20, "label": "N\u00f3 20\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 20 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 21, "label": "N\u00f3 21\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 21 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 25, "label": "N\u00f3 25\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 25 - Grau: 2"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 26, "label": "N\u00f3 26\n(Grau: 4)", "shape": "dot", "size": 15, "title": "N\u00f3 26 - Grau: 4"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 27, "label": "N\u00f3 27\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 27 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 29, "label": "N\u00f3 29\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 29 - Grau: 3"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 30, "label": "N\u00f3 30\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 30 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 31, "label": "N\u00f3 31\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 31 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 32, "label": "N\u00f3 32\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 32 - Grau: 2"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 33, "label": "N\u00f3 33\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 33 - Grau: 1"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 34, "label": "N\u00f3 34\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 34 - Grau: 3"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 35, "label": "N\u00f3 35\n(Grau: 5)", "shape": "dot", "size": 15, "title": "N\u00f3 35 - Grau: 5"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 36, "label": "N\u00f3 36\n(Grau: 6)", "shape": "dot", "size": 15, "title": "N\u00f3 36 - Grau: 6"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 37, "label": "N\u00f3 37\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 37 - Grau: 1"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 38, "label": "N\u00f3 38\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 38 - Grau: 1"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 39, "label": "N\u00f3 39\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 39 - Grau: 1"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 40, "label": "N\u00f3 40\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 40 - Grau: 2"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 41, "label": "N\u00f3 41\n(Grau: 5)", "shape": "dot", "size": 15, "title": "N\u00f3 41 - Grau: 5"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 42, "label": "N\u00f3 42\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 42 - Grau: 3"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 43, "label": "N\u00f3 43\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 43 - Grau: 2"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 44, "label": "N\u00f3 44\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 44 - Grau: 1"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 45, "label": "N\u00f3 45\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 45 - Grau: 1"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 46, "label": "N\u00f3 46\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 46 - Grau: 2"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 47, "label": "N\u00f3 47\n(Grau: 5)", "shape": "dot", "size": 15, "title": "N\u00f3 47 - Grau: 5"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 48, "label": "N\u00f3 48\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 48 - Grau: 3"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 50, "label": "N\u00f3 50\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 50 - Grau: 3"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 51, "label": "N\u00f3 51\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 51 - Grau: 3"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 52, "label": "N\u00f3 52\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 52 - Grau: 3"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 54, "label": "N\u00f3 54\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 54 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 55, "label": "N\u00f3 55\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 55 - Grau: 2"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 56, "label": "N\u00f3 56\n(Grau: 5)", "shape": "dot", "size": 15, "title": "N\u00f3 56 - Grau: 5"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 58, "label": "N\u00f3 58\n(Grau: 4)", "shape": "dot", "size": 15, "title": "N\u00f3 58 - Grau: 4"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 59, "label": "N\u00f3 59\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 59 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 60, "label": "N\u00f3 60\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 60 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 61, "label": "N\u00f3 61\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 61 - Grau: 3"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 62, "label": "N\u00f3 62\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 62 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 71, "label": "N\u00f3 71\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 71 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 75, "label": "N\u00f3 75\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 75 - Grau: 2"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 76, "label": "N\u00f3 76\n(Grau: 4)", "shape": "dot", "size": 15, "title": "N\u00f3 76 - Grau: 4"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 77, "label": "N\u00f3 77\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 77 - Grau: 3"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 78, "label": "N\u00f3 78\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 78 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 79, "label": "N\u00f3 79\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 79 - Grau: 2"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 80, "label": "N\u00f3 80\n(Grau: 4)", "shape": "dot", "size": 15, "title": "N\u00f3 80 - Grau: 4"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 83, "label": "N\u00f3 83\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 83 - Grau: 3"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 85, "label": "N\u00f3 85\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 85 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 86, "label": "N\u00f3 86\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 86 - Grau: 3"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 87, "label": "N\u00f3 87\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 87 - Grau: 2"}, {"color": "#10B981", "font": {"color": "white"}, "id": 88, "label": "\ud83c\udf1f HUB 88\n(Grau: 8)", "shape": "dot", "size": 30, "title": "Hub da Comunidade 9 - Grau: 8"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 89, "label": "N\u00f3 89\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 89 - Grau: 1"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 90, "label": "N\u00f3 90\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 90 - Grau: 1"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 92, "label": "N\u00f3 92\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 92 - Grau: 3"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 93, "label": "N\u00f3 93\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 93 - Grau: 1"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 94, "label": "N\u00f3 94\n(Grau: 7)", "shape": "dot", "size": 15, "title": "N\u00f3 94 - Grau: 7"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 95, "label": "N\u00f3 95\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 95 - Grau: 3"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 96, "label": "N\u00f3 96\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 96 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 97, "label": "N\u00f3 97\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 97 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 101, "label": "N\u00f3 101\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 101 - Grau: 3"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 102, "label": "N\u00f3 102\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 102 - Grau: 1"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 103, "label": "N\u00f3 103\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 103 - Grau: 3"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 104, "label": "N\u00f3 104\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 104 - Grau: 3"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 106, "label": "N\u00f3 106\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 106 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 107, "label": "N\u00f3 107\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 107 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 109, "label": "N\u00f3 109\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 109 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 110, "label": "N\u00f3 110\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 110 - Grau: 2"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 111, "label": "N\u00f3 111\n(Grau: 4)", "shape": "dot", "size": 15, "title": "N\u00f3 111 - Grau: 4"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 114, "label": "N\u00f3 114\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 114 - Grau: 1"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 115, "label": "N\u00f3 115\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 115 - Grau: 2"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 119, "label": "N\u00f3 119\n(Grau: 4)", "shape": "dot", "size": 15, "title": "N\u00f3 119 - Grau: 4"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 120, "label": "N\u00f3 120\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 120 - Grau: 2"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 121, "label": "N\u00f3 121\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 121 - Grau: 1"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 122, "label": "N\u00f3 122\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 122 - Grau: 2"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 123, "label": "N\u00f3 123\n(Grau: 5)", "shape": "dot", "size": 15, "title": "N\u00f3 123 - Grau: 5"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 124, "label": "N\u00f3 124\n(Grau: 4)", "shape": "dot", "size": 15, "title": "N\u00f3 124 - Grau: 4"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 125, "label": "N\u00f3 125\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 125 - Grau: 3"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 130, "label": "N\u00f3 130\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 130 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 131, "label": "N\u00f3 131\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 131 - Grau: 3"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 136, "label": "N\u00f3 136\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 136 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 137, "label": "N\u00f3 137\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 137 - Grau: 3"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 138, "label": "N\u00f3 138\n(Grau: 6)", "shape": "dot", "size": 15, "title": "N\u00f3 138 - Grau: 6"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 139, "label": "N\u00f3 139\n(Grau: 5)", "shape": "dot", "size": 15, "title": "N\u00f3 139 - Grau: 5"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 140, "label": "N\u00f3 140\n(Grau: 7)", "shape": "dot", "size": 15, "title": "N\u00f3 140 - Grau: 7"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 141, "label": "N\u00f3 141\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 141 - Grau: 3"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 142, "label": "N\u00f3 142\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 142 - Grau: 2"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 143, "label": "N\u00f3 143\n(Grau: 4)", "shape": "dot", "size": 15, "title": "N\u00f3 143 - Grau: 4"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 144, "label": "N\u00f3 144\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 144 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 145, "label": "N\u00f3 145\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 145 - Grau: 3"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 146, "label": "N\u00f3 146\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 146 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 147, "label": "N\u00f3 147\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 147 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 148, "label": "N\u00f3 148\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 148 - Grau: 3"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 149, "label": "N\u00f3 149\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 149 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 150, "label": "N\u00f3 150\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 150 - Grau: 3"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 151, "label": "N\u00f3 151\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 151 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 152, "label": "N\u00f3 152\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 152 - Grau: 2"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 153, "label": "N\u00f3 153\n(Grau: 7)", "shape": "dot", "size": 15, "title": "N\u00f3 153 - Grau: 7"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 154, "label": "N\u00f3 154\n(Grau: 7)", "shape": "dot", "size": 15, "title": "N\u00f3 154 - Grau: 7"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 155, "label": "N\u00f3 155\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 155 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 156, "label": "N\u00f3 156\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 156 - Grau: 2"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 157, "label": "N\u00f3 157\n(Grau: 4)", "shape": "dot", "size": 15, "title": "N\u00f3 157 - Grau: 4"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 158, "label": "N\u00f3 158\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 158 - Grau: 1"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 159, "label": "N\u00f3 159\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 159 - Grau: 1"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 160, "label": "N\u00f3 160\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 160 - Grau: 1"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 161, "label": "N\u00f3 161\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 161 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 162, "label": "N\u00f3 162\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 162 - Grau: 2"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 163, "label": "N\u00f3 163\n(Grau: 4)", "shape": "dot", "size": 15, "title": "N\u00f3 163 - Grau: 4"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 164, "label": "N\u00f3 164\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 164 - Grau: 1"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 165, "label": "N\u00f3 165\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 165 - Grau: 1"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 166, "label": "N\u00f3 166\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 166 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 167, "label": "N\u00f3 167\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 167 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 168, "label": "N\u00f3 168\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 168 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 169, "label": "N\u00f3 169\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 169 - Grau: 3"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 170, "label": "N\u00f3 170\n(Grau: 4)", "shape": "dot", "size": 15, "title": "N\u00f3 170 - Grau: 4"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 171, "label": "N\u00f3 171\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 171 - Grau: 3"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 172, "label": "N\u00f3 172\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 172 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 173, "label": "N\u00f3 173\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 173 - Grau: 2"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 174, "label": "N\u00f3 174\n(Grau: 4)", "shape": "dot", "size": 15, "title": "N\u00f3 174 - Grau: 4"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 175, "label": "N\u00f3 175\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 175 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 176, "label": "N\u00f3 176\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 176 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 177, "label": "N\u00f3 177\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 177 - Grau: 3"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 178, "label": "N\u00f3 178\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 178 - Grau: 3"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 180, "label": "N\u00f3 180\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 180 - Grau: 1"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 181, "label": "N\u00f3 181\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 181 - Grau: 2"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 182, "label": "N\u00f3 182\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 182 - Grau: 1"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 183, "label": "N\u00f3 183\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 183 - Grau: 1"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 184, "label": "N\u00f3 184\n(Grau: 7)", "shape": "dot", "size": 15, "title": "N\u00f3 184 - Grau: 7"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 185, "label": "N\u00f3 185\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 185 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 186, "label": "N\u00f3 186\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 186 - Grau: 2"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 187, "label": "N\u00f3 187\n(Grau: 4)", "shape": "dot", "size": 15, "title": "N\u00f3 187 - Grau: 4"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 188, "label": "N\u00f3 188\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 188 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 189, "label": "N\u00f3 189\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 189 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 190, "label": "N\u00f3 190\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 190 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 191, "label": "N\u00f3 191\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 191 - Grau: 3"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 192, "label": "N\u00f3 192\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 192 - Grau: 3"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 193, "label": "N\u00f3 193\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 193 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 194, "label": "N\u00f3 194\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 194 - Grau: 3"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 195, "label": "N\u00f3 195\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 195 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 196, "label": "N\u00f3 196\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 196 - Grau: 2"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 197, "label": "N\u00f3 197\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 197 - Grau: 1"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 198, "label": "N\u00f3 198\n(Grau: 6)", "shape": "dot", "size": 15, "title": "N\u00f3 198 - Grau: 6"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 199, "label": "N\u00f3 199\n(Grau: 4)", "shape": "dot", "size": 15, "title": "N\u00f3 199 - Grau: 4"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 200, "label": "N\u00f3 200\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 200 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 201, "label": "N\u00f3 201\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 201 - Grau: 3"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 202, "label": "N\u00f3 202\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 202 - Grau: 2"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 203, "label": "N\u00f3 203\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 203 - Grau: 1"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 204, "label": "N\u00f3 204\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 204 - Grau: 2"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 205, "label": "N\u00f3 205\n(Grau: 7)", "shape": "dot", "size": 15, "title": "N\u00f3 205 - Grau: 7"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 208, "label": "N\u00f3 208\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 208 - Grau: 2"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 209, "label": "N\u00f3 209\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 209 - Grau: 1"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 210, "label": "N\u00f3 210\n(Grau: 4)", "shape": "dot", "size": 15, "title": "N\u00f3 210 - Grau: 4"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 211, "label": "N\u00f3 211\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 211 - Grau: 1"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 212, "label": "N\u00f3 212\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 212 - Grau: 1"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 213, "label": "N\u00f3 213\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 213 - Grau: 1"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 216, "label": "N\u00f3 216\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 216 - Grau: 2"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 217, "label": "N\u00f3 217\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 217 - Grau: 1"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 218, "label": "N\u00f3 218\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 218 - Grau: 3"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 219, "label": "N\u00f3 219\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 219 - Grau: 1"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 220, "label": "N\u00f3 220\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 220 - Grau: 1"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 221, "label": "N\u00f3 221\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 221 - Grau: 3"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 223, "label": "N\u00f3 223\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 223 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 224, "label": "N\u00f3 224\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 224 - Grau: 3"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 225, "label": "N\u00f3 225\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 225 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 226, "label": "N\u00f3 226\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 226 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 227, "label": "N\u00f3 227\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 227 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 228, "label": "N\u00f3 228\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 228 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 229, "label": "N\u00f3 229\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 229 - Grau: 3"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 230, "label": "N\u00f3 230\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 230 - Grau: 2"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 232, "label": "N\u00f3 232\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 232 - Grau: 2"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 233, "label": "N\u00f3 233\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 233 - Grau: 1"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 234, "label": "N\u00f3 234\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 234 - Grau: 2"}]);
+                  edges = new vis.DataSet([{"from": 4, "to": 88}, {"from": 5, "to": 120}, {"from": 5, "to": 13}, {"from": 6, "to": 8}, {"from": 7, "to": 8}, {"from": 8, "to": 9}, {"from": 9, "to": 10}, {"from": 9, "to": 205}, {"from": 9, "to": 208}, {"from": 9, "to": 61}, {"from": 9, "to": 75}, {"from": 10, "to": 50}, {"from": 11, "to": 125}, {"from": 11, "to": 94}, {"from": 12, "to": 13}, {"from": 13, "to": 14}, {"from": 13, "to": 15}, {"from": 13, "to": 83}, {"from": 14, "to": 147}, {"from": 14, "to": 16}, {"from": 14, "to": 17}, {"from": 14, "to": 29}, {"from": 18, "to": 19}, {"from": 18, "to": 190}, {"from": 19, "to": 130}, {"from": 19, "to": 20}, {"from": 20, "to": 199}, {"from": 21, "to": 176}, {"from": 21, "to": 51}, {"from": 25, "to": 136}, {"from": 25, "to": 58}, {"from": 26, "to": 131}, {"from": 26, "to": 139}, {"from": 26, "to": 203}, {"from": 26, "to": 94}, {"from": 27, "to": 161}, {"from": 27, "to": 166}, {"from": 29, "to": 130}, {"from": 29, "to": 160}, {"from": 30, "to": 123}, {"from": 30, "to": 140}, {"from": 31, "to": 104}, {"from": 31, "to": 62}, {"from": 32, "to": 155}, {"from": 32, "to": 174}, {"from": 33, "to": 34}, {"from": 34, "to": 35}, {"from": 34, "to": 97}, {"from": 35, "to": 141}, {"from": 35, "to": 142}, {"from": 35, "to": 36}, {"from": 36, "to": 157}, {"from": 36, "to": 37}, {"from": 36, "to": 38}, {"from": 36, "to": 39}, {"from": 36, "to": 47}, {"from": 40, "to": 202}, {"from": 40, "to": 97}, {"from": 41, "to": 167}, {"from": 41, "to": 218}, {"from": 41, "to": 232}, {"from": 41, "to": 42}, {"from": 41, "to": 58}, {"from": 42, "to": 181}, {"from": 43, "to": 163}, {"from": 43, "to": 94}, {"from": 44, "to": 47}, {"from": 45, "to": 47}, {"from": 46, "to": 184}, {"from": 46, "to": 47}, {"from": 47, "to": 171}, {"from": 48, "to": 101}, {"from": 48, "to": 106}, {"from": 48, "to": 75}, {"from": 50, "to": 139}, {"from": 50, "to": 205}, {"from": 51, "to": 120}, {"from": 51, "to": 194}, {"from": 52, "to": 111}, {"from": 52, "to": 119}, {"from": 52, "to": 172}, {"from": 54, "to": 109}, {"from": 54, "to": 147}, {"from": 55, "to": 107}, {"from": 55, "to": 88}, {"from": 56, "to": 119}, {"from": 56, "to": 149}, {"from": 56, "to": 152}, {"from": 56, "to": 175}, {"from": 56, "to": 198}, {"from": 58, "to": 167}, {"from": 58, "to": 59}, {"from": 59, "to": 60}, {"from": 60, "to": 154}, {"from": 61, "to": 188}, {"from": 61, "to": 209}, {"from": 62, "to": 154}, {"from": 71, "to": 224}, {"from": 71, "to": 86}, {"from": 76, "to": 110}, {"from": 76, "to": 185}, {"from": 76, "to": 77}, {"from": 76, "to": 86}, {"from": 77, "to": 170}, {"from": 77, "to": 191}, {"from": 78, "to": 109}, {"from": 78, "to": 79}, {"from": 79, "to": 80}, {"from": 80, "to": 184}, {"from": 80, "to": 199}, {"from": 83, "to": 218}, {"from": 83, "to": 221}, {"from": 85, "to": 151}, {"from": 86, "to": 110}, {"from": 87, "to": 88}, {"from": 87, "to": 89}, {"from": 88, "to": 172}, {"from": 88, "to": 178}, {"from": 88, "to": 195}, {"from": 88, "to": 198}, {"from": 88, "to": 90}, {"from": 92, "to": 123}, {"from": 92, "to": 174}, {"from": 92, "to": 94}, {"from": 93, "to": 94}, {"from": 94, "to": 131}, {"from": 94, "to": 95}, {"from": 95, "to": 171}, {"from": 96, "to": 144}, {"from": 96, "to": 148}, {"from": 101, "to": 123}, {"from": 101, "to": 210}, {"from": 102, "to": 140}, {"from": 103, "to": 145}, {"from": 103, "to": 153}, {"from": 103, "to": 190}, {"from": 104, "to": 174}, {"from": 106, "to": 186}, {"from": 107, "to": 178}, {"from": 111, "to": 148}, {"from": 111, "to": 192}, {"from": 111, "to": 204}, {"from": 114, "to": 115}, {"from": 115, "to": 205}, {"from": 119, "to": 148}, {"from": 119, "to": 175}, {"from": 121, "to": 122}, {"from": 122, "to": 123}, {"from": 123, "to": 140}, {"from": 124, "to": 153}, {"from": 124, "to": 173}, {"from": 124, "to": 194}, {"from": 124, "to": 232}, {"from": 125, "to": 208}, {"from": 131, "to": 139}, {"from": 136, "to": 146}, {"from": 137, "to": 223}, {"from": 137, "to": 224}, {"from": 137, "to": 229}, {"from": 138, "to": 139}, {"from": 138, "to": 140}, {"from": 138, "to": 143}, {"from": 138, "to": 150}, {"from": 138, "to": 205}, {"from": 139, "to": 140}, {"from": 140, "to": 141}, {"from": 140, "to": 186}, {"from": 141, "to": 142}, {"from": 143, "to": 151}, {"from": 143, "to": 202}, {"from": 143, "to": 234}, {"from": 144, "to": 192}, {"from": 145, "to": 194}, {"from": 145, "to": 196}, {"from": 146, "to": 153}, {"from": 149, "to": 198}, {"from": 150, "to": 181}, {"from": 150, "to": 191}, {"from": 152, "to": 198}, {"from": 153, "to": 154}, {"from": 153, "to": 156}, {"from": 153, "to": 157}, {"from": 153, "to": 158}, {"from": 154, "to": 155}, {"from": 154, "to": 157}, {"from": 154, "to": 159}, {"from": 154, "to": 173}, {"from": 156, "to": 189}, {"from": 157, "to": 193}, {"from": 161, "to": 196}, {"from": 162, "to": 163}, {"from": 162, "to": 165}, {"from": 163, "to": 164}, {"from": 163, "to": 191}, {"from": 166, "to": 176}, {"from": 168, "to": 170}, {"from": 168, "to": 229}, {"from": 169, "to": 170}, {"from": 169, "to": 187}, {"from": 169, "to": 227}, {"from": 170, "to": 171}, {"from": 174, "to": 189}, {"from": 177, "to": 178}, {"from": 177, "to": 180}, {"from": 182, "to": 184}, {"from": 183, "to": 184}, {"from": 184, "to": 200}, {"from": 185, "to": 187}, {"from": 187, "to": 228}, {"from": 187, "to": 230}, {"from": 188, "to": 205}, {"from": 192, "to": 193}, {"from": 195, "to": 204}, {"from": 197, "to": 201}, {"from": 198, "to": 200}, {"from": 198, "to": 201}, {"from": 199, "to": 201}, {"from": 210, "to": 211}, {"from": 210, "to": 212}, {"from": 210, "to": 213}, {"from": 216, "to": 225}, {"from": 216, "to": 228}, {"from": 217, "to": 218}, {"from": 219, "to": 224}, {"from": 220, "to": 221}, {"from": 221, "to": 225}, {"from": 223, "to": 227}, {"from": 226, "to": 229}, {"from": 226, "to": 230}, {"from": 233, "to": 234}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {"physics": {"enabled": true, "stabilization": {"iterations": 100}}};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+                      network.on("stabilizationProgress", function(params) {
+                          document.getElementById('loadingBar').removeAttribute("style");
+                          var maxWidth = 496;
+                          var minWidth = 20;
+                          var widthFactor = params.iterations/params.total;
+                          var width = Math.max(minWidth,maxWidth * widthFactor);
+                          document.getElementById('bar').style.width = width + 'px';
+                          document.getElementById('text').innerHTML = Math.round(widthFactor*100) + '%';
+                      });
+                      network.once("stabilizationIterationsDone", function() {
+                          document.getElementById('text').innerHTML = '100%';
+                          document.getElementById('bar').style.width = '496px';
+                          document.getElementById('loadingBar').style.opacity = 0;
+                          // really clean the dom element
+                          setTimeout(function () {document.getElementById('loadingBar').style.display = 'none';}, 500);
+                      });
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>

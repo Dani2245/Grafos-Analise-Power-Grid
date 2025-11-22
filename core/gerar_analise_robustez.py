@@ -3,6 +3,7 @@ Análise de Robustez e Resiliência da Rede Elétrica
 Calcula métricas estruturais de robustez e eficiência sob falhas
 """
 
+# -*- coding: utf-8 -*-
 import networkx as nx
 import csv
 import json
@@ -11,6 +12,14 @@ import os
 import numpy as np
 import random
 from typing import List, Dict
+from tqdm import tqdm
+
+# Configurar encoding UTF-8 para output no Windows
+if sys.stdout.encoding != "utf-8":
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except:
+        pass
 
 
 def carregar_grafo(arquivo: str) -> nx.Graph:
@@ -20,7 +29,7 @@ def carregar_grafo(arquivo: str) -> nx.Graph:
         sys.exit(1)
 
     grafo = nx.Graph()
-    with open(arquivo, 'r', encoding='utf-8') as f:
+    with open(arquivo, "r", encoding="utf-8") as f:
         leitor_csv = csv.reader(f)
         for linha in leitor_csv:
             origem, destino = int(linha[0]), int(linha[1])
@@ -65,7 +74,16 @@ def calcular_eficiencia_global(grafo: nx.Graph) -> float:
         nodes = random.sample(nodes, 500)
 
     eficiencias = []
-    for i, source in enumerate(nodes):
+    for i, source in enumerate(
+        tqdm(
+            nodes,
+            desc="      Eficiência global",
+            unit="nós",
+            ncols=80,
+            ascii=True,
+            leave=False,
+        )
+    ):
         # Calcula distâncias de 'source' para todos os outros nós alcançáveis
         lengths = nx.single_source_shortest_path_length(grafo, source)
         for target, length in lengths.items():
@@ -81,7 +99,14 @@ def calcular_eficiencia_local(grafo: nx.Graph) -> float:
     """
     eficiencias_locais = []
 
-    for node in grafo.nodes():
+    for node in tqdm(
+        grafo.nodes(),
+        desc="      Eficiência local",
+        unit="nós",
+        ncols=80,
+        ascii=True,
+        leave=False,
+    ):
         neighbors = list(grafo.neighbors(node))
         if len(neighbors) < 2:
             continue
@@ -113,11 +138,7 @@ def calcular_metricas_caminho(grafo: nx.Graph) -> Dict:
     # Radius (menor excentricidade)
     radius = nx.radius(grafo)
 
-    return {
-        'avg_path_length': avg_path_length,
-        'diameter': diameter,
-        'radius': radius
-    }
+    return {"avg_path_length": avg_path_length, "diameter": diameter, "radius": radius}
 
 
 def analisar_robustez_estrutural(grafo: nx.Graph) -> Dict:
@@ -151,16 +172,16 @@ def analisar_robustez_estrutural(grafo: nx.Graph) -> Dict:
     densidade = nx.density(grafo)
 
     return {
-        'algebraic_connectivity': algebraic_conn,
-        'eficiencia_global': eff_global,
-        'eficiencia_local': eff_local,
-        'avg_path_length': metricas_caminho['avg_path_length'],
-        'diameter': metricas_caminho['diameter'],
-        'radius': metricas_caminho['radius'],
-        'node_connectivity': node_connectivity,
-        'edge_connectivity': edge_connectivity,
-        'assortativity': assortativity,
-        'densidade': densidade
+        "algebraic_connectivity": algebraic_conn,
+        "eficiencia_global": eff_global,
+        "eficiencia_local": eff_local,
+        "avg_path_length": metricas_caminho["avg_path_length"],
+        "diameter": metricas_caminho["diameter"],
+        "radius": metricas_caminho["radius"],
+        "node_connectivity": node_connectivity,
+        "edge_connectivity": edge_connectivity,
+        "assortativity": assortativity,
+        "densidade": densidade,
     }
 
 
@@ -178,17 +199,28 @@ def simular_recuperacao(grafo_original: nx.Graph, nos_falhos: List[int]) -> List
 
     # Estado inicial (pós-falha)
     eff_inicial = calcular_eficiencia_global(grafo_falho)
-    recuperacao.append({
-        'nos_recuperados': 0,
-        'percentual_recuperado': 0.0,
-        'eficiencia_global': eff_inicial
-    })
+    recuperacao.append(
+        {
+            "nos_recuperados": 0,
+            "percentual_recuperado": 0.0,
+            "eficiencia_global": eff_inicial,
+        }
+    )
 
     # Recupera nós em ordem aleatória
     nos_para_recuperar = nos_falhos.copy()
     random.shuffle(nos_para_recuperar)
 
-    for i, no in enumerate(nos_para_recuperar):
+    for i, no in enumerate(
+        tqdm(
+            nos_para_recuperar,
+            desc="      Recuperação",
+            unit="nós",
+            ncols=80,
+            ascii=True,
+            leave=False,
+        )
+    ):
         # Reinsere nó e suas arestas originais
         vizinhos = list(grafo_original.neighbors(no))
         grafo_falho.add_node(no)
@@ -198,11 +230,13 @@ def simular_recuperacao(grafo_original: nx.Graph, nos_falhos: List[int]) -> List
 
         # Mede eficiência
         eff = calcular_eficiencia_global(grafo_falho)
-        recuperacao.append({
-            'nos_recuperados': i + 1,
-            'percentual_recuperado': ((i + 1) / len(nos_falhos) * 100),
-            'eficiencia_global': eff
-        })
+        recuperacao.append(
+            {
+                "nos_recuperados": i + 1,
+                "percentual_recuperado": ((i + 1) / len(nos_falhos) * 100),
+                "eficiencia_global": eff,
+            }
+        )
 
     return recuperacao
 
@@ -226,28 +260,32 @@ def analisar_resiliencia(grafo: nx.Graph) -> Dict:
     # Calcula tempo de recuperação (quantos passos até atingir 90% da eficiência original)
     tempo_recuperacao_90 = None
     for passo in curva_recuperacao:
-        if passo['eficiencia_global'] >= 0.9 * eff_original:
-            tempo_recuperacao_90 = passo['percentual_recuperado']
+        if passo["eficiencia_global"] >= 0.9 * eff_original:
+            tempo_recuperacao_90 = passo["percentual_recuperado"]
             break
 
     if tempo_recuperacao_90 is None:
         tempo_recuperacao_90 = 100.0
 
     return {
-        'eficiencia_original': eff_original,
-        'nos_criticos_testados': nos_criticos,
-        'curva_recuperacao': curva_recuperacao,
-        'tempo_recuperacao_90': tempo_recuperacao_90,
-        'impacto_remocao': {
-            'eficiencia_apos_falha': curva_recuperacao[0]['eficiencia_global'],
-            'perda_eficiencia': (eff_original - curva_recuperacao[0]['eficiencia_global']) / eff_original * 100
-        }
+        "eficiencia_original": eff_original,
+        "nos_criticos_testados": nos_criticos,
+        "curva_recuperacao": curva_recuperacao,
+        "tempo_recuperacao_90": tempo_recuperacao_90,
+        "impacto_remocao": {
+            "eficiencia_apos_falha": curva_recuperacao[0]["eficiencia_global"],
+            "perda_eficiencia": (
+                eff_original - curva_recuperacao[0]["eficiencia_global"]
+            )
+            / eff_original
+            * 100,
+        },
     }
 
 
 def calcular_threshold_percolacao(grafo: nx.Graph) -> Dict:
     """
-    Calcula o threshold de percolação (fração crítica de nós removidos 
+    Calcula o threshold de percolação (fração crítica de nós removidos
     onde a rede fragmenta significativamente)
     """
     print("🎯 Calculando threshold de percolação...")
@@ -263,12 +301,22 @@ def calcular_threshold_percolacao(grafo: nx.Graph) -> Dict:
     # Remove nós em incrementos de 1% até 50%
     random.shuffle(nos_originais)
 
-    for percentual in range(0, 51, 1):  # 0% a 50% em passos de 1%
+    # 0% a 50% em passos de 1%
+    for percentual in tqdm(
+        range(0, 51, 1),
+        desc="      Percolação",
+        unit="%",
+        ncols=80,
+        ascii=True,
+        leave=False,
+    ):
         fracao_alvo = percentual / 100.0
         num_remover = int(n_total * fracao_alvo)
 
         # Remove nós adicionais até atingir a fração alvo
-        while len(nos_removidos) < num_remover and len(nos_originais) > len(nos_removidos):
+        while len(nos_removidos) < num_remover and len(nos_originais) > len(
+            nos_removidos
+        ):
             no = nos_originais[len(nos_removidos)]
             if grafo_simulado.has_node(no):
                 grafo_simulado.remove_node(no)
@@ -277,41 +325,43 @@ def calcular_threshold_percolacao(grafo: nx.Graph) -> Dict:
         # Analisa fragmentação
         if len(grafo_simulado.nodes()) > 0:
             componentes = list(nx.connected_components(grafo_simulado))
-            tamanho_maior = len(max(componentes, key=len)
-                                ) if componentes else 0
+            tamanho_maior = len(max(componentes, key=len)) if componentes else 0
             fragmentacao = 100.0 * (1 - tamanho_maior / n_total)
         else:
             fragmentacao = 100.0
             tamanho_maior = 0
 
-        resultados.append({
-            'percentual_removido': percentual,
-            'nos_removidos': len(nos_removidos),
-            'fragmentacao': round(fragmentacao, 2),
-            'tamanho_maior_componente': tamanho_maior
-        })
+        resultados.append(
+            {
+                "percentual_removido": percentual,
+                "nos_removidos": len(nos_removidos),
+                "fragmentacao": round(fragmentacao, 2),
+                "tamanho_maior_componente": tamanho_maior,
+            }
+        )
 
     # Identifica threshold (primeira vez que fragmentação > 50%)
     threshold_50 = None
     for res in resultados:
-        if res['fragmentacao'] > 50.0:
-            threshold_50 = res['percentual_removido']
+        if res["fragmentacao"] > 50.0:
+            threshold_50 = res["percentual_removido"]
             break
 
     if threshold_50 is None:
         threshold_50 = 50  # Não atingiu 50% de fragmentação
 
     print(
-        f"  ✓ Threshold de percolação (50% fragmentação): {threshold_50}% de nós removidos")
+        f"  ✓ Threshold de percolação (50% fragmentação): {threshold_50}% de nós removidos"
+    )
 
     return {
-        'threshold_50_pct': threshold_50,
-        'curva_fragmentacao': resultados,
-        'interpretacao': (
+        "threshold_50_pct": threshold_50,
+        "curva_fragmentacao": resultados,
+        "interpretacao": (
             f"Rede colapsa (>50% fragmentação) ao remover {threshold_50}% dos nós aleatoriamente"
             if threshold_50 < 50
             else "Rede mantém componente principal mesmo com 50% de nós removidos"
-        )
+        ),
     }
 
 
@@ -340,30 +390,35 @@ def comparar_com_redes_teoricas(grafo: nx.Graph) -> Dict:
     # Aqui usamos apenas para comparação com redes teóricas
 
     metricas_real = {
-        'eficiencia_global': calcular_eficiencia_global(grafo),
-        'assortativity': nx.degree_assortativity_coefficient(grafo)
+        "eficiencia_global": calcular_eficiencia_global(grafo),
+        "assortativity": nx.degree_assortativity_coefficient(grafo),
     }
 
     metricas_er = {
-        'eficiencia_global': calcular_eficiencia_global(grafo_er),
-        'clustering': nx.average_clustering(grafo_er),
-        'assortativity': nx.degree_assortativity_coefficient(grafo_er)
+        "eficiencia_global": calcular_eficiencia_global(grafo_er),
+        "clustering": nx.average_clustering(grafo_er),
+        "assortativity": nx.degree_assortativity_coefficient(grafo_er),
     }
 
     metricas_ba = {
-        'eficiencia_global': calcular_eficiencia_global(grafo_ba),
-        'clustering': nx.average_clustering(grafo_ba),
-        'assortativity': nx.degree_assortativity_coefficient(grafo_ba)
+        "eficiencia_global": calcular_eficiencia_global(grafo_ba),
+        "clustering": nx.average_clustering(grafo_ba),
+        "assortativity": nx.degree_assortativity_coefficient(grafo_ba),
     }
 
     return {
-        'rede_real': metricas_real,
-        'erdos_renyi': metricas_er,
-        'barabasi_albert': metricas_ba,
-        'interpretacao': {
-            'similaridade_ER': 'Comparar com clustering em analise_criticidade.json',
-            'similaridade_BA': 'Alta' if abs(metricas_real['assortativity'] - metricas_ba['assortativity']) < 0.2 else 'Baixa'
-        }
+        "rede_real": metricas_real,
+        "erdos_renyi": metricas_er,
+        "barabasi_albert": metricas_ba,
+        "interpretacao": {
+            "similaridade_ER": "Comparar com clustering em analise_criticidade.json",
+            "similaridade_BA": (
+                "Alta"
+                if abs(metricas_real["assortativity"] - metricas_ba["assortativity"])
+                < 0.2
+                else "Baixa"
+            ),
+        },
     }
 
 
@@ -372,48 +427,60 @@ def interpretar_robustez(metricas: Dict) -> List[str]:
     interpretacao = []
 
     # Conectividade algébrica
-    if metricas['algebraic_connectivity'] > 0.1:
+    if metricas["algebraic_connectivity"] > 0.1:
         interpretacao.append(
-            f"✓ Conectividade algébrica alta ({metricas['algebraic_connectivity']:.4f}) - rede bem conectada")
-    elif metricas['algebraic_connectivity'] > 0.01:
+            f"✓ Conectividade algébrica alta ({metricas['algebraic_connectivity']:.4f}) - rede bem conectada"
+        )
+    elif metricas["algebraic_connectivity"] > 0.01:
         interpretacao.append(
-            f"⚠ Conectividade algébrica moderada ({metricas['algebraic_connectivity']:.4f})")
+            f"⚠ Conectividade algébrica moderada ({metricas['algebraic_connectivity']:.4f})"
+        )
     else:
         interpretacao.append(
-            f"✗ Conectividade algébrica baixa ({metricas['algebraic_connectivity']:.4f}) - vulnerável a particionamento")
+            f"✗ Conectividade algébrica baixa ({metricas['algebraic_connectivity']:.4f}) - vulnerável a particionamento"
+        )
 
     # Eficiência global
-    if metricas['eficiencia_global'] > 0.4:
+    if metricas["eficiencia_global"] > 0.4:
         interpretacao.append(
-            f"✓ Eficiência global alta ({metricas['eficiencia_global']:.4f}) - boa capacidade de transmissão")
-    elif metricas['eficiencia_global'] > 0.2:
+            f"✓ Eficiência global alta ({metricas['eficiencia_global']:.4f}) - boa capacidade de transmissão"
+        )
+    elif metricas["eficiencia_global"] > 0.2:
         interpretacao.append(
-            f"⚠ Eficiência global moderada ({metricas['eficiencia_global']:.4f})")
+            f"⚠ Eficiência global moderada ({metricas['eficiencia_global']:.4f})"
+        )
     else:
         interpretacao.append(
-            f"✗ Eficiência global baixa ({metricas['eficiencia_global']:.4f})")
+            f"✗ Eficiência global baixa ({metricas['eficiencia_global']:.4f})"
+        )
 
     # Node connectivity
-    if metricas['node_connectivity'] >= 3:
+    if metricas["node_connectivity"] >= 3:
         interpretacao.append(
-            f"✓ Node connectivity alto ({metricas['node_connectivity']}) - múltiplos caminhos alternativos")
-    elif metricas['node_connectivity'] == 2:
+            f"✓ Node connectivity alto ({metricas['node_connectivity']}) - múltiplos caminhos alternativos"
+        )
+    elif metricas["node_connectivity"] == 2:
         interpretacao.append(
-            f"⚠ Node connectivity moderado ({metricas['node_connectivity']})")
+            f"⚠ Node connectivity moderado ({metricas['node_connectivity']})"
+        )
     else:
         interpretacao.append(
-            f"✗ Node connectivity baixo ({metricas['node_connectivity']}) - pontos únicos de falha")
+            f"✗ Node connectivity baixo ({metricas['node_connectivity']}) - pontos únicos de falha"
+        )
 
     # Assortativity
-    if metricas['assortativity'] < -0.2:
+    if metricas["assortativity"] < -0.2:
         interpretacao.append(
-            f"Rede disassortativa (assortativity={metricas['assortativity']:.3f}) - hubs conectam a nós de baixo grau")
-    elif metricas['assortativity'] > 0.2:
+            f"Rede disassortativa (assortativity={metricas['assortativity']:.3f}) - hubs conectam a nós de baixo grau"
+        )
+    elif metricas["assortativity"] > 0.2:
         interpretacao.append(
-            f"Rede assortativa (assortativity={metricas['assortativity']:.3f}) - nós similares tendem a se conectar")
+            f"Rede assortativa (assortativity={metricas['assortativity']:.3f}) - nós similares tendem a se conectar"
+        )
     else:
         interpretacao.append(
-            f"Rede neutra (assortativity={metricas['assortativity']:.3f})")
+            f"Rede neutra (assortativity={metricas['assortativity']:.3f})"
+        )
 
     return interpretacao
 
@@ -425,9 +492,8 @@ def main():
 
     # Carrega grafo
     print("\n📂 Carregando grafo...")
-    grafo = carregar_grafo('powergrid.edgelist.csv')
-    print(
-        f"✓ Grafo carregado: {len(grafo.nodes())} nós, {len(grafo.edges())} arestas")
+    grafo = carregar_grafo("powergrid.edgelist.csv")
+    print(f"✓ Grafo carregado: {len(grafo.nodes())} nós, {len(grafo.edges())} arestas")
 
     # Análise de robustez estrutural
     metricas_robustez = analisar_robustez_estrutural(grafo)
@@ -444,18 +510,67 @@ def main():
     # Interpretação
     interpretacao = interpretar_robustez(metricas_robustez)
 
+    # Carregar dados de percolação por nó (se existir)
+    resumo_percolacao_nos = None
+    try:
+        import json
+
+        with open("../ui/public/analise_criticidade.json", "r", encoding="utf-8") as f:
+            analise_crit = json.load(f)
+            if "percolacao_por_no" in analise_crit:
+                perc_data = analise_crit["percolacao_por_no"]
+                threshold = perc_data["threshold_top_5_pct"]
+
+                # Identificar nós com alta percolação
+                nos_alta_perc = []
+                for no_str, info in perc_data["todos_nos"].items():
+                    if info["fragmentacao_percentual"] >= threshold:
+                        nos_alta_perc.append(
+                            {
+                                "no": int(no_str),
+                                "fragmentacao_percentual": info[
+                                    "fragmentacao_percentual"
+                                ],
+                                "componentes_criados": info["componentes_criados"],
+                                "nos_isolados": info["nos_isolados"],
+                            }
+                        )
+
+                # Ordenar por fragmentação
+                nos_alta_perc.sort(
+                    key=lambda x: x["fragmentacao_percentual"], reverse=True
+                )
+
+                resumo_percolacao_nos = {
+                    "threshold_top_5_pct": threshold,
+                    "total_nos_alta_percolacao": len(nos_alta_perc),
+                    "top_20_fragmentadores": nos_alta_perc[:20],
+                    "interpretacao": (
+                        f"{len(nos_alta_perc)} nós apresentam alto impacto de fragmentação (≥{threshold:.2f}%). "
+                        f"Estes nós, se removidos, causam particionamento significativo da rede."
+                    ),
+                }
+                print(
+                    f"\n✓ Dados de percolação por nó carregados de analise_criticidade.json"
+                )
+    except Exception as e:
+        print(f"\n⚠️  Não foi possível carregar percolação por nó: {e}")
+
     # Monta resultado
     resultado = {
-        'metricas_robustez': metricas_robustez,
-        'analise_resiliencia': analise_resiliencia,
-        'threshold_percolacao': threshold_percolacao,
-        'comparacao_teorica': comparacao_teorica,
-        'interpretacao': interpretacao
+        "metricas_robustez": metricas_robustez,
+        "analise_resiliencia": analise_resiliencia,
+        "threshold_percolacao": threshold_percolacao,
+        "comparacao_teorica": comparacao_teorica,
+        "interpretacao": interpretacao,
     }
 
+    if resumo_percolacao_nos:
+        resultado["resumo_percolacao_nos"] = resumo_percolacao_nos
+
     # Salva resultado
-    caminho_saida = '../ui/public/analise_robustez.json'
-    with open(caminho_saida, 'w', encoding='utf-8') as f:
+    caminho_saida = "../ui/public/analise_robustez.json"
+    with open(caminho_saida, "w", encoding="utf-8") as f:
         json.dump(resultado, f, indent=2, ensure_ascii=False)
 
     print("\n" + "=" * 80)
@@ -466,18 +581,21 @@ def main():
 
     print("\n🔄 Resiliência:")
     print(
-        f"  - Tempo de recuperação (90%): {analise_resiliencia['tempo_recuperacao_90']:.1f}% dos nós")
+        f"  - Tempo de recuperação (90%): {analise_resiliencia['tempo_recuperacao_90']:.1f}% dos nós"
+    )
     print(
-        f"  - Perda de eficiência após falha: {analise_resiliencia['impacto_remocao']['perda_eficiencia']:.1f}%")
+        f"  - Perda de eficiência após falha: {analise_resiliencia['impacto_remocao']['perda_eficiencia']:.1f}%"
+    )
 
     print("\n🎯 Percolação:")
     print(
-        f"  - Threshold (50% fragmentação): {threshold_percolacao['threshold_50_pct']}% dos nós")
+        f"  - Threshold (50% fragmentação): {threshold_percolacao['threshold_50_pct']}% dos nós"
+    )
     print(f"  - {threshold_percolacao['interpretacao']}")
 
     print(f"\n✅ Análise de robustez salva em '{caminho_saida}'")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     random.seed(42)
     main()
