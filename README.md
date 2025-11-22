@@ -113,6 +113,38 @@ python gerar_estrategia_mitigacao.py
 ```
 - Gera: `ui/public/estrategia_mitigacao.json`
 
+**10. Análise do Novo Dataset (temporal, direcionado e ponderado):**
+```bash
+python gerar_analise_novo_dataset.py
+```
+- Gera: `ui/public/analise_novo_dataset.json`
+- Dataset: `power_grid_dataset.csv` (10 nós, 1.000 timestamps)
+- Análises: Séries temporais, PageRank, fluxo de potência, estratificação por grid_status
+
+**11. Simulação de Falhas no Novo Dataset:**
+```bash
+python gerar_simulacao_falhas_novo.py
+```
+- Gera: `ui/public/simulacao_falhas_novo.json`
+- Análise: Threshold baseado em dados reais (272.24 MW calculado de grid_status=1)
+- Simula: Remoção de nós, sobrecarga localizada (4 cenários realistas), cascata de falhas
+- Resultados: Nó 9 mais crítico (10.17% perda de carga), cascata causa colapso total da rede
+
+**12. Comparação entre Datasets:**
+```bash
+python gerar_comparacao_datasets.py
+```
+- Gera: `ui/public/comparacao_datasets.json`
+- Compara: Dataset original (4.941 nós) vs. novo dataset (10 nós)
+- Métricas: Índices normalizados, densidade, clustering, robustez
+
+**Execução Automática de Todos os Scripts:**
+```bash
+python executar_todos.py
+```
+- Executa todos os scripts na ordem correta
+- Tempo total: ~15-20 minutos
+
 **Pronto!** Os arquivos de análise foram gerados e estão prontos para serem visualizados no frontend.
 
 ---
@@ -149,8 +181,10 @@ http://localhost:3000
 Grafos-Analise-PowerGrid/
 │
 ├── core/                                  # Scripts Python de Análise
-│   ├── powergrid.edgelist.csv            # Dataset (4.941 nós, 6.594 arestas)
+│   ├── powergrid.edgelist.csv            # Dataset Original (4.941 nós, 6.594 arestas)
+│   ├── power_grid_dataset.csv            # Novo Dataset (10 nós, 1.000 timestamps)
 │   ├── requirements.txt                   # Dependências Python
+│   ├── executar_todos.py                  # Script que executa todas as análises
 │   │
 │   ├── gerar_analise_base.py             # 1. Análise básica + Scale-Free
 │   ├── gerar_analise_avancada.py         # 2. Criticidade + Percolação
@@ -160,7 +194,10 @@ Grafos-Analise-PowerGrid/
 │   ├── gerar_analise_comunidades.py      # 6. Detecção de comunidades
 │   ├── gerar_analise_robustez.py         # 7. Robustez e resiliência
 │   ├── gerar_analise_ataques.py          # 8. Simulação de ataques
-│   └── gerar_estrategia_mitigacao.py     # 9. Recomendações estratégicas
+│   ├── gerar_estrategia_mitigacao.py     # 9. Recomendações estratégicas
+│   ├── gerar_analise_novo_dataset.py     # 10. Análise temporal (novo dataset)
+│   ├── gerar_simulacao_falhas_novo.py    # 11. Simulação de falhas (novo dataset)
+│   └── gerar_comparacao_datasets.py      # 12. Comparação entre datasets
 │
 ├── ui/                                    # Frontend React + TypeScript
 │   ├── public/                            # Arquivos JSON gerados
@@ -178,7 +215,8 @@ Grafos-Analise-PowerGrid/
 │   │   └── components/
 │   │       ├── CartaoMetrica.tsx         # Componente de cartão de métrica
 │   │       ├── ModalGrafo.tsx            # Modal para visualizações
-│   │       └── abas/                     # 14 abas de análise
+│   │       ├── TooltipTermoTecnico.tsx   # Tooltip para termos técnicos
+│   │       └── abas/                     # 17 abas de análise
 │   │           ├── AbaVisaoGeral.tsx
 │   │           ├── AbaScaleFree.tsx
 │   │           ├── AbaCategorias.tsx
@@ -192,7 +230,11 @@ Grafos-Analise-PowerGrid/
 │   │           ├── AbaRobustez.tsx
 │   │           ├── AbaSimulacaoAtaques.tsx
 │   │           ├── AbaVisualizacoes.tsx
-│   │           └── AbaVulnerabilidades.tsx
+│   │           ├── AbaVulnerabilidades.tsx
+│   │           ├── AbaNovoDataset.tsx              # NOVO: Análise temporal
+│   │           ├── AbaSimulacaoFalhasNovo.tsx      # NOVO: Simulações dataset temporal
+│   │           ├── AbaPercolacao.tsx
+│   │           └── AbaGlossario.tsx
 │   │
 │   ├── package.json                       # Dependências Node.js
 │   └── vite.config.ts                     # Configuração Vite
@@ -354,6 +396,91 @@ Todas as implementações seguem **padrões da literatura científica**:
 
 ---
 
+## Arquitetura de Datasets Duais
+
+### Visão Geral
+
+O projeto agora suporta **dois datasets paralelos** com características completamente diferentes:
+
+#### Dataset 1: Original (Topológico)
+- **Arquivo**: `core/powergrid.edgelist.csv`
+- **Tipo**: Estático, não-direcionado, não-ponderado
+- **Escala**: 4.941 nós, 6.594 arestas
+- **Propósito**: Análise topológica da Western States Power Grid
+- **Análises**: Detecção de comunidades, betweenness centrality, pontos de articulação, distribuição de grau (verificação scale-free)
+
+#### Dataset 2: Novo (Operacional)
+- **Arquivo**: `core/power_grid_dataset.csv`
+- **Tipo**: Temporal (1.000 timestamps), direcionado, ponderado
+- **Escala**: 10 nós, ~90 arestas (variável por timestamp)
+- **Propósito**: Análise operacional com carga, voltagem, frequência, detecção de falhas
+- **Análises**: Séries temporais, matrizes de fluxo de potência, simulação de falhas, estratificação por grid_status
+
+### Princípio de Design Crítico
+
+**NENHUMA MODIFICAÇÃO** nas análises do dataset original. Toda nova funcionalidade é **aditiva**:
+- Scripts Python separados (`gerar_analise_novo_dataset.py`, `gerar_simulacao_falhas_novo.py`, `gerar_comparacao_datasets.py`)
+- Saídas JSON separadas (`analise_novo_dataset.json`, `simulacao_falhas_novo.json`, `comparacao_datasets.json`)
+- Componentes React separados (`AbaNovoDataset.tsx`, `AbaSimulacaoFalhasNovo.tsx`)
+- Schemas JSON originais (`analise_basica.json`, `analise_criticidade.json`) permanecem **intocados**
+
+### Características do Novo Dataset
+
+#### 1. Análise Temporal (`gerar_analise_novo_dataset.py`)
+- **Agregação Temporal**: Média, desvio padrão, mín, máx, percentis para load_node_X em 1.000 timestamps
+- **Séries Temporais**: Amostradas a intervalos de 1/10 (100 pontos) para visualização JSON
+- **Métricas Operacionais**: Estatísticas de voltagem, frequência, fault_detected, grid_status
+- **Métricas Direcionadas**: PageRank, in/out-degree, betweenness centrality, identificação de fontes/sumidouros
+- **Métricas Ponderadas**: Matriz de fluxo de potência 10×10, balanceamento de carga por nó, top 20 arestas por fluxo
+- **Correlação de Falhas**: Compara voltagem/frequência durante fault_detected=1 vs. fault_detected=0
+- **Estratificação por Grid Status**: Métricas separadas para grid_status=0 (estável) vs. grid_status=1 (instável)
+
+#### 2. Simulação de Falhas (`gerar_simulacao_falhas_novo.py`)
+- **Remoção de Nós**: Testa remoção de cada um dos 10 nós, mede fragmentação (%), perda de carga (MW/%), arestas perdidas, contagem de componentes
+- **Cenários de Sobrecarga**: Simula aumento de carga de +25%, +50%, +75%, +100%, identifica nós excedendo threshold de 500MW
+- **Identificação de Nós Críticos**: Classifica nós por impacto (fragmentação + perda de carga)
+- **Comparação Conceitual**: Nota diferenças de escala com dataset original
+
+#### 3. Comparação entre Datasets (`gerar_comparacao_datasets.py`)
+- **Índices Normalizados (0-100)**: Densidade, clustering, conectividade, centralização
+- **Comparação Estrutural**: Diâmetro, caminho médio, contagem de componentes
+- **Comparação de Robustez**: Taxas de fragmentação, percentuais de nós críticos
+- **Saída Tabular**: Métricas lado a lado com interpretações
+
+### Atualizações no Frontend React
+
+#### Novos Componentes
+- **`AbaNovoDataset.tsx`**:
+  - **Grafo Cytoscape**: Grafo direcionado interativo com cores baseadas em PageRank, espessura de aresta baseada em peso
+  - **Animação Temporal**: Slider + controles play/pause (velocidade 1x/2x/4x), tamanho de nó varia por carga no timestamp selecionado
+  - **Gráficos de Séries Temporais**: 10 linhas (uma por nó) mostrando carga ao longo do tempo (Recharts LineChart)
+  - **Métricas Operacionais**: Gráfico de eixo duplo para voltagem/frequência
+  - **Top 20 Arestas**: Tabela ordenada por fluxo de potência
+  - **Seção de Comparação**: Gráficos de barras de índices normalizados vs. dataset original
+
+- **`AbaSimulacaoFalhasNovo.tsx`**:
+  - **Gráficos de Barras de Impacto**: Fragmentação % e perda de carga % por remoção de nó
+  - **Tabela Detalhada**: Clique para expandir detalhes, codificação por cores por criticidade (5 níveis)
+  - **Cenários de Sobrecarga**: 4 cards mostrando impactos de aumento de carga +25/50/75/100%
+  - **Modal de Detalhes do Nó**: Mostra breakdown de fragmentação, mudanças de componentes
+
+#### Integração em `AnaliseRedeEletrica.tsx`
+- **Novos Estados**: `analiseNovoDataset`, `simulacaoFalhasNovo`, `comparacaoDatasets`
+- **Lógica de Fetch**: Encapsulada em `.catch(() => null)` para lidar graciosamente com JSONs ausentes (scripts ainda não executados)
+- **Novas Abas**: "Novo Dataset (Temporal)" e "Falhas Novo Dataset" na barra de navegação
+
+### Stack Tecnológico Atualizado
+
+#### Backend Python (Novas Dependências)
+- **pandas**: Parsing de CSV e manipulação de dados temporais (1.000 linhas × 110 colunas)
+- **scipy** (já presente): Funções estatísticas para correlação
+- **powerlaw** (já presente): Verificação scale-free
+
+#### Frontend React (Novas Dependências)
+- **cytoscape**: Renderização de grafo direcionado interativo
+- **cytoscape-dagre**: Algoritmo de layout hierárquico para grafos direcionados
+- **@types/cytoscape**: Definições de tipo TypeScript
+
 ## Dependências Críticas
 
 ### Python - Biblioteca `powerlaw`
@@ -374,6 +501,7 @@ networkx       # Biblioteca padrão de análise de grafos
 numpy          # Operações matemáticas
 scipy          # Algoritmos científicos
 powerlaw       # Análise rigorosa de distribuição scale-free
+pandas         # Manipulação de dados temporais (novo dataset)
 ```
 
 ---
