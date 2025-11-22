@@ -59,91 +59,133 @@ pip install -r requirements.txt
 
 Execute os scripts na seguinte ordem:
 
-**1. Análise Básica (estatísticas e distribuição de graus):**
+**1. Análise Básica (estatísticas, distribuição de graus e scale-free):**
 ```bash
 python gerar_analise_base.py
 ```
 - Gera: `ui/public/analise_basica.json`
+- Análises: Estatísticas da rede, distribuição de graus, identificação de hubs
+- Verificação scale-free: Algoritmo Clauset-Shalizi-Newman (biblioteca powerlaw)
 
-**2. Análise Avançada (criticidade, betweenness, pontos de articulação):**
+**2. Análise Avançada de Criticidade 4D (betweenness, articulação, clustering, percolação):**
 ```bash
 python gerar_analise_avancada.py
 ```
 - Gera: `ui/public/analise_criticidade.json`
+- Análises: 9 níveis de criticidade combinando 4 dimensões (Articulação, Grau Alto, Betweenness, Percolação)
+- Tempo: 2-5 minutos (cálculo de betweenness em 4.941 nós)
 
-**3. Grafos Interativos 2D (visualizações dos hubs):**
+**3. Grafos Interativos 2D (visualizações completas da rede):**
 ```bash
 python gerar_grafos_2d.py
 ```
-- Gera: Arquivos HTML em `ui/public/rede_hub_*.html`
+- Gera: ~208 arquivos HTML interativos com PyVis organizados em:
+  - `ui/public/rede_hub_*.html` (20 arquivos - top hubs)
+  - `ui/public/grafos/hubs/` - Vizinhanças detalhadas dos hubs
+  - `ui/public/grafos/betweenness/` - Nós com alta centralidade de intermediação
+  - `ui/public/grafos/articulacao/` - Pontos de articulação por criticidade
+  - `ui/public/grafos/percolacao/` - Nós com alto impacto de percolação
+  - `ui/public/grafos/nivel1/` - Nós críticos máximos (4D)
+  - `ui/public/grafos/comunidades/` - 10 maiores comunidades
+  - `ui/public/grafos/novo_dataset/` - Grafos temporais do novo dataset
 
-**4. Inferência de Papéis dos Nós (classificação topológica):**
+**4. Inferência de Papéis dos Nós (classificação topológica baseada em métricas):**
 ```bash
 python gerar_inferencia_papeis.py
 ```
 - Gera: `ui/public/inferencia_papeis.json`
+- Método: Classifica nós em GERADOR, TRANSFORMADOR, CONSUMIDOR, LINHA_TRANSMISSÃO
+- Baseado em: Grau, betweenness, clustering, análise de comunidades
+- IMPORTANTE: Inferência topológica - validação de campo necessária
 
 **5. Análise Direcionada (simulação de fluxo):**
 ```bash
 python gerar_analise_direcionada.py
 ```
 - Gera: `ui/public/analise_direcionada.json`
+- Método: Infere direções baseado em hierarquia de papéis (GERADOR → TRANSFORMADOR → CONSUMIDOR)
+- Métricas: In/out-degree, reciprocidade, consistência hierárquica
+- **NOTA**: Simulação teórica - dataset original é não-direcionado
+- **INCLUÍDO no `executar_todos.py`**
 
-**6. Detecção de Comunidades (clustering espacial):**
+**6. Detecção de Comunidades (Greedy Modularity Optimization):**
 ```bash
 python gerar_analise_comunidades.py
 ```
 - Gera: `ui/public/analise_comunidades.json`
+- Método: Greedy Modularity (20 comunidades, Q=0.879)
+- Análises: Métricas por comunidade, conexões inter-comunidades, identificação de grupos consumidores
+- Localização: Spring layout para visualização topológica (NÃO geográfica)
 
-**7. Análise de Robustez (percolação e conectividade):**
+**7. Análise de Robustez (percolação, conectividade algébrica, resiliência):**
 ```bash
 python gerar_analise_robustez.py
 ```
 - Gera: `ui/public/analise_robustez.json`
+- Análises: Simulação de remoção de 500 pontos de articulação
+- Métricas: Conectividade algébrica, coeficiente de resiliência, fragmentação percentual
+- Comparação: Redes teóricas (Erdős-Rényi, Barabási-Albert)
 
 **8. Simulação de Ataques (randômicos vs direcionados):**
 ```bash
 python gerar_analise_ataques.py
 ```
 - Gera: `ui/public/analise_ataques.json`
+- Cenários: Ataque aleatório, high-degree, high-betweenness, híbrido
+- Análises: Fragmentação progressiva, identificação de combinações críticas
+- Tempo: 1-2 minutos
 
-**9. Estratégia de Mitigação (recomendações de infraestrutura):**
-```bash
-python gerar_estrategia_mitigacao.py
-```
-- Gera: `ui/public/estrategia_mitigacao.json`
-
-**10. Análise do Novo Dataset (temporal, direcionado e ponderado):**
+**9. Análise do Novo Dataset (temporal, direcionado e ponderado):**
 ```bash
 python gerar_analise_novo_dataset.py
 ```
 - Gera: `ui/public/analise_novo_dataset.json`
 - Dataset: `power_grid_dataset.csv` (10 nós, 1.000 timestamps)
-- Análises: Séries temporais, PageRank, fluxo de potência, estratificação por grid_status
+- Métricas Temporais: Agregação estatística (média, desvio, percentis) por nó
+- Métricas Direcionadas: PageRank, in/out-degree, fontes/sumidouros
+- Métricas Ponderadas: Matriz 10×10 de fluxo de potência, balanceamento de carga
+- Análises Operacionais: Correlação de falhas, estratificação por grid_status (estável/instável)
 
-**11. Simulação de Falhas no Novo Dataset:**
+**10. Simulação de Falhas no Novo Dataset:**
 ```bash
 python gerar_simulacao_falhas_novo.py
 ```
 - Gera: `ui/public/simulacao_falhas_novo.json`
-- Análise: Threshold baseado em dados reais (272.24 MW calculado de grid_status=1)
-- Simula: Remoção de nós, sobrecarga localizada (4 cenários realistas), cascata de falhas
-- Resultados: Nó 9 mais crítico (10.17% perda de carga), cascata causa colapso total da rede
+- Threshold Data-Driven: 272.24 MW calculado de 933 timestamps com grid_status=1
+- Simulação de Remoção: Testa impacto da falha de cada um dos 10 nós
+- Cenários de Sobrecarga: 4 cenários localizados (30-75% aumento em nós específicos)
+- Simulação de Cascata: Propagação iterativa de falhas
+- Resultados: Nó 9 mais crítico (10.17% perda de carga), qualquer falha → colapso total
 
-**12. Comparação entre Datasets:**
+**11. Comparação entre Datasets:**
 ```bash
 python gerar_comparacao_datasets.py
 ```
 - Gera: `ui/public/comparacao_datasets.json`
-- Compara: Dataset original (4.941 nós) vs. novo dataset (10 nós)
-- Métricas: Índices normalizados, densidade, clustering, robustez
+- Compara: Dataset original (4.941 nós, topológico) vs. novo dataset (10 nós, operacional)
+- Índices Normalizados (0-100): Densidade, clustering, conectividade, centralização
+- Análises Estruturais: Diâmetro, caminho médio, componentes
+- Comparação de Robustez: Fragmentação, percentual de nós críticos
+- **NOTA**: Otimizado - carrega betweenness pré-calculado de analise_criticidade.json
 
-**Execução Automática de Todos os Scripts:**
+**12. Execução Automática de Todos os Scripts:**
 ```bash
 python executar_todos.py
 ```
-- Executa todos os scripts na ordem correta
+- Executa 11 scripts principais na ordem correta
 - Tempo total: ~15-20 minutos
+- Scripts executados em ordem:
+  1. gerar_analise_base.py
+  2. gerar_analise_avancada.py
+  3. gerar_analise_comunidades.py
+  4. gerar_analise_robustez.py
+  5. gerar_analise_ataques.py
+  6. gerar_inferencia_papeis.py
+  7. gerar_analise_direcionada.py (agora incluído automaticamente)
+  8. gerar_analise_novo_dataset.py
+  9. gerar_simulacao_falhas_novo.py
+  10. gerar_comparacao_datasets.py
+  11. gerar_grafos_2d.py
 
 **Pronto!** Os arquivos de análise foram gerados e estão prontos para serem visualizados no frontend.
 
@@ -186,18 +228,17 @@ Grafos-Analise-PowerGrid/
 │   ├── requirements.txt                   # Dependências Python
 │   ├── executar_todos.py                  # Script que executa todas as análises
 │   │
-│   ├── gerar_analise_base.py             # 1. Análise básica + Scale-Free
-│   ├── gerar_analise_avancada.py         # 2. Criticidade + Percolação
-│   ├── gerar_grafos_2d.py                # 3. Visualizações PyVis 2D
-│   ├── gerar_inferencia_papeis.py        # 4. Classificação topológica
-│   ├── gerar_analise_direcionada.py      # 5. Simulação de fluxo
-│   ├── gerar_analise_comunidades.py      # 6. Detecção de comunidades
-│   ├── gerar_analise_robustez.py         # 7. Robustez e resiliência
-│   ├── gerar_analise_ataques.py          # 8. Simulação de ataques
-│   ├── gerar_estrategia_mitigacao.py     # 9. Recomendações estratégicas
-│   ├── gerar_analise_novo_dataset.py     # 10. Análise temporal (novo dataset)
-│   ├── gerar_simulacao_falhas_novo.py    # 11. Simulação de falhas (novo dataset)
-│   └── gerar_comparacao_datasets.py      # 12. Comparação entre datasets
+│   ├── gerar_analise_base.py             # 1. Análise básica + Scale-Free + Distribuição
+│   ├── gerar_analise_avancada.py         # 2. Criticidade 4D (Articulação, Grau, Betweenness, Percolação)
+│   ├── gerar_grafos_2d.py                # 3. Visualizações PyVis 2D (~208 arquivos em 7 categorias)
+│   ├── gerar_inferencia_papeis.py        # 4. Classificação topológica (usa comunidades + criticidade)
+│   ├── gerar_analise_direcionada.py      # 5. Simulação de fluxo direcionado
+│   ├── gerar_analise_comunidades.py      # 6. Detecção de comunidades (Greedy Modularity, Q=0.879)
+│   ├── gerar_analise_robustez.py         # 7. Robustez, resiliência e conectividade algébrica
+│   ├── gerar_analise_ataques.py          # 8. Simulação de ataques (aleatório, high-degree, betweenness, híbrido)
+│   ├── gerar_analise_novo_dataset.py     # 10. Análise temporal (PageRank, fluxo de potência, séries temporais)
+│   ├── gerar_simulacao_falhas_novo.py    # 11. Simulação de falhas (threshold data-driven, cascata, sobrecarga)
+│   └── gerar_comparacao_datasets.py      # 12. Comparação normalizada entre os 2 datasets
 │
 ├── ui/                                    # Frontend React + TypeScript
 │   ├── public/                            # Arquivos JSON gerados
@@ -208,7 +249,18 @@ Grafos-Analise-PowerGrid/
 │   │   ├── analise_comunidades.json
 │   │   ├── analise_robustez.json
 │   │   ├── analise_ataques.json
-│   │   └── rede_hub_*.html               # 20 visualizações interativas
+│   │   ├── analise_novo_dataset.json
+│   │   ├── simulacao_falhas_novo.json
+│   │   ├── comparacao_datasets.json
+│   │   ├── rede_hub_*.html                    # 20 visualizações dos top hubs
+│   │   └── grafos/                            # ~188 visualizações em 7 categorias
+│   │       ├── hubs/                          # Vizinhanças detalhadas dos hubs
+│   │       ├── betweenness/                   # Top 50 nós por betweenness
+│   │       ├── articulacao/                   # Top 100 pontos de articulação
+│   │       ├── percolacao/                    # Top 10 nós por impacto de percolação
+│   │       ├── nivel1/                        # Nós críticos máximos (4D)
+│   │       ├── comunidades/                   # 10 maiores comunidades
+│   │       └── novo_dataset/                  # Grafos temporais do novo dataset
 │   │
 │   ├── src/
 │   │   ├── AnaliseRedeEletrica.tsx       # Componente principal (gerencia abas)
@@ -216,31 +268,26 @@ Grafos-Analise-PowerGrid/
 │   │       ├── CartaoMetrica.tsx         # Componente de cartão de métrica
 │   │       ├── ModalGrafo.tsx            # Modal para visualizações
 │   │       ├── TooltipTermoTecnico.tsx   # Tooltip para termos técnicos
-│   │       └── abas/                     # 17 abas de análise
+│   │       └── abas/                     # 15+ abas de análise
 │   │           ├── AbaVisaoGeral.tsx
 │   │           ├── AbaScaleFree.tsx
-│   │           ├── AbaCategorias.tsx
 │   │           ├── AbaAnalisePorGrau.tsx
 │   │           ├── AbaBetweeness.tsx
 │   │           ├── AbaClustering.tsx
 │   │           ├── AbaPontosArticulacao.tsx
-│   │           ├── AbaNiveisCriticidade.tsx
 │   │           ├── AbaPapeis.tsx
 │   │           ├── AbaComunidades.tsx
-│   │           ├── AbaRobustez.tsx
 │   │           ├── AbaSimulacaoAtaques.tsx
-│   │           ├── AbaVisualizacoes.tsx
 │   │           ├── AbaVulnerabilidades.tsx
-│   │           ├── AbaNovoDataset.tsx              # NOVO: Análise temporal
-│   │           ├── AbaSimulacaoFalhasNovo.tsx      # NOVO: Simulações dataset temporal
+│   │           ├── AbaNovoDataset.tsx
+│   │           ├── AbaSimulacaoFalhasNovo.tsx
 │   │           ├── AbaPercolacao.tsx
 │   │           └── AbaGlossario.tsx
 │   │
 │   ├── package.json                       # Dependências Node.js
 │   └── vite.config.ts                     # Configuração Vite
 │
-├── doc/                                   # Documentação adicional
-├── CORRECOES_IMPLEMENTADAS.md            # Log de correções técnicas
+├── doc/                                   # Documentação do trabalho
 └── README.md                              # Este arquivo
 ```
 
@@ -261,22 +308,31 @@ Grafos-Analise-PowerGrid/
 4. **Acesse `localhost:3000`** no navegador
 
 ### Execução Completa (Todas as Análises)
-Para executar todas as análises avançadas na ordem correta:
+
+**OPÇÃO 1: Execução Automatizada (Recomendado)**
+```bash
+cd core
+python executar_todos.py
+```
+- Executa os 11 scripts principais na ordem correta 
+- Tempo total: ~15-20 minutos (depende do processador)
+- Continua em caso de erro (com prompt de confirmação)
+
+**OPÇÃO 2: Execução Manual (ordem correta)**
 ```bash
 cd core
 python gerar_analise_base.py              # 1. Análise básica (scale-free, distribuição)
-python gerar_analise_avancada.py          # 2. Criticidade e percolação (2-5 min)
-python gerar_grafos_2d.py                 # 3. Visualizações 2D dos hubs
-python gerar_inferencia_papeis.py         # 4. Classificação topológica de papéis
-python gerar_analise_direcionada.py       # 5. Simulação de fluxo direcionado
-python gerar_analise_comunidades.py       # 6. Detecção de comunidades
-python gerar_analise_robustez.py          # 7. Análise de robustez e resiliência
-python gerar_analise_ataques.py           # 8. Simulação de ataques (1-2 min)
-python gerar_estrategia_mitigacao.py      # 9. Recomendações de mitigação
+python gerar_analise_avancada.py          # 2. Criticidade 4D e percolação (2-5 min)
+python gerar_analise_comunidades.py       # 3. Detecção de comunidades (Greedy Modularity)
+python gerar_analise_robustez.py          # 4. Robustez e resiliência
+python gerar_analise_ataques.py           # 5. Simulação de ataques (1-2 min)
+python gerar_inferencia_papeis.py         # 6. Classificação de papéis (depende de 2 e 3)
+python gerar_analise_direcionada.py       # 7. Simulação de fluxo direcionado (depende de 6)
+python gerar_analise_novo_dataset.py      # 8. Análise temporal (novo dataset)
+python gerar_simulacao_falhas_novo.py     # 9. Simulação de falhas (novo dataset)
+python gerar_comparacao_datasets.py       # 10. Comparação entre datasets (depende de 2)
+python gerar_grafos_2d.py                 # 11. Visualizações 2D (~208 arquivos HTML)
 ```
-
-**Tempo Total**: ~10-15 minutos (depende do processador)
-
 ---
 
 ## Comandos Úteis
@@ -309,21 +365,29 @@ npm run preview
 - **Betweenness**: Centralidade de intermediação (nós-gargalo)
 - **Clustering**: Coeficiente de agrupamento e transitividade da rede
 - **Pontos de Articulação**: Nós que fragmentam a rede se removidos
+- **Glossário**: Definições de termos técnicos com tooltips contextuais
 
 ### Análises Avançadas (Novas Funcionalidades)
 - **Inferência de Papéis**: Classificação topológica em GERADOR, TRANSFORMADOR, CONSUMIDOR, LINHA_TRANSMISSÃO
 - **Comunidades**: Detecção de 20 comunidades com análise de modularidade e localização espacial
 - **Análise Direcionada**: Simulação de fluxo com métricas in/out-degree e consistência hierárquica
-- **Criticidade**: 5 níveis de criticidade estrutural combinando betweenness, grau e articulação
-- **Vulnerabilidades**: **29 nós Nível 1** com as 3 dimensões de risco
+- **Criticidade**: 9 níveis de criticidade estrutural (4D system) combinando betweenness, grau, articulação e percolação
+- **Vulnerabilidades**: **29 nós Nível 1** (Crítico Máximo 4D) com todas as 4 dimensões de risco
 
 ### Análises de Resiliência e Segurança
 - **Robustez**: Análise de percolação (500 pontos), conectividade algébrica e coeficiente de resiliência
 - **Simulação de Ataques**: Comparação entre ataques aleatórios vs direcionados (high-degree e high-betweenness)
-- **Estratégia de Mitigação**: Recomendações de proteção, redundância e monitoramento
 
 ### Visualizações Interativas
-- **Grafos 2D**: 20 visualizações interativas dos principais hubs (2-hop neighborhoods)
+- **Grafos 2D**: ~208 visualizações interativas organizadas em:
+  - **Root** (20 arquivos): Top 20 hubs principais (2-hop neighborhoods)
+  - **grafos/hubs/**: Visualizações detalhadas de hubs
+  - **grafos/betweenness/**: Nós com alta centralidade de intermediação
+  - **grafos/articulacao/**: Pontos críticos de fragmentação
+  - **grafos/percolacao/**: Nós com alto impacto de percolação
+  - **grafos/nivel1/**: Nós críticos máximos (4D - todas dimensões de risco)
+  - **grafos/comunidades/**: 10 visualizações de comunidades detectadas
+  - **grafos/novo_dataset/**: Grafos temporais do dataset operacional
 - **Dashboards**: Gráficos de barras, pizza, dispersão e linha para todas as métricas
 
 ---
@@ -538,12 +602,8 @@ pandas         # Manipulação de dados temporais (novo dataset)
 ### 6. Análise Direcionada vs Não-Direcionada
 - **Script**: `gerar_analise_direcionada.py`
 - **Comparação**: In-degree vs Out-degree, Reciprocidade, Consistência hierárquica (94.4%)
-- **Disclaimer**: Simulação teórica, dataset original é não-direcionado
-
-### 7. Estratégia de Mitigação e Tomada de Decisão
-- **Script**: `gerar_estrategia_mitigacao.py`
-- **Recomendações**: Proteção física (29 nós Nível 1), Redundância (158 nós críticos), Monitoramento em tempo real
-- **Priorização**: 3 níveis de prioridade baseados em criticidade
+- **Método**: Inferência de direções baseada em hierarquia de papéis (GERADOR → TRANSFORMADOR → CONSUMIDOR)
+- **Disclaimer**: Simulação teórica - dataset original é não-direcionado, sem dados reais de fluxo
 
 ### 8. Verificação de Rede Scale-Free
 - **Script**: `gerar_analise_base.py`
@@ -611,10 +671,3 @@ pandas         # Manipulação de dados temporais (novo dataset)
 ## Notas Importantes para Uso Operacional
 
 **Este projeto é para FINS ACADÊMICOS**. Para uso em sistemas reais de distribuição elétrica:
-
-1. **Necessário**: Dados operacionais reais (tensão, corrente, capacidade, localização GPS)
-2. **Necessário**: Validação de campo por engenheiros elétricos
-3. **Necessário**: Simulação de fluxo de potência (power flow analysis) com dados de carga
-4. **Necessário**: Integração com sistemas SCADA (Supervisory Control and Data Acquisition)
-
-**As inferências topológicas NÃO substituem análise de engenharia elétrica.**

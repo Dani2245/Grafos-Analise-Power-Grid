@@ -39,9 +39,11 @@ O projeto abrirá automaticamente em `http://localhost:3000`
 - **React 18** - Framework UI
 - **TypeScript** - Tipagem estática
 - **Vite** - Build tool e dev server
-- **Tailwind CSS** - Framework CSS
-- **Recharts** - Gráficos interativos
-- **Lucide React** - Ícones
+- **Tailwind CSS** - Framework CSS utility-first
+- **Recharts** - Gráficos interativos (BarChart, LineChart, PieChart, ScatterChart)
+- **Cytoscape.js** - Visualização de grafos direcionados (novo dataset)
+- **Cytoscape-dagre** - Layout hierárquico para grafos
+- **Lucide React** - Ícones SVG modernos
 
 ## 📊 Dados da Análise
 
@@ -52,7 +54,32 @@ A interface apresenta dados reais da análise da rede elétrica:
 - **Grau Médio:** 2.67
 - **Grau Máximo:** 19
 
-### Categorização por Grau
+### Arquivos JSON Requeridos
+
+A interface carrega os seguintes arquivos JSON de `/public`:
+
+**Essenciais (4)**:
+- `analise_basica.json` - Estatísticas gerais e scale-free
+- `analise_criticidade.json` - Betweenness, articulação, percolação, clustering
+- `analise_comunidades.json` - 20 comunidades detectadas
+- `inferencia_papeis.json` - Classificação de papéis dos nós
+
+**Avançados (4)**:
+- `analise_ataques.json` - Simulações de ataque
+- `analise_robustez.json` - Métricas de robustez estrutural
+- `analise_novo_dataset.json` - Análise temporal (10 nós, 1.000 timestamps)
+- `simulacao_falhas_novo.json` - Falhas no novo dataset
+
+**Opcionais (3)**:
+- `comparacao_datasets.json` - Comparação normalizada entre datasets
+- `analise_direcionada.json` - Simulação de fluxo direcionado
+- `estrategia_mitigacao.json` - Recomendações de infraestrutura
+
+**Visualizações (~208 arquivos)**:
+- `rede_hub_*.html` (20 arquivos raiz)
+- `grafos/hubs/`, `grafos/betweenness/`, `grafos/articulacao/`, `grafos/percolacao/`, `grafos/nivel1/`, `grafos/comunidades/`, `grafos/novo_dataset/`
+
+### Categorização por Grau (Inferência Topológica)
 
 1. **Consumidores** (grau = 1): 1.226 nós (24.8%)
 2. **Transmissão** (grau 2-3): 2.716 nós (55.0%)
@@ -76,13 +103,31 @@ ui/
 
 ## 🎨 Funcionalidades
 
-### 5 Abas Principais:
+### 4 Categorias Principais com 13 Sub-Abas:
 
-1. **Visão Geral** - Métricas principais e gráfico de distribuição
-2. **Categorias** - Detalhamento da classificação dos nós
-3. **Geradores Críticos** - Top 10 hubs e análise de impacto
-4. **Distribuição** - Gráficos de distribuição de graus
-5. **Vulnerabilidades** - Análise de riscos e recomendações
+1. **Visão Geral** (5 abas)
+   - Dashboard - Métricas principais e visão consolidada
+   - Papéis dos Nós - Classificação topológica (Geradores, Transformadores, etc.)
+   - Scale-Free - Análise de distribuição power-law
+   - Comunidades - Detecção de 20 comunidades (modularidade Q=0.879)
+   - Glossário - Definições de termos técnicos
+
+2. **Métricas de Centralidade** (3 abas)
+   - Análise por Grau - Top nós por número de conexões
+   - Betweenness - Centralidade de intermediação (gargalos)
+   - Clustering - Coeficiente de agrupamento
+
+3. **Criticidade & Vulnerabilidade** (4 abas)
+   - Pontos de Articulação - Nós cuja remoção fragmenta a rede
+   - Percolação - Análise de impacto de remoção (4.941 simulações)
+   - Vulnerabilidades - Classificação 4D de criticidade (9 níveis)
+   - Simulação de Ataques - Aleatórios vs. Direcionados
+
+4. **Novo Dataset (Temporal)** (2 abas)
+   - Análise Temporal - Séries temporais, PageRank, fluxo de potência
+   - Simulação de Falhas - Remoção de nós, sobrecarga, cascata
+
+**Nota:** Algumas abas estão implementadas mas comentadas na navegação (AbaRobustez.tsx).
 
 ## 🔧 Solução de Problemas
 
