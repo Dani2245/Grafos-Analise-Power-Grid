@@ -1933,9 +1933,9 @@
     "remocao_top_10_articulacao": {
       "nos_removidos": [
         "distribuicao_por_grau",
-        "total",
+        "percentual_rede",
         "lista_completa",
-        "percentual_rede"
+        "total"
       ],
       "impacto": {
         "num_componentes": 1,
@@ -1947,14 +1947,14 @@
     },
     "remocao_combinada": {
       "nos_removidos": [
-        "total",
         4345,
+        "total",
         4458,
         3468,
-        "percentual_rede",
-        "distribuicao_por_grau",
-        2553,
         "lista_completa",
+        "distribuicao_por_grau",
+        "percentual_rede",
+        2553,
         831
       ],
       "impacto": {
