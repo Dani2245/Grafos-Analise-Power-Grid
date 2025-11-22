@@ -15,17 +15,18 @@ if sys.stdout.encoding != 'utf-8':
 
 # Scripts na ordem de execução
 SCRIPTS = [
-    'gerar_analise_base.py',
-    'gerar_analise_avancada.py',
-    'gerar_analise_comunidades.py',
-    'gerar_analise_robustez.py',
-    'gerar_analise_ataques.py',
-    'gerar_inferencia_papeis.py',
-    'gerar_estrategia_mitigacao.py',
-    'gerar_grafos_2d.py',
-    'gerar_analise_novo_dataset.py',
-    'gerar_simulacao_falhas_novo.py',
-    'gerar_comparacao_datasets.py'
+    "gerar_analise_base.py",
+    "gerar_analise_avancada.py",
+    "gerar_analise_comunidades.py",
+    "gerar_analise_robustez.py",
+    "gerar_analise_ataques.py",
+    "gerar_inferencia_papeis.py",
+    # "gerar_estrategia_mitigacao.py",
+    "gerar_analise_direcionada.py",
+    "gerar_analise_novo_dataset.py",
+    "gerar_simulacao_falhas_novo.py",
+    "gerar_comparacao_datasets.py",
+    "gerar_grafos_2d.py"
 ]
 
 print("=" * 80)
