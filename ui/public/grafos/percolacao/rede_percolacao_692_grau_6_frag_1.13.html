@@ -1,0 +1,127 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 600px;
+                 background-color: #222222;
+                 border: 1px solid #222222;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body style="background-color: #222222; margin: 0; padding: 0;">
+        <div class="card" style="width: 100%; border: 0px;">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#FFA500", "font": {"color": "white"}, "id": 652, "label": "N\u00f3 652\n(Grau: 4)", "shape": "dot", "size": 15, "title": "N\u00f3 652 - Grau: 4"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 658, "label": "N\u00f3 658\n(Grau: 7)", "shape": "dot", "size": 15, "title": "N\u00f3 658 - Grau: 7"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 665, "label": "N\u00f3 665\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 665 - Grau: 1"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 666, "label": "N\u00f3 666\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 666 - Grau: 3"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 667, "label": "N\u00f3 667\n(Grau: 4)", "shape": "dot", "size": 15, "title": "N\u00f3 667 - Grau: 4"}, {"color": "#FF0000", "font": {"color": "white"}, "id": 680, "label": "N\u00f3 680\n(Grau: 8)", "shape": "dot", "size": 25, "title": "N\u00f3 680 - Grau: 8"}, {"color": "#9333EA", "font": {"color": "white"}, "id": 692, "label": "\ud83d\udd17 PERCOLA\u00c7\u00c3O 692\n(Frag: 1.13%, Grau: 6)", "shape": "dot", "size": 30, "title": "Percola\u00e7\u00e3o: 1.13% fragmenta\u00e7\u00e3o - Grau: 6"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 694, "label": "N\u00f3 694\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 694 - Grau: 3"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 695, "label": "N\u00f3 695\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 695 - Grau: 1"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 3769, "label": "N\u00f3 3769\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 3769 - Grau: 3"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 3770, "label": "N\u00f3 3770\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 3770 - Grau: 3"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 3781, "label": "N\u00f3 3781\n(Grau: 7)", "shape": "dot", "size": 15, "title": "N\u00f3 3781 - Grau: 7"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 589, "label": "N\u00f3 589\n(Grau: 4)", "shape": "dot", "size": 15, "title": "N\u00f3 589 - Grau: 4"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 590, "label": "N\u00f3 590\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 590 - Grau: 1"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 591, "label": "N\u00f3 591\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 591 - Grau: 1"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 594, "label": "N\u00f3 594\n(Grau: 6)", "shape": "dot", "size": 15, "title": "N\u00f3 594 - Grau: 6"}, {"color": "#FF0000", "font": {"color": "white"}, "id": 725, "label": "N\u00f3 725\n(Grau: 10)", "shape": "dot", "size": 25, "title": "N\u00f3 725 - Grau: 10"}, {"color": "#FFA500", "font": {"color": "white"}, "id": 726, "label": "N\u00f3 726\n(Grau: 7)", "shape": "dot", "size": 15, "title": "N\u00f3 726 - Grau: 7"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 605, "label": "N\u00f3 605\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 605 - Grau: 3"}, {"color": "#00FF00", "font": {"color": "white"}, "id": 737, "label": "N\u00f3 737\n(Grau: 1)", "shape": "dot", "size": 8, "title": "N\u00f3 737 - Grau: 1"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 738, "label": "N\u00f3 738\n(Grau: 3)", "shape": "dot", "size": 10, "title": "N\u00f3 738 - Grau: 3"}, {"color": "#4169E1", "font": {"color": "white"}, "id": 483, "label": "N\u00f3 483\n(Grau: 2)", "shape": "dot", "size": 10, "title": "N\u00f3 483 - Grau: 2"}]);
+                  edges = new vis.DataSet([{"from": 483, "to": 3769}, {"from": 589, "to": 590}, {"from": 589, "to": 591}, {"from": 589, "to": 594}, {"from": 589, "to": 692}, {"from": 605, "to": 658}, {"from": 605, "to": 666}, {"from": 652, "to": 680}, {"from": 652, "to": 726}, {"from": 658, "to": 738}, {"from": 665, "to": 666}, {"from": 666, "to": 692}, {"from": 667, "to": 680}, {"from": 667, "to": 726}, {"from": 680, "to": 726}, {"from": 692, "to": 3769}, {"from": 692, "to": 694}, {"from": 692, "to": 726}, {"from": 692, "to": 738}, {"from": 694, "to": 695}, {"from": 694, "to": 726}, {"from": 725, "to": 726}, {"from": 726, "to": 3781}, {"from": 737, "to": 738}, {"from": 3769, "to": 3770}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {"physics": {"enabled": true, "stabilization": {"iterations": 100}}};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>
