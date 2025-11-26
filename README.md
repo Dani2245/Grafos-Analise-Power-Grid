@@ -2,6 +2,8 @@
 
 Sistema de análise topológica da rede de distribuição elétrica **para o trabalho de Grafos - Sistemas de Informação da UNIFEI**, desenvolvido com Python (análise de grafos) e React (visualização interativa).
 
+**Assista à apresentação do projeto no YouTube](https://www.youtube.com/watch?v=4v_qbMWpPD4)**
+
 ## Pré-requisitos
 
 Antes de começar, você precisa instalar no seu computador:
@@ -287,7 +289,41 @@ Grafos-Analise-PowerGrid/
 │   ├── package.json                       # Dependências Node.js
 │   └── vite.config.ts                     # Configuração Vite
 │
-├── doc/                                   # Documentação do trabalho
+├── doc/                                   # Documentação técnica (LaTeX/Overleaf)
+│
+├── resolucao_do_problema/                 # Aplicativos Electron para otimização de conectividade
+│   ├── powergrid.edgelist.txt            # Dataset em formato TXT (para os apps)
+│   ├── README.md                          # Instruções de uso dos aplicativos
+│   │
+│   ├── app_2_connectivity/                # Aplicativo 1: Torna o grafo 2-conexo (~10 min)
+│   │   ├── package.json                   # Dependências Electron + Node.js
+│   │   ├── backend/                       # Backend Python (executável + scripts)
+│   │   │   ├── diagnostico.py            # Identifica pontos de articulação
+│   │   │   ├── otimizacao.py             # Algoritmo de otimização 2-connectivity
+│   │   │   ├── recomendacoes.py          # Gera recomendações de arestas
+│   │   │   ├── requirements.txt          # Dependências Python (networkx, etc.)
+│   │   │   └── start_backend.py          # Inicializador do backend
+│   │   ├── frontend/                      # Interface HTML/CSS/JS
+│   │   │   ├── index.html                # UI do aplicativo
+│   │   │   ├── renderer.js               # Lógica de renderização
+│   │   │   └── styles.css                # Estilos da interface
+│   │   └── src_electron/                  # Configuração Electron
+│   │       └── main.js                    # Processo principal Electron
+│   │
+│   └── app_otimizacao/                    # Aplicativo 2: Otimização de pontos críticos (~1 min)
+│       ├── package.json                   # Dependências Electron + Node.js
+│       ├── backend/                       # Backend Python (executável + scripts)
+│       │   ├── dados.json                # Cache de dados de análise
+│       │   ├── otimizacao.py             # Otimização focada em nós críticos
+│       │   ├── simulacao.py              # Simulação de impacto
+│       │   └── requirements.txt          # Dependências Python
+│       ├── frontend/                      # Interface HTML/CSS/JS
+│       │   ├── index.html                # UI do aplicativo
+│       │   ├── renderer.js               # Lógica de renderização
+│       │   └── styles.css                # Estilos da interface
+│       └── src_electron/                  # Configuração Electron
+│           └── main.js                    # Processo principal Electron
+│
 └── README.md                              # Este arquivo
 ```
 
