@@ -696,12 +696,6 @@ pandas         # Manipulação de dados temporais (novo dataset)
 - **Transparência Metodológica**: Disclaimers em todos os JSONs sobre limitações
 - **Documentação de Código**: Comentários explicativos em funções críticas
 
-### Publicações de Referência
-- **Barabási & Albert (1999)**: Redes scale-free e distribuição power-law
-- **Clauset, Shalizi, Newman (2009)**: "Power-law distributions in empirical data"
-- **Newman (2006)**: "Modularity and community structure in networks"
-- **Moody & White (2003)**: "Structural cohesion and embeddedness"
-
 ---
 
 ## Notas Importantes para Uso Operacional
