@@ -1,102 +1,133 @@
-Resolução do Problema — Instruções de Uso
+# Resolução do Problema — Instruções de Uso
 
 Este diretório contém dois aplicativos desenvolvidos para análise e modificação de grafos no contexto do trabalho dos alunos: Atila, Daniela, Pedro e Rafael.
 
-###Aplicativos incluídos
-1. app_2_connectivity
+---
 
+## Aplicativos incluídos
+
+### 1. app_2_connectivity
 Aplicação responsável por tornar o grafo 2–conexo, realizando correções estruturais necessárias.
 
-Possui função de otimização, que pode levar ~10 minutos em grafos grandes.
+- Possui função de otimização
+- Tempo aproximado: **~10 minutos** para grafos grandes
 
-2. app_otimizacao
+---
 
+### 2. app_otimizacao
 Aplicação que otimiza o grafo apenas nos pontos críticos identificados no diagnóstico da Daniela.
-Ela não otimiza o grafo inteiro — só corrige os trechos problemáticos já identificados.
 
-Possui função de otimização mais leve, durando ~1 minuto.
+Ela **não** otimiza o grafo inteiro — somente trechos considerados críticos.
 
-###Como Rodar Cada Aplicativo
+- Tempo aproximado: **~1 minuto**
 
-Os dois apps têm a mesma estrutura de execução.
+---
 
-1. Clonar o repositório
+# Como Rodar Cada Aplicativo
 
-Clone somente a pasta resolucao_do_problema ou o repositório completo:
+Os dois aplicativos possuem a **mesma estrutura de execução**.
+
+---
+
+## 1. Clonar o repositório
+
+Você pode clonar o repositório completo:
 
 git clone https://github.com/Dani2245/Grafos-Analise-Power-Grid
 
 
-Entre na pasta resolucao_do_problema.
+Depois, entre na pasta:
 
-Preparação para Execução
+resolucao_do_problema
 
-Para cada um dos dois apps, siga os passos abaixo:
 
-2. Instalar dependências do Node
+---
 
-Dentro da pasta raiz do app, rode:
+# Preparação para Execução
+
+Para **cada um dos dois aplicativos**, siga os passos abaixo.
+
+---
+
+## 2. Instalar dependências do Node
+
+Na **pasta raiz do aplicativo**, execute:
 
 npm install
 
 
-Isso recria o node_modules, que não é enviado ao GitHub.
+Isso recria a pasta `node_modules`, que não é enviada ao GitHub.
 
-3. Instalar dependências do backend (Python)
+---
 
-Abra a pasta:
+## 3. Instalar dependências do backend (Python)
+
+Entre na pasta do backend:
 
 backend/
 
 
-E instale o que está no requirements.txt:
+Instale os requisitos:
 
 pip install -r requirements.txt
 
 
-Mesmo assim, não é necessário rodar o backend Python manualmente, porque o frontend usa o .exe incluído na pasta dist/.
+Observação:
 
-O .py está incluído apenas para fins de análise do código.
+- O backend **não precisa ser iniciado manualmente**
+- O frontend utiliza automaticamente o arquivo executável `.exe` localizado em:
 
-###Executando o Aplicativo
+backend/dist/
 
-Abra um terminal na pasta raiz do aplicativo (não no backend).
 
-Execute:
+Os arquivos `.py` foram incluídos apenas para análise do código.
+
+---
+
+# Executando o Aplicativo
+
+Na **pasta raiz de cada aplicativo**, execute:
 
 npm start
 
 
-Isso irá:
+Ao fazer isso:
 
-inicializar o Electron,
+- o Electron será iniciado
+- o backend será ativado automaticamente usando o executável `.exe` da pasta `dist`
 
-ativar automaticamente o backend usando o executável .exe que está em:
+---
 
-backend/dist/
+# ATENÇÃO IMPORTANTE
 
-###ATENÇÃO IMPORTANTE
-Após rodar npm start, AGUARDE
+Após executar:
 
-No terminal aparecerão mensagens indicando que o backend foi iniciado.
+npm start
 
-Não carregue arquivos, nem tente processar nada antes dessas mensagens aparecerem, caso contrário o app apresentará erro de conexão.
 
-###Tempo de Execução
-No app 2-connectivity
+**Aguarde** até que o terminal exiba mensagens indicando que o backend foi iniciado.
 
-Otimização completa do grafo: ~10 minutos com grafos grandes.
+Não carregue arquivos nem execute nenhuma ação antes da inicialização completa, caso contrário ocorrerá **erro de conexão**.
 
-No app de otimização
+---
 
-Otimização dos trechos críticos: ~1 minuto.
+# Tempo de Execução
 
-###Observação sobre os arquivos do backend
+### app_2_connectivity
+- Otimização completa do grafo: **~10 minutos** para grafos grandes.
 
-Cada app possui:
+### app_otimizacao
+- Otimização dos pontos críticos: **~1 minuto**.
 
-o backend em Python (.py) — incluído para inspeção e entendimento do código;
+---
 
-o backend em executável (.exe) — utilizado automaticamente pelo frontend.
+# Observações sobre os arquivos do backend
 
-O professor não precisa rodar o backend Python — apenas o .exe será usado pelo app.
+Cada aplicativo contém:
+
+- Arquivos Python (`.py`) — para análise e entendimento do funcionamento interno  
+- Arquivos executáveis (`.exe`) — usados automaticamente pelos aplicativos durante a execução
+
+O professor **não precisa executar o backend Python** manualmente.
+
+---
