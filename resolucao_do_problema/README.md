@@ -109,6 +109,13 @@ npm start
 
 Não carregue arquivos nem execute nenhuma ação antes da inicialização completa, caso contrário ocorrerá **erro de conexão**.
 
+**Observação sobre o dataset**:
+
+As aplicações esperam um dataset em txt com as colunas: fonte e alvo, exatamente como o fornecido para estudos.
+
+O dataset está disponível nesta pasta, com o nome powergrid.edgelist.txt.
+
+**Testar com CSV ou outro formato irá gerar ERRO.**
 ---
 
 # Tempo de Execução
