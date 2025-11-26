@@ -1,0 +1,40 @@
+{
+  "name": "analisador-rede-energia",
+  "version": "1.0.0",
+  "main": "src_electron/main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "build": {
+    "appId": "com.suaempresa.app",
+    "productName": "Analisador Rede Energia",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "src_electron/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "backend/dist",
+        "to": ".",
+        "filter": [
+          "**/*.exe"
+        ]
+      },
+      {
+        "from": "frontend",
+        "to": "frontend"
+      }
+    ],
+    "win": {
+      "target": "nsis"
+    }
+  },
+  "devDependencies": {
+    "electron": "^39.2.1",
+    "electron-builder": "^24.13.3"
+  }
+}
