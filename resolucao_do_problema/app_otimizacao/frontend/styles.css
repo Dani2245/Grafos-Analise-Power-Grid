@@ -1,0 +1,403 @@
+/* ===== PALETA =====
+   Azul escuro (primário): #0B1F36
+   Azul claro de contraste: #1B3554
+   Vermelho: #C1121F
+   Laranja: #F77F00
+   Cinza escuro: #1D1D1D
+   Cinza médio: #2B2B2B
+   Cinza claro: #D9D9D9
+*/
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #0B1F36;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: #EAEAEA;
+}
+
+/* ===== CONTAINER PRINCIPAL ===== */
+.container {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 0 20px;
+}
+
+/* ===== HEADER ===== */
+header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 30px;
+    font-weight: 600;
+    color: #F77F00;
+}
+
+header p {
+    margin-top: 8px;
+    color: #D9D9D9;
+    font-size: 14px;
+}
+
+/* ===== CARDS ===== */
+.card {
+    background: #1B3554;
+    border-left: 6px solid #F77F00;
+    border-radius: 6px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
+
+.card h2 {
+    margin-top: 0;
+    font-size: 20px;
+    color: #F1F1F1;
+}
+
+.card p {
+    color: #C7C7C7;
+    font-size: 14px;
+}
+
+/* ===== CORES DE CADA CARD ===== */
+.card-otimizar {
+    border-left-color: #F77F00;
+}
+
+.card-simular {
+    border-left-color: #C1121F;
+}
+
+/* ===== GRID ===== */
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+/* ===== UPLOAD AREA ===== */
+.upload-card {
+    border-left-color: #1E88E5;
+}
+
+#inputArquivo {
+    display: none;
+}
+
+.upload-area {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #10263F;
+    padding: 25px;
+    border: 2px dashed #466A89;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.upload-area:hover {
+    background: #17385B;
+    border-color: #5F8AA8;
+}
+
+.upload-area span {
+    color: #D3D3D3;
+    font-size: 14px;
+}
+
+/* ===== BOTÕES ===== */
+button {
+    margin-top: 20px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.2s;
+    color: white;
+    width: 100%;
+}
+
+/* Botão laranja */
+.btn-otimizar {
+    background: #F77F00;
+}
+
+.btn-otimizar:hover {
+    background: #ff8f1a;
+}
+
+/* Botão vermelho */
+.btn-simular {
+    background: #C1121F;
+}
+
+.btn-simular:hover {
+    background: #d01c2a;
+}
+
+/* ===== ÁREA DE RESULTADOS ===== */
+.resultados-area {
+    margin-top: 20px;
+    padding: 20px;
+    background: #10263F;
+    border-radius: 6px;
+    border-left: 4px solid #F77F00;
+}
+
+.resultados-area h3 {
+    margin-top: 0;
+    color: #F77F00;
+    font-size: 18px;
+}
+
+.resultados-area h4 {
+    margin: 15px 0 10px 0;
+    color: #EAEAEA;
+    font-size: 16px;
+}
+
+.resultados-area h5 {
+    margin: 10px 0 5px 0;
+    color: #D9D9D9;
+    font-size: 14px;
+}
+
+/* Estatísticas gerais */
+.estatisticas-gerais {
+    background: #0B1F36;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.stat-row:last-child {
+    margin-bottom: 0;
+}
+
+/* Detalhes das ligações */
+.detalhes-ligacoes {
+    margin-top: 15px;
+}
+
+.categoria-ligacoes {
+    margin-bottom: 15px;
+    padding: 10px;
+    background: #0B1F36;
+    border-radius: 4px;
+}
+
+.lista-ligacoes {
+    margin-top: 8px;
+}
+
+.ligacao {
+    padding: 5px 8px;
+    margin: 2px 0;
+    background: #1B3554;
+    border-radius: 3px;
+    font-size: 12px;
+    font-family: monospace;
+}
+
+.mais-ligacoes {
+    font-size: 11px;
+    color: #888;
+    font-style: italic;
+    margin-top: 5px;
+}
+
+/* Métricas de simulação */
+.metricas-simulacao {
+    display: grid;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.metrica {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background: #0B1F36;
+    border-radius: 4px;
+}
+
+.metrica-label {
+    font-size: 14px;
+}
+
+.metrica-valor {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.metrica-valor.positivo {
+    color: #4CAF50;
+}
+
+.metrica-valor.negativo {
+    color: #C1121F;
+}
+
+.metrica-valor.neutro {
+    color: #F77F00;
+}
+
+.conclusao-simulacao {
+    padding: 10px;
+    background: #0B1F36;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* Botão de download */
+.btn-download {
+    background: #4CAF50 !important;
+    width: 100% !important;
+    margin-top: 15px !important;
+}
+
+.btn-download:hover {
+    background: #45a049 !important;
+}
+
+/* ============================================================
+   ESTILOS PARA A SIMULAÇÃO
+   ============================================================ */
+
+.configuracao-simulacao {
+    background: #0B1F36;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border-left: 4px solid #5F8AA8;
+}
+
+.configuracao-simulacao h4 {
+    margin-top: 0;
+    color: #F77F00;
+    margin-bottom: 10px;
+}
+
+.metricas-comparativas {
+    margin-bottom: 20px;
+}
+
+.tabela-metricas {
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+    background: #10263F;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.linha-cabecalho, .linha-metrica {
+    display: table-row;
+}
+
+.linha-cabecalho span, .linha-metrica span {
+    display: table-cell;
+    padding: 12px 8px;
+    border-bottom: 1px solid #1A3A5F;
+}
+
+.linha-cabecalho {
+    background: #1A3A5F;
+    font-weight: bold;
+    color: #F77F00;
+}
+
+.linha-metrica span {
+    color: #E0E0E0;
+}
+
+.positivo {
+    color: #4CAF50 !important;
+    font-weight: bold;
+}
+
+.negativo {
+    color: #C1121F !important;
+    font-weight: bold;
+}
+
+.graficos-simulacao {
+    margin-bottom: 20px;
+}
+
+.grid-graficos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.grafico-container {
+    background: #0B1F36;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.grafico-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.resumo-simulacao {
+    margin-top: 20px;
+}
+
+.avaliacao-resiliencia {
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid;
+}
+
+.avaliacao-resiliencia.alta {
+    background: #1B4332;
+    border-left-color: #4CAF50;
+    color: #A7D8A3;
+}
+
+.avaliacao-resiliencia.moderada {
+    background: #7D6608;
+    border-left-color: #F1C40F;
+    color: #F7DC6F;
+}
+
+.avaliacao-resiliencia.baixa {
+    background: #78281F;
+    border-left-color: #C1121F;
+    color: #F1948A;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .grid-graficos {
+        grid-template-columns: 1fr;
+    }
+    
+    .tabela-metricas {
+        font-size: 14px;
+    }
+    
+    .linha-cabecalho span, .linha-metrica span {
+        padding: 8px 4px;
+    }
+}
