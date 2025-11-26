@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protótipo de Otimização de Redes</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>Protótipo de Otimização da Rede</h1>
+        <p>Análise estrutural baseada em dados do diagnóstico da rede elétrica</p>
+    </header>
+
+    <section class="card upload-card">
+        <h2>Carregar Dados</h2>
+
+        <label for="inputArquivo" class="upload-area">
+            <span>Selecione um arquivo TXT ou arraste aqui</span>
+        </label>
+
+        <input type="file" id="inputArquivo" accept=".TXT">
+    </section>
+
+    <div class="grid">
+
+        <section class="card card-otimizar">
+            <h2>Otimização</h2>
+            <p>Gera uma proposta de reforço da topologia com base nos pontos críticos identificados.</p>
+            <button id="btnOtimizar" class="btn-otimizar">Executar Otimização</button>
+        </section>
+
+        <section class="card card-simular">
+            <h2>Simulação</h2>
+            <p>Simula o impacto estrutural no grafo após a otimização proposta.</p>
+            <button id="btnSimular" class="btn-simular">Executar Simulação</button>
+        </section>
+
+    </div>
+
+</div>
+
+</body>
+<script src="renderer.js"></script>
+</html>

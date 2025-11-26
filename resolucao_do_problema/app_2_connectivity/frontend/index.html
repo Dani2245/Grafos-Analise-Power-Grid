@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise de Rede de Energia</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Análise de Rede de Energia</h1>
+            <p>Diagnóstico e recomendações para melhoria da rede elétrica</p>
+        </header>
+
+        <div class="upload-section">
+            <h2>1. Carregar Arquivo da Rede</h2>
+            <div class="file-upload">
+                <input type="file" id="fileInput" accept=".txt">
+                <label for="fileInput" class="file-label">
+                    <span class="file-icon">📁</span>
+                    <span class="file-text">Selecionar arquivo TXT</span>
+                </label>
+                <div id="fileName" class="file-name"></div>
+            </div>
+        </div>
+
+        <div class="actions-section">
+            <h2>2. Executar Análise</h2>
+            <div class="buttons">
+                <button id="btnDiagnostico" class="btn btn-primary" disabled>
+                    <span class="btn-text">Rodar Diagnóstico</span>
+                    <div class="loading-spinner hidden"></div>
+                </button>
+                
+                <button id="btnRecomendacoes" class="btn btn-secondary" disabled>
+                    <span class="btn-text">Gerar Recomendações</span>
+                    <div class="loading-spinner hidden"></div>
+                </button>
+
+                <button id="btnOtimizar" class="btn btn-success" disabled>
+                    <span class="btn-text">Otimizar Rede</span>
+                    <div class="loading-spinner hidden"></div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div id="loadingOverlay" class="loading-overlay hidden">
+            <div class="loading-content">
+                <div class="loading-spinner large"></div>
+                <p id="loadingText">Processando...</p>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resultados -->
+        <div id="resultados" class="results-section hidden">
+            <h2>3. Resultados da Análise</h2>
+            
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="diagnostico">Diagnóstico</button>
+                <button class="tab-btn" data-tab="recomendacoes">Recomendações</button>
+                <button class="tab-btn" data-tab="otimizacao">Otimização da Rede</button>
+            </div>
+
+            <div class="tab-content">
+                <!-- Aba Diagnóstico -->
+                <div id="tab-diagnostico" class="tab-pane active">
+                    <div class="result-card">
+                        <h3>Estatísticas Gerais</h3>
+                        <div id="estatisticas" class="stats-grid"></div>
+                    </div>
+                    
+                    <div class="result-card">
+                        <h3>Tipos de Nós</h3>
+                        <div id="tiposNos" class="types-grid"></div>
+                    </div>
+                    
+                    <div class="result-card">
+                        <h3>Pontos Críticos</h3>
+                        <div id="pontosCriticos" class="critical-grid"></div>
+                    </div>
+                </div>
+
+                <!-- Aba Recomendações -->
+                <div id="tab-recomendacoes" class="tab-pane">
+                    <div class="result-card">
+                        <h3>Sugestões de Melhoria</h3>
+                        <div id="recomendacoesList" class="recommendations-list"></div>
+                    </div>
+                </div>
+
+                <!-- Nova Aba Otimização -->
+                <div id="tab-otimizacao" class="tab-pane">
+                    <div class="result-card">
+                        <h3>Otimização da Rede</h3>
+                        <p>Esta ferramenta gera uma versão otimizada da rede elétrica com maior resiliência a falhas.</p>
+                        
+                        <div class="optimization-info">
+                            <h4>O que será feito:</h4>
+                            <ul>
+                                <li>Adição de conexões estratégicas para reduzir pontos de articulação</li>
+                                <li>Criação de redundâncias para pontes críticas</li>
+                                <li>Conexão de componentes isolados (se houver)</li>
+                                <li>Geração de arquivo para download da rede otimizada</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div id="resultadoOtimizacao" class="hidden">
+                        <div class="result-card">
+                            <h3>Comparação de Métricas</h3>
+                            <div id="comparacaoMetricas" class="comparison-grid"></div>
+                        </div>
+                        
+                        <div class="result-card">
+                            <h3>Conexões Estratégicas Adicionadas</h3>
+                            <div id="conexoesAdicionadas" class="connections-list"></div>
+                        </div>
+                        
+                        <div class="result-card">
+                            <h3>Download da Rede Otimizada</h3>
+                            <button id="btnDownload" class="btn btn-download">
+                                Baixar Grafo Otimizado
+                            </button>
+                            <div class="download-info">
+                                <p>Rede otimizada com <span id="totalConexoes" class="highlight">0</span> novas conexões estratégicas</p>
+                                <p class="file-info">Arquivo: <span id="nomeArquivoOtimizado">rede_otimizada.txt</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Projeto de Análise de Grafos - Rede de Energia</p>
+        </footer>
+    </div>
+
+    <script src="renderer.js"></script>
+</body>
+</html>

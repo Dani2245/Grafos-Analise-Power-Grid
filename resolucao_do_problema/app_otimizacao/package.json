@@ -1,0 +1,60 @@
+{
+  "name": "versao_final",
+  "version": "1.0.0",
+  "main": "src_electron/main.js",
+  "description": "Aplicativo de otimização e simulação",
+  "author": "",
+  "license": "ISC",
+
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder"
+  },
+
+  "dependencies": {},
+
+  "devDependencies": {
+    "electron": "^39.2.3",
+    "electron-builder": "^24.13.3"
+  },
+
+  "build": {
+    "appId": "com.versao.final",
+    "productName": "VersaoFinal",
+
+    "directories": {
+      "output": "dist"
+    },
+
+    "asar": true,
+    "asarUnpack": [
+      "backend/**"
+    ],
+
+    "files": [
+      "frontend/**/*",
+      "src_electron/**/*",
+      "backend/**/*",
+      "package.json"
+    ],
+
+    "extraResources": [
+      {
+        "from": "backend/dist/otimizacao.exe",
+        "to": "backend/otimizacao.exe"
+      },
+      {
+        "from": "backend/dist/simulacao.exe",
+        "to": "backend/simulacao.exe"
+      },
+      {
+        "from": "backend/dados.json",
+        "to": "backend/dados.json"
+      }
+    ],
+
+    "win": {
+      "target": "nsis"
+    }
+  }
+}
